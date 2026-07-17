@@ -1,46 +1,69 @@
 {
-  "name": "Minesweeper",
-  "key": "minesweeper-plugin",
-  "version": "3.0.0",
-  "sdk": "1.0",
-  "type": "hybrid",
-  "entry": "index.js",
-  "dashboardEntry": "dashboard.php",
-  "description": "5x5-Minenfeld-Wette — Minen-Anzahl wählt der User, der faire Multiplikator steigt automatisch mit der Minen-Anzahl. RTP pro Bot im Dashboard einstellbar.",
-  "author": "BotHub",
-  "requires": {
-    "core": [
-      "commands.register",
-      "database.read",
-      "database.write",
-      "services.consume",
-      "events.button.clicked"
+    "name": "Minesweeper",
+    "key": "minesweeper-plugin",
+    "version": "3.0.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "5x5-Minenfeld-Wette — Minen-Anzahl wählt der User, der faire Multiplikator steigt automatisch mit der Minen-Anzahl. RTP pro Bot im Dashboard einstellbar.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "database.read",
+            "database.write",
+            "services.consume",
+            "events.button.clicked"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_minesweeper_tables.sql"
     ],
-    "dashboard": [
-      "ui.components",
-      "dashboard.page",
-      "dashboard.sidebar.item"
+    "dashboard": {
+        "pages": [
+            {
+                "key": "config",
+                "title": "Minesweeper — Einstellungen"
+            },
+            {
+                "key": "commands",
+                "title": "Minesweeper — Commands"
+            }
+        ]
+    },
+    "moduleGroup": "fun",
+    "icon_emoji": "💣",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-16",
+            "notes": "Erste Veröffentlichung: 5x5-Minenfeld, wählbare Minen-Anzahl, fairer RTP-skalierter Multiplikator, separater Cashout-Command."
+        },
+        {
+            "version": "2.0.0",
+            "date": "2026-07-18",
+            "notes": "Redesign: nur noch ein Command, 24-Felder-Grid mit eingebautem 🔥-Cashout-Button statt separatem Command."
+        },
+        {
+            "version": "3.0.0",
+            "date": "2026-07-18",
+            "notes": "Nach einem Mine-Treffer werden die Felder-Buttons nach 10 Sekunden ausgeblendet und durch einen \"Nochmal\"-Button ersetzt."
+        }
     ]
-  },
-  "optional": {
-    "core": [],
-    "dashboard": []
-  },
-  "provides": {
-    "capabilities": [],
-    "features": []
-  },
-  "migrations": [
-    "migrations/0001_minesweeper_tables.sql"
-  ],
-  "dashboard": {
-    "pages": [
-      { "key": "config", "title": "Minesweeper — Einstellungen" },
-      { "key": "commands", "title": "Minesweeper — Commands" }
-    ]
-  },
-  "moduleGroup": "fun",
-  "icon_emoji": "💣",
-  "requestedProfile": "verified",
-  "requestedGroup": "utility"
 }

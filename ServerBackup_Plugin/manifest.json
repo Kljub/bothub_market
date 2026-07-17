@@ -1,7 +1,7 @@
 {
     "name": "Discord Server Backup",
     "key": "server-backup-plugin",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "sdk": "1.0",
     "type": "hybrid",
     "entry": "index.js",
@@ -38,11 +38,26 @@
     ],
     "dashboard": {
         "pages": [
-            { "key": "config", "title": "Server Backup" }
+            {
+                "key": "config",
+                "title": "Server Backup"
+            }
         ]
     },
     "moduleGroup": "utility",
     "icon_emoji": "💾",
     "requestedProfile": "verified",
-    "requestedGroup": "utility"
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-10",
+            "notes": "Erste Veröffentlichung: Komplett-Backup von Rollen, Channels, Berechtigungen, Emojis, Stickern, Einstellungen und Bans."
+        },
+        {
+            "version": "2.0.0",
+            "date": "2026-07-14",
+            "notes": "Mirror-Delete-Engine überarbeitet: destruktives Restore-from-Upload getrennt von additivem Cross-Server-Transfer."
+        }
+    ]
 }

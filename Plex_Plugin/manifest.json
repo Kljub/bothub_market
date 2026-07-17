@@ -1,62 +1,79 @@
 {
-  "name": "Plex",
-  "key": "plex",
-  "version": "2.0.0",
-  "sdk": "1.0",
-  "type": "hybrid",
-  "entry": "index.js",
-  "dashboardEntry": "dashboard.php",
-  "description": "Discord↔Plex Integration — Bibliotheks-Suche, Now-Playing, Zufalls-Empfehlungen, Overseerr-Requests und automatische Benachrichtigungen bei neuen Inhalten.",
-  "author": "BotHub",
-  "requires": {
-    "core": [
-      "commands.register",
-      "commands.unregister",
-      "events.button.clicked",
-      "database.read",
-      "database.write",
-      "database.migrate",
-      "http.external-api",
-      "http.internal",
-      "webhooks.register",
-      "scheduler.interval",
-      "roles.assign",
-      "roles.revoke",
-      "roles.read",
-      "messaging.send",
-      "messaging.dm",
-      "cache.read",
-      "cache.write"
+    "name": "Plex",
+    "key": "plex",
+    "version": "2.0.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "Discord↔Plex Integration — Bibliotheks-Suche, Now-Playing, Zufalls-Empfehlungen, Overseerr-Requests und automatische Benachrichtigungen bei neuen Inhalten.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "commands.unregister",
+            "events.button.clicked",
+            "database.read",
+            "database.write",
+            "database.migrate",
+            "http.external-api",
+            "http.internal",
+            "webhooks.register",
+            "scheduler.interval",
+            "roles.assign",
+            "roles.revoke",
+            "roles.read",
+            "messaging.send",
+            "messaging.dm",
+            "cache.read",
+            "cache.write"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item",
+            "notifications.all"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_plex_tables.sql",
+        "migrations/0002_plex_library_counts.sql"
     ],
-    "dashboard": [
-      "ui.components",
-      "dashboard.page",
-      "dashboard.sidebar.item",
-      "notifications.all"
+    "dashboard": {
+        "pages": [
+            {
+                "key": "config",
+                "title": "Plex — Konfiguration"
+            }
+        ]
+    },
+    "moduleGroup": "social",
+    "icon_emoji": "🎬",
+    "requestedProfile": "verified",
+    "requestedGroup": "media",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-08",
+            "notes": "Erste Veröffentlichung: Bibliotheks-Suche, Now-Playing, Zufalls-Empfehlungen, Overseerr-Requests, Benachrichtigungen bei neuen Inhalten."
+        },
+        {
+            "version": "1.0.1",
+            "date": "2026-07-16",
+            "notes": "Modulgruppen-Farbe in der Commands-Übersicht korrigiert."
+        },
+        {
+            "version": "2.0.0",
+            "date": "2026-07-18",
+            "notes": "Filme- und Serien-Anzahl stehen jetzt als Statistic-Channel-Typen zur Verfügung (5-Minuten-Cache, kein zusätzlicher Plex-API-Call pro Channel-Update)."
+        }
     ]
-  },
-  "optional": {
-    "core": [],
-    "dashboard": []
-  },
-  "provides": {
-    "capabilities": [],
-    "features": []
-  },
-  "migrations": [
-    "migrations/0001_plex_tables.sql",
-    "migrations/0002_plex_library_counts.sql"
-  ],
-  "dashboard": {
-    "pages": [
-      {
-        "key": "config",
-        "title": "Plex — Konfiguration"
-      }
-    ]
-  },
-  "moduleGroup": "social",
-  "icon_emoji": "🎬",
-  "requestedProfile": "verified",
-  "requestedGroup": "media"
 }

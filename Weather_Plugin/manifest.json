@@ -36,5 +36,12 @@
     "icon_emoji": "🌤️",
     "requestedProfile": "verified",
     "requestedGroup": "utility",
-    "generatedBy": "bothub-frontend-designer"
+    "generatedBy": "bothub-frontend-designer",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-05",
+            "notes": "Erste Veröffentlichung."
+        }
+    ]
 }
