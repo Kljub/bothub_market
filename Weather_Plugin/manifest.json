@@ -1,0 +1,40 @@
+{
+    "name": "Weather Plugin",
+    "key": "weather-plugin",
+    "version": "1.0.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "Zeigt aktuelles Wetter per /weather [ort] an. Nutzt die OpenWeatherMap Free API.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "messaging.send",
+            "database.read",
+            "database.write"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [
+            "cache.read",
+            "cache.write"
+        ],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "moduleGroup": "plugin",
+    "icon_emoji": "🌤️",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "generatedBy": "bothub-frontend-designer"
+}

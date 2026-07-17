@@ -1,0 +1,106 @@
+{
+    "meta": {
+        "name": "Weather Plugin",
+        "key": "weather-plugin",
+        "description": "Zeigt aktuelles Wetter per /weather [ort] an. Nutzt die OpenWeatherMap Free API.",
+        "emoji": "🌤️",
+        "group": "utility",
+        "version": "1.0.0"
+    },
+    "blocks": [
+        {
+            "type": "card",
+            "props": {
+                "title": "Commands",
+                "text": ""
+            },
+            "children": [
+                {
+                    "type": "command-toggle",
+                    "props": {
+                        "moduleKey": "weather-plugin:weather",
+                        "cmdSyntax": "/weather [ort]",
+                        "label": "Wetter",
+                        "desc": "Zeigt das aktuelle Wetter für einen Ort an. Ort ist optional wenn Standard-Ort gesetzt.",
+                        "defaultEnabled": "1"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "splitter",
+            "props": {
+                "ratio": "66-34"
+            },
+            "children": [
+                {
+                    "type": "splitter-col",
+                    "props": [],
+                    "children": [
+                        {
+                            "type": "card",
+                            "props": {
+                                "title": "OpenWeatherMap API",
+                                "text": ""
+                            },
+                            "children": [
+                                {
+                                    "type": "settings-form",
+                                    "props": {
+                                        "apiPath": "/api/v1/plugins/weather-plugin",
+                                        "apiAction": "save",
+                                        "table": "plugin_weather_plugin_settings",
+                                        "keyColumn": "client_id",
+                                        "fields": [
+                                            {
+                                                "column": "api_key",
+                                                "label": "API-Key (openweathermap.org)",
+                                                "type": "password",
+                                                "options": []
+                                            },
+                                            {
+                                                "column": "units",
+                                                "label": "Einheit",
+                                                "type": "select",
+                                                "options": [
+                                                    {
+                                                        "value": "metric",
+                                                        "label": "°C — Metric"
+                                                    },
+                                                    {
+                                                        "value": "imperial",
+                                                        "label": "°F — Imperial"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "column": "default_location",
+                                                "label": "Standard-Ort",
+                                                "type": "text",
+                                                "options": []
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "splitter-col",
+                    "props": [],
+                    "children": [
+                        {
+                            "type": "card",
+                            "props": {
+                                "title": "Slash-Command Vorschau",
+                                "text": "/weather zeigt ein Embed mit Temperatur, gefühlter Temperatur, Luftfeuchtigkeit, Wind und Sonnenauf-/untergang für den gewählten (oder Standard-)Ort."
+                            },
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
