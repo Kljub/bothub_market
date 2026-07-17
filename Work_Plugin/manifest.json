@@ -1,0 +1,63 @@
+{
+    "name": "Work",
+    "key": "work-plugin",
+    "version": "1.0.1",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "Job-System — Bot Owner legt Jobs mit eigenem Gehalt-Range und Cooldown im Dashboard an. /job-accept, /work, /job-leave. Guthaben läuft über das native Economy-Modul.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "database.read",
+            "database.write",
+            "services.consume"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_work_tables.sql"
+    ],
+    "dashboard": {
+        "pages": [
+            {
+                "key": "config",
+                "title": "Work — Jobs"
+            },
+            {
+                "key": "commands",
+                "title": "Work — Commands"
+            }
+        ]
+    },
+    "moduleGroup": "fun",
+    "icon_emoji": "💼",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-16",
+            "notes": "Erste Veröffentlichung: dashboard-verwaltete Jobs mit individueller Bezahlung und Cooldown."
+        },
+        {
+            "version": "1.0.1",
+            "date": "2026-07-18",
+            "notes": "Modulgruppen-Farbe in der Commands-Übersicht korrigiert."
+        }
+    ]
+}
