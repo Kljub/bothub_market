@@ -1,0 +1,48 @@
+{
+    "name": "Discord Server Backup",
+    "key": "server-backup-plugin",
+    "version": "1.0.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "Komplett-Backup eines Servers: Rollen, Channels + Berechtigungen, Emojis, Sticker, Einstellungen, Bans. Per /backup oder Zeitplan.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "database.read",
+            "database.write",
+            "scheduler.interval",
+            "roles.read"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [
+            "guilds.list",
+            "channels.read"
+        ],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_backup_tables.sql"
+    ],
+    "dashboard": {
+        "pages": [
+            { "key": "config", "title": "Server Backup" }
+        ]
+    },
+    "moduleGroup": "utility",
+    "icon_emoji": "💾",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility"
+}
