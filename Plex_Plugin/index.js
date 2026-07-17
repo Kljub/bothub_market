@@ -92,10 +92,11 @@ module.exports = async function (bh) {
         return { guildId, guildSettings, allowedLibraries };
     }
 
-    // ctx.reply()/ctx.editReply() and raw interaction.update() forward the payload to
-    // discord.js untouched (see command-manager.js's wrapInteraction) — so embeds/components
-    // here use Discord's raw REST API JSON shape (image as {url}, not a bare string), not
-    // discord.js builder classes. Plugins may not import discord.js directly (forbidden
+    // Plain embed objects — ctx.reply()/ctx.editReply() normalize these via buildDiscordEmbed()
+    // (command-manager.js), same as bh.messaging.send(). The raw interaction.update() call in
+    // the reroll handler below bypasses that normalizer, so `image` is set as the raw Discord
+    // API {url} shape here — buildDiscordEmbed() accepts both a bare string and {url}, so this
+    // works correctly on both paths. Plugins may not import discord.js directly (forbidden
     // module, sandboxed by the plugin loader) — see plugin-loader.js's FORBIDDEN_MODULES.
     function mediaEmbed(item) {
         return {
