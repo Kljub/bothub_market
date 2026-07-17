@@ -1,0 +1,63 @@
+{
+    "name": "Criminal",
+    "key": "criminal-plugin",
+    "version": "1.0.1",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "/steal — klaut Guthaben von anderen Usern. Erfolgschance, Beute- und Straf-Prozentsatz pro Bot im Dashboard einstellbar. Guthaben läuft über das native Economy-Modul.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "database.read",
+            "database.write",
+            "services.consume"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_criminal_tables.sql"
+    ],
+    "dashboard": {
+        "pages": [
+            {
+                "key": "config",
+                "title": "Criminal — Einstellungen"
+            },
+            {
+                "key": "commands",
+                "title": "Criminal — Commands"
+            }
+        ]
+    },
+    "moduleGroup": "fun",
+    "icon_emoji": "🕵️",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-16",
+            "notes": "Erste Veröffentlichung: /steal mit dashboard-konfigurierbarer Erfolgschance, Beute- und Strafprozentsatz."
+        },
+        {
+            "version": "1.0.1",
+            "date": "2026-07-18",
+            "notes": "Modulgruppen-Farbe in der Commands-Übersicht korrigiert."
+        }
+    ]
+}
