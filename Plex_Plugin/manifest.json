@@ -1,0 +1,61 @@
+{
+  "name": "Plex",
+  "key": "plex",
+  "version": "1.0.0",
+  "sdk": "1.0",
+  "type": "hybrid",
+  "entry": "index.js",
+  "dashboardEntry": "dashboard.php",
+  "description": "Discord↔Plex Integration — Bibliotheks-Suche, Now-Playing, Zufalls-Empfehlungen, Overseerr-Requests und automatische Benachrichtigungen bei neuen Inhalten.",
+  "author": "BotHub",
+  "requires": {
+    "core": [
+      "commands.register",
+      "commands.unregister",
+      "events.button.clicked",
+      "database.read",
+      "database.write",
+      "database.migrate",
+      "http.external-api",
+      "http.internal",
+      "webhooks.register",
+      "scheduler.interval",
+      "roles.assign",
+      "roles.revoke",
+      "roles.read",
+      "messaging.send",
+      "messaging.dm",
+      "cache.read",
+      "cache.write"
+    ],
+    "dashboard": [
+      "ui.components",
+      "dashboard.page",
+      "dashboard.sidebar.item",
+      "notifications.all"
+    ]
+  },
+  "optional": {
+    "core": [],
+    "dashboard": []
+  },
+  "provides": {
+    "capabilities": [],
+    "features": []
+  },
+  "migrations": [
+    "migrations/0001_plex_tables.sql"
+  ],
+  "dashboard": {
+    "pages": [
+      {
+        "key": "config",
+        "title": "Plex — Konfiguration"
+      }
+    ]
+  },
+  "moduleGroup": "social",
+  "icon_emoji": "🎬",
+  "requestedProfile": "verified",
+  "requestedGroup": "media"
+}
