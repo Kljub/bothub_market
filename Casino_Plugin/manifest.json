@@ -1,0 +1,69 @@
+{
+    "name": "Casino",
+    "key": "casino-plugin",
+    "version": "3.0.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "Glücksspiel-Plugin (BlackJack, Slots, Dice, Roulette, Coinflip) — Guthaben läuft ausschließlich über das Economy-Plugin, RTP pro Spiel im Dashboard einstellbar.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "database.read",
+            "database.write",
+            "services.consume",
+            "events.button.clicked"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_casino_tables.sql"
+    ],
+    "dashboard": {
+        "pages": [
+            {
+                "key": "games",
+                "title": "Casino — Spiele"
+            },
+            {
+                "key": "commands",
+                "title": "Casino — Commands"
+            }
+        ]
+    },
+    "moduleGroup": "fun",
+    "icon_emoji": "🎰",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-15",
+            "notes": "Erste Veröffentlichung: BlackJack, Slots, Dice, Roulette, Coinflip mit fairem, RTP-skaliertem Auszahlungssystem."
+        },
+        {
+            "version": "2.0.0",
+            "date": "2026-07-16",
+            "notes": "Commands-Übersicht im Dashboard auf das Plex-Design umgestellt, Modulgruppen-Farbe korrigiert."
+        },
+        {
+            "version": "3.0.0",
+            "date": "2026-07-18",
+            "notes": "Split-Button im Blackjack sowie \"Nochmal\"-Button (Wiederholung mit demselben Einsatz) für alle Spiele hinzugefügt."
+        }
+    ]
+}
