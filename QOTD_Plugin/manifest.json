@@ -1,0 +1,67 @@
+{
+    "name": "Question of the Day",
+    "key": "qotd-plugin",
+    "version": "1.1.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "/qotd — zeigt jedem User einmal pro Tag einen zufälligen Fact aus einem vom Bot Owner im Dashboard gepflegten Pool.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "database.read",
+            "database.write"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_qotd_tables.sql"
+    ],
+    "dashboard": {
+        "pages": [
+            {
+                "key": "config",
+                "title": "QOTD — Facts"
+            },
+            {
+                "key": "commands",
+                "title": "QOTD — Commands"
+            }
+        ]
+    },
+    "moduleGroup": "fun",
+    "icon_emoji": "💡",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-17",
+            "notes": "Erste Veröffentlichung: einmal pro Tag ein zufälliger, vom Owner gepflegter Fact."
+        },
+        {
+            "version": "1.0.1",
+            "date": "2026-07-18",
+            "notes": "Modulgruppen-Farbe in der Commands-Übersicht korrigiert."
+        },
+        {
+            "version": "1.1.0",
+            "date": "2026-07-18",
+            "notes": "Variablen in Facts: {PLUGIN_COUNT}, {ENABLED_PLUGIN_COUNT}, {STORE_PLUGIN_COUNT}, {BOT_COUNT}, {COMMAND_COUNT}, {OLDEST_PLUGIN} — inkl. Variable-Picker im Dashboard."
+        }
+    ]
+}
