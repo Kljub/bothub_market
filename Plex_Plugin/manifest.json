@@ -1,7 +1,7 @@
 {
   "name": "Plex",
   "key": "plex",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "sdk": "1.0",
   "type": "hybrid",
   "entry": "index.js",
@@ -44,7 +44,8 @@
     "features": []
   },
   "migrations": [
-    "migrations/0001_plex_tables.sql"
+    "migrations/0001_plex_tables.sql",
+    "migrations/0002_plex_library_counts.sql"
   ],
   "dashboard": {
     "pages": [

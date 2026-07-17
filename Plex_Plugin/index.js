@@ -11,6 +11,7 @@ const plexOauth              = require('./lib/plex-oauth');
 const { getGuildSettings, getAllowedLibraries } = require('./lib/guild-settings');
 const { registerWebhooks }  = require('./lib/webhook-handlers');
 const { startHealthCheck }  = require('./lib/health-check');
+const { startLibraryCountsPoll } = require('./lib/library-counts');
 
 const API_ERROR_MESSAGES = {
     timeout:       '❌ Plex-Server antwortet nicht (Timeout).',
@@ -514,6 +515,7 @@ module.exports = async function (bh) {
 
     registerWebhooks(bh, { getBotSettings });
     startHealthCheck(bh);
+    startLibraryCountsPoll(bh);
 
     bh.plugin.onDisable(() => bh.scheduler.stopAll());
 };

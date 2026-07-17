@@ -1,0 +1,4 @@
+ALTER TABLE {PREFIX}settings
+    ADD COLUMN cached_movie_count  INT UNSIGNED NULL DEFAULT NULL,
+    ADD COLUMN cached_series_count INT UNSIGNED NULL DEFAULT NULL,
+    ADD COLUMN counts_updated_at    TIMESTAMP   NULL DEFAULT NULL;

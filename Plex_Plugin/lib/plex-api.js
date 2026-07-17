@@ -87,6 +87,18 @@ async function getRandomFromLibrary(bh, { baseUrl, token }, sectionId, { exclude
     return { ...res, item: pick };
 }
 
+// X-Plex-Container-Size=0 liefert keine Metadata-Items zurück, nur den MediaContainer-
+// Header — "totalSize" (bzw. "size" als Fallback bei älteren Plex-Versionen ohne
+// Pagination-Header) ist dabei bereits die volle Bibliotheksgröße, kein Extra-Call nötig.
+async function getSectionItemCount(bh, { baseUrl, token }, sectionId) {
+    const res = await plexApiRequest(bh, 'GET', `/library/sections/${sectionId}/all`, {
+        baseUrl, token, query: { 'X-Plex-Container-Start': 0, 'X-Plex-Container-Size': 0 },
+    });
+    if (!res.ok) return res;
+    const mc = res.data?.MediaContainer ?? {};
+    return { ...res, count: Number(mc.totalSize ?? mc.size ?? 0) };
+}
+
 async function getActiveSessions(bh, { baseUrl, token }) {
     const res = await plexApiRequest(bh, 'GET', '/status/sessions', { baseUrl, token });
     if (!res.ok) return res;
@@ -129,6 +141,7 @@ module.exports = {
     plexApiRequest,
     getIdentity,
     getLibrarySections,
+    getSectionItemCount,
     searchLibrary,
     getRandomFromLibrary,
     getActiveSessions,
