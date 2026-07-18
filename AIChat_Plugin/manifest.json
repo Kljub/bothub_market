@@ -1,0 +1,114 @@
+{
+    "name": "AI Chat",
+    "key": "aichat-plugin",
+    "version": "1.7.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "KI-Chat für Discord — /ask-Command, @Mention-Antworten, Konversations-Memory und Web-Suche…",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "messaging.send",
+            "messaging.get",
+            "database.read",
+            "database.write",
+            "events.message.created",
+            "guilds.audit-log"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_aichat_tables.sql",
+        "migrations/0002_aichat_persona_prompts.sql",
+        "migrations/0003_aichat_status_context.sql"
+    ],
+    "dashboard": {
+        "pages": [
+            {
+                "key": "config",
+                "title": "AI Chat — Konfiguration"
+            }
+        ]
+    },
+    "moduleGroup": "utility",
+    "icon_emoji": "🤖",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-09",
+            "notes": "Erste Veröffentlichung."
+        },
+        {
+            "version": "1.1.0",
+            "date": "2026-07-18",
+            "notes": "Dashboard neu geordnet: Anbieter Konfiguration → Allgemeine Einstellungen → @Mention-Antworten → Commands (vorher unten). Keine doppelte Anbieter-Sektion mehr."
+        },
+        {
+            "version": "1.2.0",
+            "date": "2026-07-18",
+            "notes": "Ollama-Modell-Dropdown lädt jetzt automatisch (beim Öffnen falls Ollama aktiv ist, oder sobald Ollama als Anbieter gewählt wird) — kein Klick auf 'Models laden' mehr nötig."
+        },
+        {
+            "version": "1.2.1",
+            "date": "2026-07-18",
+            "notes": "Bugfix: Speichern in der Anbieter Konfiguration schlug immer mit csrf_mismatch fehl (Token kam aus einem nie vorhandenen <meta name=\"csrf-token\">-Tag) — betraf ALLE Speichern-Aktionen der Seite. Zusätzlich: Speichern eines Anbieters macht ihn jetzt direkt aktiv, statt dass man zusätzlich unten in Allgemeine Einstellungen speichern musste."
+        },
+        {
+            "version": "1.2.2",
+            "date": "2026-07-18",
+            "notes": "Ollama-Modell-Fetch erlaubt jetzt auch private/Docker-interne Netze (z.B. Ollama in einem anderen Container), nicht mehr nur exakt localhost/127.0.0.1 — Cloud-Metadata- und öffentliche Adressen bleiben aus Sicherheitsgründen gesperrt."
+        },
+        {
+            "version": "1.2.3",
+            "date": "2026-07-18",
+            "notes": "Ollama-Modell-Dropdown ist jetzt alphabetisch sortiert."
+        },
+        {
+            "version": "1.2.4",
+            "date": "2026-07-18",
+            "notes": "Bugfix: Speichern-Button im Anbieter-Block war ohne Flex-Wrapper full-width/übergroß (bh-btn ist standardmäßig block-level) — jetzt wie die anderen Speichern-Buttons rechtsbündig und normal groß."
+        },
+        {
+            "version": "1.3.0",
+            "date": "2026-07-18",
+            "notes": "@Mention-Antworten nutzt jetzt das geteilte Permissions-panel (dauerhaft sichtbar statt über Gear wie bei Commands) — Rollen, Berechtigungen und Channel-Filter statt nur einer einfachen Erlaubte-Channels-Liste. Achtung: Channel-Filter ist jetzt eine Sperrliste (banned_channels), keine Erlaubtliste mehr."
+        },
+        {
+            "version": "1.4.0",
+            "date": "2026-07-18",
+            "notes": "Neue Positiv-/Negativ-Prompt-Felder in Allgemeine Einstellungen für Persona-Aufbau (z.B. bei Ollama) — werden zusammen mit dem System-Prompt an das Modell geschickt."
+        },
+        {
+            "version": "1.5.0",
+            "date": "2026-07-18",
+            "notes": "Antwortet jetzt auch ohne @Mention, wenn man direkt auf eine eigene AI-Chat-Antwort des Bots repliet (Discord-Reply) — Bot antwortet dann seinerseits als Reply auf die Nutzernachricht, für sichtbare Konversationsfäden."
+        },
+        {
+            "version": "1.6.0",
+            "date": "2026-07-18",
+            "notes": "Neuer Dashboard-Toggle 'Status-Erkennung' (standardmäßig aus): gibt der KI Bot-/User-Discord-Presence (Online-Status, Aktivität wie Spotify/Spiele) sowie heutige Verwarnungs-Zahl als Kontext mit. Echte Ban-Zahlen sind bewusst nicht enthalten — bräuchten Discord-Audit-Log-Zugriff, den die SDK noch nicht anbietet."
+        },
+        {
+            "version": "1.7.0",
+            "date": "2026-07-18",
+            "notes": "Status-Erkennung enthält jetzt auch echte heutige Bans/Kicks (nur vom Bot selbst ausgeführt) über eine neue SDK-Capability guilds.audit-log — braucht die Berechtigung 'Audit-Log anzeigen' für den Bot in der Guild, sonst wird das transparent im Kontext vermerkt statt Zahlen zu erfinden."
+        }
+    ]
+}
