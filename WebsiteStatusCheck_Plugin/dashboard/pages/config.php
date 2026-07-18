@@ -71,11 +71,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $botId > 0) {
         $id = (int)($_POST['id'] ?? 0);
         $db->prepare('DELETE FROM plugin_websitestatuscheck_plugin_sites WHERE id = ? AND bot_id = ?')->execute([$id, $botId]);
         $success = 'Webseite entfernt.';
+    } elseif (($_POST['action'] ?? '') === 'set_group_description') {
+        $groupName = trim((string)($_POST['group_name'] ?? ''));
+        $desc      = trim((string)($_POST['description'] ?? ''));
+        if ($groupName !== '') {
+            $db->prepare('INSERT INTO plugin_websitestatuscheck_plugin_groups (bot_id, name, description) VALUES (?, ?, ?)
+                           ON DUPLICATE KEY UPDATE description = VALUES(description)')
+               ->execute([$botId, $groupName, $desc !== '' ? $desc : null]);
+            bhwsc_trigger_now($db, $botId);
+            $success = 'Gruppenbeschreibung gespeichert.';
+        }
     }
 }
 
 $settings = null;
 $sites    = [];
+$groupDescriptions = [];
 if ($botId > 0) {
     $stmt = $db->prepare('SELECT * FROM plugin_websitestatuscheck_plugin_settings WHERE bot_id = ? LIMIT 1');
     $stmt->execute([$botId]);
@@ -84,6 +95,12 @@ if ($botId > 0) {
     $stmt = $db->prepare('SELECT * FROM plugin_websitestatuscheck_plugin_sites WHERE bot_id = ? ORDER BY group_name IS NULL DESC, group_name ASC, id ASC');
     $stmt->execute([$botId]);
     $sites = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $stmt = $db->prepare('SELECT name, description FROM plugin_websitestatuscheck_plugin_groups WHERE bot_id = ?');
+    $stmt->execute([$botId]);
+    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+        $groupDescriptions[$row['name']] = (string)($row['description'] ?? '');
+    }
 }
 
 $curChannel  = (string)($settings['channel_id'] ?? '');
@@ -184,6 +201,17 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
         <div style="padding:8px 16px 2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);">
             <?= $g !== '' ? '📡 ' . $e($g) : 'Ohne Gruppe (eigenes Embed)' ?>
         </div>
+        <?php if ($g !== ''): ?>
+        <form method="post" style="padding:2px 16px 8px;display:flex;gap:8px;align-items:center;">
+            <input type="hidden" name="csrf" value="<?= $e($csrf) ?>">
+            <input type="hidden" name="action" value="set_group_description">
+            <input type="hidden" name="group_name" value="<?= $e($g) ?>">
+            <input type="text" name="description" class="bh-input bh-text-sm" style="flex:1;" maxlength="200"
+                   placeholder="Beschreibung für diese Gruppe (optional)"
+                   value="<?= $e($groupDescriptions[$g] ?? '') ?>">
+            <button type="submit" class="bh-btn bh-btn-secondary" style="font-size:11px;padding:4px 10px;">💾</button>
+        </form>
+        <?php endif; ?>
         <?php endif; ?>
         <div style="display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border);">
             <div style="flex:1;min-width:0;">

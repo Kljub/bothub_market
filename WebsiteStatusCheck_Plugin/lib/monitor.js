@@ -55,7 +55,7 @@ async function getOrCreateGroup(botId, groupName) {
         [botId, groupName]
     );
     const rows = await getDb().query(
-        'SELECT id, message_id FROM plugin_websitestatuscheck_plugin_groups WHERE bot_id = ? AND name = ? LIMIT 1',
+        'SELECT id, message_id, description FROM plugin_websitestatuscheck_plugin_groups WHERE bot_id = ? AND name = ? LIMIT 1',
         [botId, groupName]
     );
     return rows[0] ?? null;
@@ -63,6 +63,13 @@ async function getOrCreateGroup(botId, groupName) {
 
 async function setGroupMessage(groupId, messageId) {
     await getDb().query('UPDATE plugin_websitestatuscheck_plugin_groups SET message_id = ? WHERE id = ?', [messageId, groupId]);
+}
+
+async function setGroupDescription(botId, groupName, description) {
+    await getDb().query(
+        'UPDATE plugin_websitestatuscheck_plugin_groups SET description = ? WHERE bot_id = ? AND name = ?',
+        [description || null, botId, groupName]
+    );
 }
 
 async function recordCheck(siteId, status, latencyMs) {
@@ -93,5 +100,5 @@ async function checkSite(bh, url) {
 
 module.exports = {
     getSettings, ensureSettings, updateSettings, listSites, setSiteMessage, recordCheck, checkSite,
-    getOrCreateGroup, setGroupMessage,
+    getOrCreateGroup, setGroupMessage, setGroupDescription,
 };

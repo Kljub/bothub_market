@@ -103,18 +103,21 @@ module.exports = async function (bh) {
         for (const [groupName, groupResults] of grouped) {
             const isMain = mainKey === `group:${groupName}`;
             const worst = groupResults.reduce((acc, r) => STATUS_RANK[r.status] > STATUS_RANK[acc] ? r.status : acc, 'green');
+            const group = await monitor.getOrCreateGroup(botId, groupName);
+            const descLines = [];
+            if (isMain) descLines.push(nextCheckLine);
+            if (group?.description) descLines.push(group.description);
             const payload = {
                 embeds: [{
                     color: STATUS_META[worst].color,
                     title: `📡 ${groupName}`,
-                    description: isMain ? nextCheckLine : undefined,
+                    description: descLines.length ? descLines.join('\n') : undefined,
                     fields: groupResults.map(({ site, status, latencyMs }) => ({
                         name: site.name, value: statusLine(status, latencyMs), inline: false,
                     })),
                     timestamp: true,
                 }],
             };
-            const group = await monitor.getOrCreateGroup(botId, groupName);
             await postOrEdit(botId, settings.channel_id, group?.message_id, payload,
                 (newId) => monitor.setGroupMessage(group.id, newId));
         }

@@ -1,7 +1,7 @@
 {
   "name": "Website Status Check",
   "key": "websitestatuscheck-plugin",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "sdk": "1.0",
   "type": "hybrid",
   "entry": "index.js",
@@ -34,7 +34,8 @@
   },
   "migrations": [
     "migrations/0001_websitestatuscheck_tables.sql",
-    "migrations/0002_websitestatuscheck_groups.sql"
+    "migrations/0002_websitestatuscheck_groups.sql",
+    "migrations/0003_websitestatuscheck_group_description.sql"
   ],
   "dashboard": {
     "pages": [
@@ -51,6 +52,7 @@
     { "version": "1.2.0", "date": "2026-07-18", "notes": "Der Erst-Check beim Hinzufügen einer Webseite läuft jetzt wirklich sofort per direktem Core-Trigger statt auf den nächsten 60s-Tick zu warten." },
     { "version": "2.0.1", "date": "2026-07-18", "notes": "Nur noch EIN Countdown-Feld über alle Webseiten/Gruppen hinweg — die zuerst angelegte Webseite (bzw. deren Gruppe) ist der Haupt-Counter, alle anderen Embeds zeigen keinen eigenen Countdown mehr." },
     { "version": "2.0.2", "date": "2026-07-18", "notes": "Webseiten in einem Gruppen-Embed werden jetzt untereinander statt nebeneinander aufgelistet." },
-    { "version": "2.0.3", "date": "2026-07-18", "notes": "Nächster-Check-Countdown steht jetzt einzeilig oben in der Description statt als eigenes Feld unten." }
+    { "version": "2.0.3", "date": "2026-07-18", "notes": "Nächster-Check-Countdown steht jetzt einzeilig oben in der Description statt als eigenes Feld unten." },
+    { "version": "2.1.0", "date": "2026-07-18", "notes": "Optionale Beschreibung pro Gruppe (im Dashboard editierbar), wird oben im Gruppen-Embed angezeigt." }
   ]
 }
