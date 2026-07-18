@@ -1,7 +1,7 @@
 {
   "name": "Website Status Check",
   "key": "websitestatuscheck-plugin",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "sdk": "1.0",
   "type": "hybrid",
   "entry": "index.js",
@@ -50,6 +50,7 @@
     { "version": "1.1.0", "date": "2026-07-18", "notes": "Countdown bis zum nächsten Check im Embed (Discord Live-Timestamp), 24h-Intervall-Option, sofortiger Erst-Check beim Hinzufügen einer Webseite." },
     { "version": "1.2.0", "date": "2026-07-18", "notes": "Der Erst-Check beim Hinzufügen einer Webseite läuft jetzt wirklich sofort per direktem Core-Trigger statt auf den nächsten 60s-Tick zu warten." },
     { "version": "2.0.1", "date": "2026-07-18", "notes": "Nur noch EIN Countdown-Feld über alle Webseiten/Gruppen hinweg — die zuerst angelegte Webseite (bzw. deren Gruppe) ist der Haupt-Counter, alle anderen Embeds zeigen keinen eigenen Countdown mehr." },
-    { "version": "2.0.2", "date": "2026-07-18", "notes": "Webseiten in einem Gruppen-Embed werden jetzt untereinander statt nebeneinander aufgelistet." }
+    { "version": "2.0.2", "date": "2026-07-18", "notes": "Webseiten in einem Gruppen-Embed werden jetzt untereinander statt nebeneinander aufgelistet." },
+    { "version": "2.0.3", "date": "2026-07-18", "notes": "Nächster-Check-Countdown steht jetzt einzeilig oben in der Description statt als eigenes Feld unten." }
   ]
 }

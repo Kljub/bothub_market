@@ -55,9 +55,11 @@ module.exports = async function (bh) {
         // Countdown ("in 5 Minuten" etc.) — kein eigener Re-Render-Timer nötig, das
         // Embed muss dafür nicht laufend neu bearbeitet werden.
         const nextCheckUnix = Math.floor((Date.now() + (settings.interval_minutes || 5) * 60_000) / 1000);
-        const nextCheckField = { name: '⏱️ Nächster Check', value: `<t:${nextCheckUnix}:R>`, inline: true };
+        // Einzeilig statt Feld (Name+Value wären 2 Zeilen) — steht oben in der
+        // Description, da der Title-Slot schon vom Seiten-/Gruppennamen belegt ist.
+        const nextCheckLine = `⏱️ **Nächster Check:** <t:${nextCheckUnix}:R>`;
 
-        // Nur EIN Countdown-Feld über alle Embeds hinweg (sonst zeigt jede Seite/Gruppe
+        // Nur EIN Countdown über alle Embeds hinweg (sonst zeigt jede Seite/Gruppe
         // denselben Wert redundant an) — "Haupt Counter" ist die zuerst angelegte Seite
         // (results ist bereits nach sites.id ASC sortiert, also results[0] = älteste).
         // Liegt diese Seite in einer Gruppe, bekommt die Gruppe den Countdown, sonst die
@@ -88,8 +90,9 @@ module.exports = async function (bh) {
                 embeds: [{
                     color: STATUS_META[status].color,
                     title: site.name,
-                    description: statusLine(status, latencyMs),
-                    fields: isMain ? [nextCheckField] : [],
+                    description: isMain
+                        ? `${nextCheckLine}\n${statusLine(status, latencyMs)}`
+                        : statusLine(status, latencyMs),
                     timestamp: true,
                 }],
             };
@@ -104,12 +107,10 @@ module.exports = async function (bh) {
                 embeds: [{
                     color: STATUS_META[worst].color,
                     title: `📡 ${groupName}`,
-                    fields: [
-                        ...groupResults.map(({ site, status, latencyMs }) => ({
-                            name: site.name, value: statusLine(status, latencyMs), inline: false,
-                        })),
-                        ...(isMain ? [nextCheckField] : []),
-                    ],
+                    description: isMain ? nextCheckLine : undefined,
+                    fields: groupResults.map(({ site, status, latencyMs }) => ({
+                        name: site.name, value: statusLine(status, latencyMs), inline: false,
+                    })),
                     timestamp: true,
                 }],
             };
