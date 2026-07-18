@@ -1,0 +1,55 @@
+{
+  "name": "Website Status Check",
+  "key": "websitestatuscheck-plugin",
+  "version": "2.0.2",
+  "sdk": "1.0",
+  "type": "hybrid",
+  "entry": "index.js",
+  "dashboardEntry": "dashboard.php",
+  "description": "Überwacht konfigurierte Webseiten und postet den Status (online/warnung/offline + Latenz) als Embed(s) in einen Channel — Intervall, Zielchannel und pro-Webseite-Gruppierung (mehrere Webseiten teilen sich ein Embed) sind im Dashboard einstellbar.",
+  "author": "BotHub",
+  "requires": {
+    "core": [
+      "database.read",
+      "database.write",
+      "http.external-api",
+      "http.internal",
+      "messaging.send",
+      "messaging.edit",
+      "scheduler.interval"
+    ],
+    "dashboard": [
+      "ui.components",
+      "dashboard.page",
+      "dashboard.sidebar.item"
+    ]
+  },
+  "optional": {
+    "core": [],
+    "dashboard": []
+  },
+  "provides": {
+    "capabilities": [],
+    "features": []
+  },
+  "migrations": [
+    "migrations/0001_websitestatuscheck_tables.sql",
+    "migrations/0002_websitestatuscheck_groups.sql"
+  ],
+  "dashboard": {
+    "pages": [
+      { "key": "config", "title": "Website Status Check — Einstellungen" }
+    ]
+  },
+  "moduleGroup": "utility",
+  "icon_emoji": "📡",
+  "requestedProfile": "verified",
+  "requestedGroup": "utility",
+  "changelog": [
+    { "version": "1.0.0", "date": "2026-07-18", "notes": "Erste Veröffentlichung: Website-Monitoring mit konfigurierbarem Intervall, Ziel-Channel und Ein-/Mehr-Embed-Modus." },
+    { "version": "1.1.0", "date": "2026-07-18", "notes": "Countdown bis zum nächsten Check im Embed (Discord Live-Timestamp), 24h-Intervall-Option, sofortiger Erst-Check beim Hinzufügen einer Webseite." },
+    { "version": "1.2.0", "date": "2026-07-18", "notes": "Der Erst-Check beim Hinzufügen einer Webseite läuft jetzt wirklich sofort per direktem Core-Trigger statt auf den nächsten 60s-Tick zu warten." },
+    { "version": "2.0.1", "date": "2026-07-18", "notes": "Nur noch EIN Countdown-Feld über alle Webseiten/Gruppen hinweg — die zuerst angelegte Webseite (bzw. deren Gruppe) ist der Haupt-Counter, alle anderen Embeds zeigen keinen eigenen Countdown mehr." },
+    { "version": "2.0.2", "date": "2026-07-18", "notes": "Webseiten in einem Gruppen-Embed werden jetzt untereinander statt nebeneinander aufgelistet." }
+  ]
+}

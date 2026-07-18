@@ -1,0 +1,9 @@
+ALTER TABLE {PREFIX}sites ADD COLUMN group_name VARCHAR(64) NULL DEFAULT NULL;
+
+CREATE TABLE IF NOT EXISTS {PREFIX}groups (
+    id         INT UNSIGNED    AUTO_INCREMENT PRIMARY KEY,
+    bot_id     BIGINT UNSIGNED NOT NULL,
+    name       VARCHAR(64)     NOT NULL,
+    message_id VARCHAR(32)     NULL DEFAULT NULL,
+    UNIQUE KEY uq_bot_group (bot_id, name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
