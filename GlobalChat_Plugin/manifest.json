@@ -1,0 +1,73 @@
+{
+    "name": "Global Chat",
+    "key": "globalchat-plugin",
+    "version": "3.0.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "Cross-Server Chat — verlinkte Channels tauschen Nachrichten zwischen allen Servern desselben Bots aus.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "database.read",
+            "database.write",
+            "events.message.created",
+            "messaging.send",
+            "messaging.dm",
+            "messaging.get"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_globalchat_tables.sql",
+        "migrations/0002_globalchat_users.sql",
+        "migrations/0003_globalchat_relay_map.sql"
+    ],
+    "dashboard": {
+        "pages": [
+            {
+                "key": "config",
+                "title": "Global Chat — Status"
+            },
+            {
+                "key": "commands",
+                "title": "Global Chat — Commands"
+            }
+        ]
+    },
+    "moduleGroup": "social",
+    "icon_emoji": "🌐",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-17",
+            "notes": "Erste Veröffentlichung: serverübergreifender Chat über verknüpfte Channels."
+        },
+        {
+            "version": "2.0.0",
+            "date": "2026-07-18",
+            "notes": "@username-Erwähnungen werden jetzt per DM zugestellt (echte Discord-Mentions pingen serverübergreifend nicht), Verlinkungen lassen sich im Dashboard aufheben."
+        },
+        {
+            "version": "3.0.0",
+            "date": "2026-07-18",
+            "notes": "Discord-Replies auf Global-Chat-Nachrichten werden jetzt serverübergreifend als echte Reply auf die jeweils lokale Kopie weitergeleitet."
+        }
+    ]
+}
