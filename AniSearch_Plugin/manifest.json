@@ -1,0 +1,53 @@
+{
+    "name": "AniSearch",
+    "key": "anisearch-plugin",
+    "version": "1.0.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "Anime- & Manga-Suche über die AniList-API — /anisearch-anime, /anisearch-manga, plus Airing-Benachrichtigungen für verfolgte Anime in einen konfigurierten Channel.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "messaging.send",
+            "database.read",
+            "database.write",
+            "http.external-api",
+            "scheduler.interval"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [
+        "migrations/0001_anisearch_tables.sql"
+    ],
+    "dashboard": {
+        "pages": [
+            { "key": "config", "title": "AniSearch — Einstellungen" }
+        ]
+    },
+    "moduleGroup": "entertainment",
+    "icon_emoji": "🎌",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-18",
+            "notes": "Erste Veröffentlichung: Anime-/Manga-Suche über AniList, Airing-Tracking mit Benachrichtigungen bei neuen Episoden."
+        }
+    ]
+}
