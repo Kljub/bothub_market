@@ -1,0 +1,43 @@
+{
+    "name": "BetterIntegrations",
+    "key": "betterintegrations-plugin",
+    "version": "1.0.0",
+    "sdk": "1.0",
+    "type": "dashboard",
+    "dashboardEntry": "dashboard.php",
+    "description": "Instanzweites Dashboard-Theming (Farben, Rundung, Abstände, Schriftgröße) und Command-Builder-Erweiterungen (native Commands als editierbare Graphen).",
+    "author": "BotHub",
+    "requires": {
+        "core": [],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [],
+    "dashboard": {
+        "pages": [
+            { "key": "theme", "title": "BetterIntegrations — Theme" }
+        ]
+    },
+    "moduleGroup": "admin",
+    "icon_emoji": "🎨",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-07-18",
+            "notes": "Erste Veröffentlichung: instanzweites Theming (Farben/Radius/Spacing/Font-Scale) als Admin-Einstellung, ergänzend zur bestehenden Pro-User-Personalisierung im Profil."
+        }
+    ]
+}
