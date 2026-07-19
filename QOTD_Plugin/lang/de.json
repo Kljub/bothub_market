@@ -1,5 +1,25 @@
 {
   "qotd.label": "QOTD",
   "qotd.desc": "Zufälligen Fact des Tages anzeigen (1x/Tag)",
-  "commands_heading": "QOTD-Commands ({n})"
+  "commands_heading": "QOTD-Commands ({n})",
+  "config.heading": "💡 QOTD — Fact-Pool ({n})",
+  "config.new_text_placeholder": "Neuer Fact-Text… (z.B. mit {PLUGIN_COUNT})",
+  "config.insert_var_title": "Variable einfügen",
+  "config.add_btn": "+ Hinzufügen",
+  "config.available_vars_hint": "Verfügbare Variablen: <code>{PLUGIN_COUNT}</code> <code>{ENABLED_PLUGIN_COUNT}</code> <code>{STORE_PLUGIN_COUNT}</code> <code>{BOT_COUNT}</code> <code>{COMMAND_COUNT}</code> <code>{OLDEST_PLUGIN}</code>",
+  "config.no_facts": "Noch keine Facts eingerichtet. Ohne Facts liefert <code>/qotd</code> keine Ergebnisse.",
+  "config.confirm_delete": "Diesen Fact wirklich löschen?",
+  "config.var_category": "QOTD-Statistiken",
+  "config.vars.plugin_count.name": "Plugin-Anzahl",
+  "config.vars.plugin_count.desc": "Anzahl aller installierten Plugins",
+  "config.vars.enabled_plugin_count.name": "Aktive Plugins",
+  "config.vars.enabled_plugin_count.desc": "Anzahl aktivierter (status=active) Plugins",
+  "config.vars.store_plugin_count.name": "Plugins im Store",
+  "config.vars.store_plugin_count.desc": "Anzahl der im Plugin-Store gelisteten Plugins",
+  "config.vars.bot_count.name": "Bot-Anzahl",
+  "config.vars.bot_count.desc": "Anzahl aller Bots auf dieser BotHub-Instanz",
+  "config.vars.command_count.name": "Command-Anzahl",
+  "config.vars.command_count.desc": "Anzahl verfügbarer Commands/Module auf diesem Bot",
+  "config.vars.oldest_plugin.name": "Ältestes Plugin",
+  "config.vars.oldest_plugin.desc": "Name des am längsten installierten Plugins"
 }

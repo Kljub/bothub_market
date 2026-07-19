@@ -3,5 +3,21 @@
   "manga.desc": "Sucht einen Manga auf AniList.",
   "track.desc": "Verfolgt einen Anime — meldet neue Episoden im Ziel-Channel.",
   "untrack.desc": "Entfernt einen verfolgten Anime.",
-  "list.desc": "Zeigt alle verfolgten Anime dieses Servers."
+  "list.desc": "Zeigt alle verfolgten Anime dieses Servers.",
+  "config.settings_saved": "Einstellungen gespeichert.",
+  "config.untrack_saved": "Anime wird nicht mehr verfolgt.",
+  "config.server_label": "Server",
+  "config.pick_server": "— Server auswählen —",
+  "config.target_channel_label": "Ziel-Channel (für neue Episoden)",
+  "config.pick_server_first": "— zuerst Server wählen —",
+  "config.current_prefix": "Aktuell: {channel}",
+  "config.save_btn": "💾 Speichern",
+  "config.tracked_title": "Verfolgte Anime ({count})",
+  "config.add_hint": "Hinzufügen über {cmd} im Discord-Server.",
+  "config.no_tracked": "Aktuell wird kein Anime verfolgt.",
+  "config.next_episode": " · nächste Episode: {episode}",
+  "config.confirm_untrack": "'{title}' wirklich nicht mehr verfolgen?",
+  "config.js_loading": "— lädt… —",
+  "config.js_pick_channel": "— Channel auswählen —",
+  "config.js_load_error": "— Fehler beim Laden —"
 }

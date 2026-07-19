@@ -1,5 +1,15 @@
 {
   "steal.label": "Steal",
   "steal.desc": "Guthaben von einem anderen User klauen",
-  "commands_heading": "Criminal-Commands ({n})"
+  "commands_heading": "Criminal-Commands ({n})",
+  "config.heading": "🕵️ Criminal — /steal Einstellungen",
+  "config.no_currency": "Noch keine Currency eingerichtet. Lege zuerst unter <strong>Economy</strong> eine Currency an.",
+  "config.success_chance_label": "Erfolgschance % (1-99)",
+  "config.success_chance_hint": "Wahrscheinlichkeit, dass /steal gelingt.",
+  "config.steal_percent_label": "Beute % (vom Opfer-Guthaben)",
+  "config.steal_percent_hint": "Wie viel Prozent des Opfer-Guthabens bei Erfolg gestohlen wird.",
+  "config.fail_penalty_label": "Strafe % (vom eigenen Guthaben)",
+  "config.fail_penalty_hint": "Wie viel Prozent des eigenen Guthabens bei Fehlschlag verloren geht.",
+  "config.allowed_currencies_hint": "Erlaubte Currencies (keine Auswahl = alle erlaubt)",
+  "config.saving": "Speichert…"
 }

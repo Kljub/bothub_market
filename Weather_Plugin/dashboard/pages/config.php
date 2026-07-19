@@ -6,6 +6,7 @@ declare(strict_types=1);
 $botId = (int)($context['botId'] ?? $_SESSION['current_bot_id'] ?? 0);
 $db    = bh_db();
 $csrf  = (string)($_SESSION['csrf_token'] ?? '');
+$pk    = 'weather-plugin';
 echo '<link rel="stylesheet" href="/assets/css/components-base.css?v=' . filemtime(BH_ROOT . '/assets/css/components-base.css') . '">';
 ?>
 <style>
@@ -21,7 +22,7 @@ echo '<link rel="stylesheet" href="/assets/css/components-base.css?v=' . filemti
 </style>
 <?php
 ?>
-<div class="bh-card" style="margin-bottom:16px;"><div class="bh-card-header"><span class="bh-card-title">Commands</span></div><?php (function () use ($botId, $db) {
+<div class="bh-card" style="margin-bottom:16px;"><div class="bh-card-header"><span class="bh-card-title"><?= __e('cmd.title') ?></span></div><?php (function () use ($botId, $db) {
     $moduleKey = 'weather-plugin:weather';
     $enabled = true;
     $settings = [];
@@ -62,19 +63,19 @@ echo '<link rel="stylesheet" href="/assets/css/components-base.css?v=' . filemti
   $permCfg = $settings;
   $permDiscordPerms = array (
   'Administrator' => 'Administrator',
-  'ManageGuild' => 'Server verwalten',
-  'ManageRoles' => 'Rollen verwalten',
-  'ManageChannels' => 'Kanäle verwalten',
-  'KickMembers' => 'Mitglieder kicken',
-  'BanMembers' => 'Mitglieder bannen',
-  'ManageMessages' => 'Nachrichten verwalten',
-  'ModerateMembers' => 'Mitglieder per Timeout sperren',
-  'MuteMembers' => 'Mitglieder stummschalten (Voice)',
-  'ViewAuditLog' => 'Audit-Log anzeigen',
-  'ManageWebhooks' => 'Webhooks verwalten',
-  'ManageThreads' => 'Threads verwalten',
-  'SendMessages' => 'Nachrichten senden',
-  'MentionEveryone' => 'Alle erwähnen',
+  'ManageGuild' => __('perm.manage_guild'),
+  'ManageRoles' => __('perm.manage_roles'),
+  'ManageChannels' => __('perm.manage_channels'),
+  'KickMembers' => __('perm.kick_members'),
+  'BanMembers' => __('perm.ban_members'),
+  'ManageMessages' => __('perm.manage_messages'),
+  'ModerateMembers' => __('perm.moderate_members'),
+  'MuteMembers' => __('perm.mute_members'),
+  'ViewAuditLog' => __('perm.view_audit_log'),
+  'ManageWebhooks' => __('perm.manage_webhooks'),
+  'ManageThreads' => __('perm.manage_threads'),
+  'SendMessages' => bh_plugin_t('weather-plugin', 'config.perm_send_messages'),
+  'MentionEveryone' => bh_plugin_t('weather-plugin', 'config.perm_mention_everyone'),
 );
   require BH_ROOT . "/assets/features/permissions-panel.php";
 ?>
@@ -98,36 +99,42 @@ echo '<link rel="stylesheet" href="/assets/css/components-base.css?v=' . filemti
 ?>
 <div id="stg-alert-81e648b8" class="bh-alert" style="display:none;margin-bottom:12px;"></div>
 <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--border);">
-  <div style="flex:1;min-width:160px;"><div class="bh-label">API-Key (openweathermap.org)</div></div>
+  <div style="flex:1;min-width:160px;"><div class="bh-label"><?= bh_plugin_te('weather-plugin', 'config.api_key_label') ?></div></div>
   <div style="flex:2;min-width:220px;">
     <input type="password" id="stg-81e648b8-api_key" class="bh-input" style="width:100%;" value="<?= $e($row['api_key'] ?? '') ?>" autocomplete="off">
   </div></div>
 <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--border);">
-  <div style="flex:1;min-width:160px;"><div class="bh-label">Einheit</div></div>
+  <div style="flex:1;min-width:160px;"><div class="bh-label"><?= bh_plugin_te('weather-plugin', 'config.units_label') ?></div></div>
   <div style="flex:2;min-width:220px;">
     <select id="stg-81e648b8-units" class="bh-input" style="width:100%;"><?php foreach (array (
-  0 => 
+  0 =>
   array (
     'value' => 'metric',
-    'label' => '°C — Metric',
+    'label' => bh_plugin_t('weather-plugin', 'config.unit_metric'),
   ),
-  1 => 
+  1 =>
   array (
     'value' => 'imperial',
-    'label' => '°F — Imperial',
+    'label' => bh_plugin_t('weather-plugin', 'config.unit_imperial'),
   ),
 ) as $opt): ?><option value="<?= $e($opt['value']) ?>" <?= (($row['units'] ?? '') === $opt['value']) ? 'selected' : '' ?>><?= $e($opt['label']) ?></option><?php endforeach; ?></select>
   </div></div>
 <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--border);">
-  <div style="flex:1;min-width:160px;"><div class="bh-label">Standard-Ort</div></div>
+  <div style="flex:1;min-width:160px;"><div class="bh-label"><?= bh_plugin_te('weather-plugin', 'config.default_location_label') ?></div></div>
   <div style="flex:2;min-width:220px;">
     <input type="text" id="stg-81e648b8-default_location" class="bh-input" style="width:100%;" value="<?= $e($row['default_location'] ?? '') ?>" autocomplete="off">
   </div></div>
 <div style="display:flex;justify-content:flex-end;margin-top:12px;">
-  <button type="button" id="stg-save-81e648b8" class="bh-btn bh-btn-primary" onclick="bhDsgSaveSettings81e648b8()">Speichern</button>
+  <button type="button" id="stg-save-81e648b8" class="bh-btn bh-btn-primary" onclick="bhDsgSaveSettings81e648b8()"><?= __e('common.save') ?></button>
 </div>
 <?php })(); ?>
 <script>
+var WEATHER_I18N = {
+  save: <?= json_encode(__('common.save')) ?>,
+  saved: <?= json_encode(__('common.saved')) ?>,
+  error: <?= json_encode(__('common.error')) ?>,
+  networkError: <?= json_encode(__('common.network_error')) ?>
+};
 function bhDsgSaveSettings81e648b8() {
   var fields = [{"col":"api_key","id":"stg-81e648b8-api_key"},{"col":"units","id":"stg-81e648b8-units"},{"col":"default_location","id":"stg-81e648b8-default_location"}];
   var btn = document.getElementById("stg-save-81e648b8");
@@ -141,13 +148,13 @@ function bhDsgSaveSettings81e648b8() {
     .then(function (d) {
       if (alertEl) {
         alertEl.className = "bh-alert " + (d.ok ? "bh-alert-ok" : "bh-alert-error");
-        alertEl.textContent = d.ok ? "Gespeichert ✓" : (d.error || "Fehler");
+        alertEl.textContent = d.ok ? (WEATHER_I18N.saved + " ✓") : (d.error || WEATHER_I18N.error);
         alertEl.style.display = "block";
         setTimeout(function () { alertEl.style.display = "none"; }, 3500);
       }
     })
-    .catch(function (e) { if (alertEl) { alertEl.className = "bh-alert bh-alert-error"; alertEl.textContent = "Netzwerkfehler: " + e.message; alertEl.style.display = "block"; } })
-    .finally(function () { if (btn) { btn.disabled = false; btn.textContent = "Speichern"; } });
+    .catch(function (e) { if (alertEl) { alertEl.className = "bh-alert bh-alert-error"; alertEl.textContent = WEATHER_I18N.networkError + ": " + e.message; alertEl.style.display = "block"; } })
+    .finally(function () { if (btn) { btn.disabled = false; btn.textContent = WEATHER_I18N.save; } });
 }
 </script>
 

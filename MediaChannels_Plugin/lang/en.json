@@ -1,0 +1,23 @@
+{
+  "mode.media": "Media only (images/videos)",
+  "mode.gif": "GIFs only",
+  "mode.emoji": "Emojis only",
+  "mode.text": "Text only",
+  "error.selection_required": "Server and channel must be selected.",
+  "error.invalid_mode": "Invalid mode.",
+  "success.rule_saved": "Channel rule saved.",
+  "success.rule_deleted": "Channel rule deleted.",
+  "add_form.heading": "Add channel rule",
+  "label.server": "Server",
+  "label.channel": "Channel",
+  "label.mode": "Mode",
+  "placeholder.select_server": "— Select server —",
+  "placeholder.select_channel_first": "— select a server first —",
+  "placeholder.select_channel": "— Select channel —",
+  "placeholder.loading": "— loading… —",
+  "placeholder.load_error": "— Error loading —",
+  "btn.add": "➕ Add",
+  "rules.heading": "Channel rules ({n})",
+  "rules.empty": "No channel rules configured yet.",
+  "confirm.delete_rule": "Really delete this rule?"
+}

@@ -1,4 +1,11 @@
 {
   "weather.label": "Weather",
-  "weather.desc": "Shows the current weather for a location. Location is optional if a default is set."
+  "weather.desc": "Shows the current weather for a location. Location is optional if a default is set.",
+  "config.perm_send_messages": "Send messages",
+  "config.perm_mention_everyone": "Mention everyone",
+  "config.api_key_label": "API key (openweathermap.org)",
+  "config.units_label": "Unit",
+  "config.unit_metric": "°C — Metric",
+  "config.unit_imperial": "°F — Imperial",
+  "config.default_location_label": "Default location"
 }

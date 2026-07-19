@@ -1,5 +1,15 @@
 {
   "steal.label": "Steal",
   "steal.desc": "Steal balance from another user",
-  "commands_heading": "Criminal Commands ({n})"
+  "commands_heading": "Criminal Commands ({n})",
+  "config.heading": "🕵️ Criminal — /steal Settings",
+  "config.no_currency": "No currency set up yet. Create one under <strong>Economy</strong> first.",
+  "config.success_chance_label": "Success chance % (1-99)",
+  "config.success_chance_hint": "Probability that /steal succeeds.",
+  "config.steal_percent_label": "Loot % (of the victim's balance)",
+  "config.steal_percent_hint": "Percentage of the victim's balance stolen on success.",
+  "config.fail_penalty_label": "Penalty % (of your own balance)",
+  "config.fail_penalty_hint": "Percentage of your own balance lost on failure.",
+  "config.allowed_currencies_hint": "Allowed currencies (none selected = all allowed)",
+  "config.saving": "Saving…"
 }

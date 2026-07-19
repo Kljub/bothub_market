@@ -1,4 +1,24 @@
 {
   "emoji_menu.label": "Emoji Menu",
-  "emoji_menu.desc": "Opens the (only visible to you) emoji selection menu"
+  "emoji_menu.desc": "Opens the (only visible to you) emoji selection menu",
+  "upload.title": "Upload Emoji",
+  "upload.name_label": "Name (shown in the menu)",
+  "upload.name_placeholder": "e.g. pogchamp",
+  "upload.file_label": "Image ({ext} — max. {max} MB)",
+  "upload.submit_btn": "Upload",
+  "upload.error_server_limit": "File too large — exceeds the server limit ({limit}).",
+  "upload.error_invalid_name": "Invalid name (only a-z, 0-9, _, - · max. 32 characters).",
+  "upload.error_upload_failed": "File upload failed.",
+  "upload.error_ext_not_allowed": "Only {ext} allowed.",
+  "upload.error_too_large": "File too large (max. {max} MB).",
+  "upload.error_name_exists": "An emoji named \"{name}\" already exists.",
+  "upload.error_save_failed": "File could not be saved.",
+  "upload.success_uploaded": "Emoji \"{name}\" uploaded.",
+  "upload.success_deleted": "Emoji deleted.",
+  "upload.list_title": "Emojis ({count})",
+  "upload.list_hint": "max. 25 visible in the menu",
+  "upload.list_empty": "No emojis uploaded yet.",
+  "upload.use_count": "sent {count}×",
+  "upload.uploaded_by": "by {user}",
+  "upload.delete_confirm": "Really delete emoji \"{name}\"?"
 }

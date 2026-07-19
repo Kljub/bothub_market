@@ -3,5 +3,13 @@
   "link.desc": "Vincular un canal al chat entre servidores",
   "unlink.label": "Desvincular Global Chat",
   "unlink.desc": "Eliminar la vinculación",
-  "commands_heading": "Comandos de Global Chat ({n})"
+  "commands_heading": "Comandos de Global Chat ({n})",
+  "config.unlink_saved": "Vinculación eliminada.",
+  "config.linked_title": "🌐 Global Chat — Servidores vinculados ({count})",
+  "config.link_hint": "Los servidores vinculan un canal mediante {cmd} en Discord (requiere el permiso \"{perm}\"). Los mensajes en un canal vinculado se reenvían a todos los demás canales vinculados de este bot. Quien sea mencionado en el texto con {mention} recibe además un DM (las menciones reales de Discord no notifican entre servidores).",
+  "config.no_links": "Todavía ningún servidor ha vinculado un canal.",
+  "config.guild_to_channel": "Servidor {guild} → canal {channel}",
+  "config.disabled_badge": "Desactivado",
+  "config.confirm_unlink": "¿Eliminar realmente la vinculación del servidor {guild}?",
+  "config.unlink_btn": "🗑️ Eliminar"
 }

@@ -7,12 +7,21 @@ $botId  = (int)($context['botId'] ?? $_SESSION['current_bot_id'] ?? 0);
 $userId = (int)($_SESSION['user_id'] ?? 0);
 $db     = bh_db();
 $e      = fn(string $v): string => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$pk     = 'websitestatuscheck-plugin';
 
 require_once BH_ROOT . '/functions/modules/builder_shared.php';
 $guilds = [];
 try { $guilds = bh_get_bot_guilds($botId, $userId); } catch (Throwable) {}
 
-$INTERVALS = [1 => '1 Minute', 5 => '5 Minuten', 10 => '10 Minuten', 15 => '15 Minuten', 30 => '30 Minuten', 60 => '1 Stunde', 1440 => '24 Stunden'];
+$INTERVALS = [
+    1    => bh_plugin_t($pk, 'interval.1min'),
+    5    => bh_plugin_t($pk, 'interval.5min'),
+    10   => bh_plugin_t($pk, 'interval.10min'),
+    15   => bh_plugin_t($pk, 'interval.15min'),
+    30   => bh_plugin_t($pk, 'interval.30min'),
+    60   => bh_plugin_t($pk, 'interval.1hour'),
+    1440 => bh_plugin_t($pk, 'interval.24hours'),
+];
 
 // Core sofort per HTTP triggern statt auf den nächsten 60s-Tick zu warten — gleiches
 // Muster wie der Stat-Channels "Sofort-Tick" (core_runners-Endpoint + APP_KEY-Bearer-
@@ -41,7 +50,7 @@ $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $botId > 0) {
     if (($_SESSION['csrf_token'] ?? '') !== ($_POST['csrf'] ?? '')) {
-        $error = 'Ungültiges CSRF-Token.';
+        $error = __('common.csrf_invalid');
     } elseif (($_POST['action'] ?? '') === 'save_settings') {
         $channelId = trim((string)($_POST['channel_id'] ?? ''));
         $interval  = (int)($_POST['interval_minutes'] ?? 5);
@@ -53,24 +62,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $botId > 0) {
            ->execute([$botId, $channelId ?: null, $interval]);
 
         bhwsc_trigger_now($db, $botId);
-        $success = 'Einstellungen gespeichert — Check läuft sofort.';
+        $success = bh_plugin_t($pk, 'success.settings_saved');
     } elseif (($_POST['action'] ?? '') === 'add_site') {
         $name  = trim((string)($_POST['name'] ?? ''));
         $url   = trim((string)($_POST['url'] ?? ''));
         $group = trim((string)($_POST['group_name'] ?? ''));
         if ($name === '' || $url === '' || !filter_var($url, FILTER_VALIDATE_URL)) {
-            $error = 'Name und eine gültige URL sind erforderlich.';
+            $error = bh_plugin_t($pk, 'error.invalid_site');
         } else {
             $db->prepare('INSERT INTO plugin_websitestatuscheck_plugin_sites (bot_id, name, url, group_name) VALUES (?, ?, ?, ?)')
                ->execute([$botId, $name, $url, $group !== '' ? $group : null]);
 
             bhwsc_trigger_now($db, $botId);
-            $success = 'Webseite hinzugefügt — erster Check läuft sofort.';
+            $success = bh_plugin_t($pk, 'success.site_added');
         }
     } elseif (($_POST['action'] ?? '') === 'delete_site') {
         $id = (int)($_POST['id'] ?? 0);
         $db->prepare('DELETE FROM plugin_websitestatuscheck_plugin_sites WHERE id = ? AND bot_id = ?')->execute([$id, $botId]);
-        $success = 'Webseite entfernt.';
+        $success = bh_plugin_t($pk, 'success.site_deleted');
     } elseif (($_POST['action'] ?? '') === 'set_group_description') {
         $groupName = trim((string)($_POST['group_name'] ?? ''));
         $desc      = trim((string)($_POST['description'] ?? ''));
@@ -79,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $botId > 0) {
                            ON DUPLICATE KEY UPDATE description = VALUES(description)')
                ->execute([$botId, $groupName, $desc !== '' ? $desc : null]);
             bhwsc_trigger_now($db, $botId);
-            $success = 'Gruppenbeschreibung gespeichert.';
+            $success = bh_plugin_t($pk, 'success.group_desc_saved');
         }
     }
 }
@@ -106,7 +115,11 @@ if ($botId > 0) {
 $curChannel  = (string)($settings['channel_id'] ?? '');
 $curInterval = (int)($settings['interval_minutes'] ?? 5);
 
-$STATUS_LABELS = ['green' => '🟢 Online', 'yellow' => '🟡 Warnung', 'red' => '🔴 Offline'];
+$STATUS_LABELS = [
+    'green'  => bh_plugin_t($pk, 'status.online'),
+    'yellow' => bh_plugin_t($pk, 'status.warning'),
+    'red'    => bh_plugin_t($pk, 'status.offline'),
+];
 
 $csrf = (string)($_SESSION['csrf_token'] ?? '');
 ?>
@@ -120,77 +133,77 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 
 <div class="bh-card bh-card-lg" style="margin-bottom:20px;">
     <div class="bh-card-header">
-        <h2>Einstellungen</h2>
+        <h2><?= bh_plugin_te($pk, 'settings.heading') ?></h2>
     </div>
     <form method="post" style="padding:14px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:end;">
         <input type="hidden" name="csrf" value="<?= $e($csrf) ?>">
         <input type="hidden" name="action" value="save_settings">
         <input type="hidden" name="channel_id" id="wsc-channel-id" value="<?= $e($curChannel) ?>">
         <div class="bh-form-group">
-            <label class="bh-label">Server</label>
+            <label class="bh-label"><?= bh_plugin_te($pk, 'label.server') ?></label>
             <select id="wsc-guild-select" class="bh-input">
-                <option value="">— Server auswählen —</option>
+                <option value=""><?= bh_plugin_te($pk, 'placeholder.select_server') ?></option>
                 <?php foreach ($guilds as $g): ?>
                 <option value="<?= $e((string)$g['id']) ?>"><?= $e((string)$g['name']) ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
         <div class="bh-form-group">
-            <label class="bh-label">Ziel-Channel</label>
+            <label class="bh-label"><?= bh_plugin_te($pk, 'label.target_channel') ?></label>
             <select id="wsc-channel-select" class="bh-input" required>
-                <option value="">— zuerst Server wählen —</option>
+                <option value=""><?= bh_plugin_te($pk, 'placeholder.select_channel_first') ?></option>
                 <?php if ($curChannel): ?>
-                <option value="<?= $e($curChannel) ?>" selected>Aktuell: <?= $e($curChannel) ?></option>
+                <option value="<?= $e($curChannel) ?>" selected><?= bh_plugin_te($pk, 'current_channel_option', ['channel' => $curChannel]) ?></option>
                 <?php endif; ?>
             </select>
         </div>
         <div class="bh-form-group">
-            <label class="bh-label">Check-Intervall</label>
+            <label class="bh-label"><?= bh_plugin_te($pk, 'label.check_interval') ?></label>
             <select name="interval_minutes" class="bh-input">
                 <?php foreach ($INTERVALS as $val => $label): ?>
                 <option value="<?= (int)$val ?>" <?= $curInterval === $val ? 'selected' : '' ?>><?= $e($label) ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <button type="submit" class="bh-btn bh-btn-primary">💾 Speichern</button>
+        <button type="submit" class="bh-btn bh-btn-primary"><?= bh_plugin_te($pk, 'btn.save') ?></button>
     </form>
 </div>
 
 <div class="bh-card bh-card-lg" style="margin-bottom:20px;">
     <div class="bh-card-header">
-        <h2>Webseite hinzufügen</h2>
+        <h2><?= bh_plugin_te($pk, 'add_site.heading') ?></h2>
     </div>
-    <p class="bh-text-muted bh-text-sm" style="padding:0 16px;margin:8px 0;">Gruppe optional — Webseiten mit derselben Gruppe teilen sich ein Embed, ohne Gruppe bekommt jede Webseite ihr eigenes.</p>
+    <p class="bh-text-muted bh-text-sm" style="padding:0 16px;margin:8px 0;"><?= bh_plugin_te($pk, 'add_site.hint') ?></p>
     <form method="post" style="padding:14px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:end;">
         <input type="hidden" name="csrf" value="<?= $e($csrf) ?>">
         <input type="hidden" name="action" value="add_site">
         <div class="bh-form-group">
-            <label class="bh-label">Name</label>
-            <input type="text" name="name" class="bh-input" placeholder="z.B. Haupt-Webseite" maxlength="64" required>
+            <label class="bh-label"><?= bh_plugin_te($pk, 'label.name') ?></label>
+            <input type="text" name="name" class="bh-input" placeholder="<?= bh_plugin_te($pk, 'placeholder.name') ?>" maxlength="64" required>
         </div>
         <div class="bh-form-group">
-            <label class="bh-label">URL</label>
+            <label class="bh-label"><?= bh_plugin_te($pk, 'label.url') ?></label>
             <input type="url" name="url" class="bh-input" placeholder="https://example.com" required style="min-width:260px;">
         </div>
         <div class="bh-form-group">
-            <label class="bh-label">Gruppe (optional)</label>
-            <input type="text" name="group_name" class="bh-input" placeholder="z.B. Produktiv-Server" maxlength="64" list="wsc-group-list">
+            <label class="bh-label"><?= bh_plugin_te($pk, 'label.group') ?></label>
+            <input type="text" name="group_name" class="bh-input" placeholder="<?= bh_plugin_te($pk, 'placeholder.group') ?>" maxlength="64" list="wsc-group-list">
             <datalist id="wsc-group-list">
                 <?php foreach (array_unique(array_filter(array_column($sites, 'group_name'))) as $g): ?>
                 <option value="<?= $e((string)$g) ?>">
                 <?php endforeach; ?>
             </datalist>
         </div>
-        <button type="submit" class="bh-btn bh-btn-primary">➕ Hinzufügen</button>
+        <button type="submit" class="bh-btn bh-btn-primary"><?= bh_plugin_te($pk, 'btn.add') ?></button>
     </form>
 </div>
 
 <div class="bh-card bh-card-lg">
     <div class="bh-card-header">
-        <h2>Überwachte Webseiten (<?= count($sites) ?>)</h2>
+        <h2><?= bh_plugin_te($pk, 'sites.heading', ['n' => count($sites)]) ?></h2>
     </div>
     <?php if (!$sites): ?>
-    <p class="bh-text-muted bh-text-sm" style="padding:14px 16px;">Noch keine Webseiten konfiguriert.</p>
+    <p class="bh-text-muted bh-text-sm" style="padding:14px 16px;"><?= bh_plugin_te($pk, 'sites.empty') ?></p>
     <?php else: ?>
     <div style="display:flex;flex-direction:column;">
         <?php $lastGroup = '__unset__'; foreach ($sites as $s):
@@ -199,7 +212,7 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
                 $lastGroup = $g;
         ?>
         <div style="padding:8px 16px 2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);">
-            <?= $g !== '' ? '📡 ' . $e($g) : 'Ohne Gruppe (eigenes Embed)' ?>
+            <?= $g !== '' ? '📡 ' . $e($g) : bh_plugin_te($pk, 'group.no_group') ?>
         </div>
         <?php if ($g !== ''): ?>
         <form method="post" style="padding:2px 16px 8px;display:flex;gap:8px;align-items:center;">
@@ -207,7 +220,7 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
             <input type="hidden" name="action" value="set_group_description">
             <input type="hidden" name="group_name" value="<?= $e($g) ?>">
             <input type="text" name="description" class="bh-input bh-text-sm" style="flex:1;" maxlength="200"
-                   placeholder="Beschreibung für diese Gruppe (optional)"
+                   placeholder="<?= bh_plugin_te($pk, 'group.desc_placeholder') ?>"
                    value="<?= $e($groupDescriptions[$g] ?? '') ?>">
             <button type="submit" class="bh-btn bh-btn-secondary" style="font-size:11px;padding:4px 10px;">💾</button>
         </form>
@@ -218,11 +231,11 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
                 <strong style="font-size:13px;"><?= $e($s['name']) ?></strong>
                 <span class="bh-text-muted bh-text-sm"> · <?= $e($s['url']) ?></span>
                 <div class="bh-text-muted bh-text-sm">
-                    <?= $s['last_status'] ? $e($STATUS_LABELS[$s['last_status']] ?? $s['last_status']) : 'Noch nicht geprüft' ?>
+                    <?= $s['last_status'] ? $e($STATUS_LABELS[$s['last_status']] ?? $s['last_status']) : bh_plugin_te($pk, 'status.not_checked') ?>
                     <?= $s['last_latency_ms'] !== null ? ' · ' . (int)$s['last_latency_ms'] . 'ms' : '' ?>
                 </div>
             </div>
-            <form method="post" onsubmit="return confirm('Webseite \'<?= $e($s['name']) ?>\' wirklich entfernen?');">
+            <form method="post" onsubmit="return confirm(<?= htmlspecialchars(json_encode(bh_plugin_t($pk, 'confirm.delete_site', ['name' => $s['name']])), ENT_QUOTES) ?>);">
                 <input type="hidden" name="csrf" value="<?= $e($csrf) ?>">
                 <input type="hidden" name="action" value="delete_site">
                 <input type="hidden" name="id" value="<?= (int)$s['id'] ?>">
@@ -237,24 +250,29 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 <script>
 (function () {
     const BOT_ID = <?= (int)$botId ?>;
+    const I18N = {
+        loading: <?= json_encode(bh_plugin_t($pk, 'placeholder.loading')) ?>,
+        selectChannel: <?= json_encode(bh_plugin_t($pk, 'placeholder.select_channel')) ?>,
+        loadError: <?= json_encode(bh_plugin_t($pk, 'placeholder.load_error')) ?>
+    };
     const guildSelect   = document.getElementById('wsc-guild-select');
     const channelSelect = document.getElementById('wsc-channel-select');
     const channelIdEl   = document.getElementById('wsc-channel-id');
 
     if (guildSelect) {
         guildSelect.addEventListener('change', async function () {
-            channelSelect.innerHTML = '<option value="">— lädt… —</option>';
+            channelSelect.innerHTML = '<option value="">' + I18N.loading + '</option>';
             if (!this.value || !window.BHPicker) return;
             try {
                 const data = await BHPicker.getGuildData(BOT_ID, this.value);
-                channelSelect.innerHTML = '<option value="">— Channel auswählen —</option>';
+                channelSelect.innerHTML = '<option value="">' + I18N.selectChannel + '</option>';
                 (data.channels || []).forEach(function (c) {
                     const o = document.createElement('option');
                     o.value = c.id;
                     o.textContent = '#' + c.name;
                     channelSelect.appendChild(o);
                 });
-            } catch (e) { channelSelect.innerHTML = '<option value="">— Fehler beim Laden —</option>'; }
+            } catch (e) { channelSelect.innerHTML = '<option value="">' + I18N.loadError + '</option>'; }
         });
     }
     if (channelSelect) {

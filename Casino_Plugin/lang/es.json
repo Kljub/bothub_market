@@ -9,5 +9,21 @@
   "roulette.desc": "Ruleta europea",
   "blackjack.label": "BlackJack",
   "blackjack.desc": "Contra el crupier",
-  "commands_heading": "Comandos de Casino ({n})"
+  "commands_heading": "Comandos de Casino ({n})",
+  "games.title": "🎰 Casino — Ajustes de Juegos",
+  "games.no_currency": "Aún no hay ninguna moneda configurada. Crea primero una moneda en <strong>Economy</strong> antes de que los juegos de Casino puedan aceptar apuestas.",
+  "games.coinflip.desc": "Cara o cruz, multiplicador justo x2",
+  "games.dice.desc": "Adivina 1-6, multiplicador justo x6",
+  "games.slots.desc": "3 rodillos, tabla de pagos ponderada",
+  "games.roulette.desc": "Europea (0-36), número o color/rango",
+  "games.blackjack.desc": "Contra el crupier, baraja justa (el RTP solo afecta al multiplicador de pago)",
+  "games.rtp_label": "RTP % (10-100)",
+  "games.min_bet_label": "Apuesta mín.",
+  "games.max_bet_label": "Apuesta máx.",
+  "games.allowed_currencies_hint": "Monedas permitidas (ninguna seleccionada = todas permitidas)",
+  "games.save_btn": "Guardar todos los juegos",
+  "games.saving": "Guardando…",
+  "games.saved": "✓ Guardado",
+  "games.error": "Error",
+  "games.network_error": "Error de red"
 }

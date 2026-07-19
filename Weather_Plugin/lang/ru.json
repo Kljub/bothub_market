@@ -1,4 +1,11 @@
 {
   "weather.label": "Погода",
-  "weather.desc": "Показывает текущую погоду для места. Место не обязательно, если задано место по умолчанию."
+  "weather.desc": "Показывает текущую погоду для места. Место не обязательно, если задано место по умолчанию.",
+  "config.perm_send_messages": "Отправка сообщений",
+  "config.perm_mention_everyone": "Упоминание всех",
+  "config.api_key_label": "API-ключ (openweathermap.org)",
+  "config.units_label": "Единица измерения",
+  "config.unit_metric": "°C — Метрическая",
+  "config.unit_imperial": "°F — Имперская",
+  "config.default_location_label": "Место по умолчанию"
 }

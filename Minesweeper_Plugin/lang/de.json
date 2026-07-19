@@ -1,5 +1,13 @@
 {
   "minesweeper.label": "Minesweeper",
   "minesweeper.desc": "Minenfeld-Wette starten — 🔥-Button zahlt aus",
-  "commands_heading": "Minesweeper-Commands ({n})"
+  "commands_heading": "Minesweeper-Commands ({n})",
+  "config.heading": "💣 Minesweeper — Einstellungen",
+  "config.no_currency": "Noch keine Currency eingerichtet. Lege zuerst unter <strong>Economy</strong> eine Currency an.",
+  "config.intro": "5x5-Feld (Discords Maximum: 5 Reihen × 5 Buttons). Der User wählt beim Start die Minen-Anzahl (1-24) — der faire Multiplikator steigt automatisch mit mehr Minen. Die RTP unten skaliert diesen fairen Wert (= Hausvorteil), ganz wie bei den Casino-Spielen. Unverändert = fairer Standardwert (97%).",
+  "config.rtp_label": "RTP % (10-100)",
+  "config.min_bet_label": "Min. Einsatz",
+  "config.max_bet_label": "Max. Einsatz",
+  "config.allowed_currencies_label": "Erlaubte Currencies (keine Auswahl = alle erlaubt)",
+  "config.saving": "Speichert…"
 }

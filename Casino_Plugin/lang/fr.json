@@ -9,5 +9,21 @@
   "roulette.desc": "Roulette européenne",
   "blackjack.label": "BlackJack",
   "blackjack.desc": "Contre le croupier",
-  "commands_heading": "Commandes Casino ({n})"
+  "commands_heading": "Commandes Casino ({n})",
+  "games.title": "🎰 Casino — Paramètres des jeux",
+  "games.no_currency": "Aucune monnaie configurée pour l'instant. Crée d'abord une monnaie sous <strong>Economy</strong> avant que les jeux Casino puissent accepter des mises.",
+  "games.coinflip.desc": "Pile ou face, multiplicateur équitable x2",
+  "games.dice.desc": "Devine 1-6, multiplicateur équitable x6",
+  "games.slots.desc": "3 rouleaux, table de gains pondérée",
+  "games.roulette.desc": "Européenne (0-36), numéro ou couleur/plage",
+  "games.blackjack.desc": "Contre le croupier, jeu de cartes équitable (le RTP n'affecte que le multiplicateur de gain)",
+  "games.rtp_label": "RTP % (10-100)",
+  "games.min_bet_label": "Mise min.",
+  "games.max_bet_label": "Mise max.",
+  "games.allowed_currencies_hint": "Monnaies autorisées (aucune sélection = toutes autorisées)",
+  "games.save_btn": "Enregistrer tous les jeux",
+  "games.saving": "Enregistrement…",
+  "games.saved": "✓ Enregistré",
+  "games.error": "Erreur",
+  "games.network_error": "Erreur réseau"
 }

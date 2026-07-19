@@ -1,4 +1,11 @@
 {
   "weather.label": "Météo",
-  "weather.desc": "Affiche la météo actuelle d'un lieu. Le lieu est facultatif si un lieu par défaut est défini."
+  "weather.desc": "Affiche la météo actuelle d'un lieu. Le lieu est facultatif si un lieu par défaut est défini.",
+  "config.perm_send_messages": "Envoyer des messages",
+  "config.perm_mention_everyone": "Mentionner tout le monde",
+  "config.api_key_label": "Clé API (openweathermap.org)",
+  "config.units_label": "Unité",
+  "config.unit_metric": "°C — Métrique",
+  "config.unit_imperial": "°F — Impérial",
+  "config.default_location_label": "Lieu par défaut"
 }

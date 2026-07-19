@@ -3,5 +3,21 @@
   "manga.desc": "Ищет мангу на AniList.",
   "track.desc": "Отслеживает аниме — сообщает о новых сериях в целевом канале.",
   "untrack.desc": "Убирает отслеживаемое аниме.",
-  "list.desc": "Показывает все отслеживаемые аниме на этом сервере."
+  "list.desc": "Показывает все отслеживаемые аниме на этом сервере.",
+  "config.settings_saved": "Настройки сохранены.",
+  "config.untrack_saved": "Аниме больше не отслеживается.",
+  "config.server_label": "Сервер",
+  "config.pick_server": "— Выбрать сервер —",
+  "config.target_channel_label": "Целевой канал (для новых серий)",
+  "config.pick_server_first": "— сначала выберите сервер —",
+  "config.current_prefix": "Текущий: {channel}",
+  "config.save_btn": "💾 Сохранить",
+  "config.tracked_title": "Отслеживаемые аниме ({count})",
+  "config.add_hint": "Добавить через {cmd} на сервере Discord.",
+  "config.no_tracked": "Сейчас ни одно аниме не отслеживается.",
+  "config.next_episode": " · следующая серия: {episode}",
+  "config.confirm_untrack": "Действительно прекратить отслеживание '{title}'?",
+  "config.js_loading": "— загрузка… —",
+  "config.js_pick_channel": "— Выбрать канал —",
+  "config.js_load_error": "— ошибка загрузки —"
 }

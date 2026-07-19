@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 echo '<link rel="stylesheet" href="/assets/css/components-base.css?v=' . filemtime(BH_ROOT . '/assets/css/components-base.css') . '">';
 
+$pk = 'betterintegrations-plugin';
+
 if (!bh_has_perm('admin.panel')) {
-    echo '<div class="bh-alert bh-alert-error">Kein Zugriff — nur für Admins.</div>';
+    echo '<div class="bh-alert bh-alert-error">' . bh_plugin_te($pk, 'theme.access_denied') . '</div>';
     return;
 }
 
@@ -13,15 +15,15 @@ $e  = fn(string $v): string => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE,
 
 // ── Basiswerte (identisch zur Skala in variables.css) ───────────────────────
 $COLOR_DEFAULTS = [
-    '--color-primary'        => ['label' => 'Primärfarbe',        'default' => '#a78bfa'],
-    '--color-primary-bright' => ['label' => 'Primärfarbe (hell)', 'default' => '#c4b5fd'],
-    '--accent'               => ['label' => 'Akzentfarbe',        'default' => '#909090'],
-    '--bg-body'               => ['label' => 'Hintergrund',        'default' => '#0d0d0d'],
-    '--bg-card'               => ['label' => 'Karten',             'default' => '#1a1a1a'],
-    '--bg-sidebar'            => ['label' => 'Sidebar',            'default' => '#111111'],
-    '--text-primary'         => ['label' => 'Text (hell)',        'default' => '#e0e0e0'],
-    '--text-secondary'       => ['label' => 'Text (mittel)',      'default' => '#a0a0a0'],
-    '--border'               => ['label' => 'Rahmen',             'default' => '#2a2a2a'],
+    '--color-primary'        => ['label' => bh_plugin_t($pk, 'color.primary'),        'default' => '#a78bfa'],
+    '--color-primary-bright' => ['label' => bh_plugin_t($pk, 'color.primary_bright'), 'default' => '#c4b5fd'],
+    '--accent'               => ['label' => bh_plugin_t($pk, 'color.accent'),         'default' => '#909090'],
+    '--bg-body'               => ['label' => bh_plugin_t($pk, 'color.bg_body'),        'default' => '#0d0d0d'],
+    '--bg-card'               => ['label' => bh_plugin_t($pk, 'color.bg_card'),        'default' => '#1a1a1a'],
+    '--bg-sidebar'            => ['label' => bh_plugin_t($pk, 'color.bg_sidebar'),     'default' => '#111111'],
+    '--text-primary'         => ['label' => bh_plugin_t($pk, 'color.text_primary'),   'default' => '#e0e0e0'],
+    '--text-secondary'       => ['label' => bh_plugin_t($pk, 'color.text_secondary'), 'default' => '#a0a0a0'],
+    '--border'               => ['label' => bh_plugin_t($pk, 'color.border'),         'default' => '#2a2a2a'],
 ];
 $RADIUS_DEFAULTS  = ['--radius-sm' => 6, '--radius-md' => 10, '--radius-lg' => 16];
 $SPACE_BASE       = ['--space-1' => 4, '--space-2' => 8, '--space-3' => 12, '--space-4' => 16, '--space-5' => 24, '--space-6' => 32];
@@ -32,7 +34,7 @@ $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (($_SESSION['csrf_token'] ?? '') !== ($_POST['csrf'] ?? '')) {
-        $error = 'Ungültiges CSRF-Token.';
+        $error = __('common.csrf_invalid');
     } elseif (($_POST['action'] ?? '') === 'save_theme') {
         $colors = [];
         foreach ($COLOR_DEFAULTS as $var => $cfg) {
@@ -50,10 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db->prepare("INSERT INTO app_settings (`key`, `value`) VALUES ('betterintegrations_theme', ?)
                        ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)")
            ->execute([json_encode($theme)]);
-        $success = 'Theme gespeichert — gilt jetzt instanzweit für alle User (Profil-Personalisierung geht weiterhin vor).';
+        $success = bh_plugin_t($pk, 'theme.saved');
     } elseif (($_POST['action'] ?? '') === 'reset_theme') {
         $db->prepare("DELETE FROM app_settings WHERE `key` = 'betterintegrations_theme'")->execute();
-        $success = 'Theme zurückgesetzt.';
+        $success = bh_plugin_t($pk, 'theme.reset_done');
     }
 }
 
@@ -79,7 +81,7 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 <?php endif; ?>
 
 <p class="bh-text-muted bh-text-sm" style="margin-bottom:16px;">
-    Instanzweites Theme für alle User — Persönliche Farb-Einstellungen im <a href="/dashboard/profile">Profil</a> überschreiben dies weiterhin pro User.
+    <?= bh_plugin_t($pk, 'theme.intro', ['profile_link' => '<a href="/dashboard/profile">' . bh_plugin_te($pk, 'theme.profile_link_label') . '</a>']) ?>
 </p>
 
 <form method="post" id="bi-theme-form">
@@ -87,7 +89,7 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 <input type="hidden" name="action" value="save_theme">
 
 <div class="bh-card bh-card-lg" style="margin-bottom:20px;">
-    <div class="bh-card-header"><h2>Farben</h2></div>
+    <div class="bh-card-header"><h2><?= bh_plugin_te($pk, 'theme.section_colors') ?></h2></div>
     <div style="padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;">
         <?php foreach ($COLOR_DEFAULTS as $var => $cfg):
             $val = $e((string)$curColors[$var]);
@@ -106,11 +108,11 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 </div>
 
 <div class="bh-card bh-card-lg" style="margin-bottom:20px;">
-    <div class="bh-card-header"><h2>Rundung</h2></div>
+    <div class="bh-card-header"><h2><?= bh_plugin_te($pk, 'theme.section_radius') ?></h2></div>
     <div style="padding:14px 16px;display:flex;gap:16px;flex-wrap:wrap;">
         <?php foreach ($RADIUS_DEFAULTS as $var => $default): $id = 'bi-r-' . ltrim($var, '-'); ?>
         <div style="flex:1;min-width:140px;">
-            <label class="bh-label"><?= $e($var) ?> (px)</label>
+            <label class="bh-label"><?= $e($var) ?> <?= bh_plugin_te($pk, 'theme.unit_px') ?></label>
             <input type="number" id="<?= $id ?>" name="radius[<?= $e($var) ?>]" class="bh-input"
                    value="<?= (int)$curRadius[$var] ?>" min="0" max="40" data-var="<?= $e($var) ?>" oninput="biApplyLive()">
         </div>
@@ -119,11 +121,11 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 </div>
 
 <div class="bh-card bh-card-lg" style="margin-bottom:20px;">
-    <div class="bh-card-header"><h2>Abstände &amp; Schriftgröße</h2></div>
+    <div class="bh-card-header"><h2><?= bh_plugin_te($pk, 'theme.section_spacing_font') ?></h2></div>
     <div style="padding:14px 16px;display:flex;gap:24px;flex-wrap:wrap;">
         <div style="flex:1;min-width:220px;">
             <label class="bh-label" style="display:flex;justify-content:space-between;">
-                <span>Abstands-Skalierung</span>
+                <span><?= bh_plugin_te($pk, 'theme.spacing_scale_label') ?></span>
                 <span id="bi-spacing-display" style="color:var(--color-primary);font-weight:700;"><?= $curSpacing ?>%</span>
             </label>
             <input type="range" name="spacing_scale" id="bi-spacing" min="80" max="130" step="5"
@@ -132,7 +134,7 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
         </div>
         <div style="flex:1;min-width:220px;">
             <label class="bh-label" style="display:flex;justify-content:space-between;">
-                <span>Schriftgrößen-Skalierung</span>
+                <span><?= bh_plugin_te($pk, 'theme.font_scale_label') ?></span>
                 <span id="bi-font-display" style="color:var(--color-primary);font-weight:700;"><?= $curFont ?>%</span>
             </label>
             <input type="range" name="font_scale" id="bi-font" min="85" max="125" step="5"
@@ -143,24 +145,29 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 </div>
 
 <div style="display:flex;gap:8px;">
-    <button type="submit" class="bh-btn bh-btn-primary">💾 Speichern</button>
+    <button type="submit" class="bh-btn bh-btn-primary">💾 <?= __e('common.save') ?></button>
     <button type="submit" name="action" value="reset_theme" formnovalidate class="bh-btn bh-btn-ghost"
-            onclick="return confirm('Theme wirklich zurücksetzen?');">Zurücksetzen</button>
+            onclick="return biConfirmReset();"><?= __e('common.reset') ?></button>
 </div>
 </form>
 
 <div class="bh-card bh-card-lg" style="margin-top:20px;">
-    <div class="bh-card-header"><h2>🧩 Command Builder — eingebaute Commands überschreiben</h2></div>
+    <div class="bh-card-header"><h2>🧩 <?= bh_plugin_te($pk, 'theme.cb_heading') ?></h2></div>
     <div style="padding:14px 16px;font-size:13px;color:var(--text-secondary);line-height:1.7;">
-        <p style="margin:0 0 10px;">Im <a href="/dashboard/modules/command-builder">Command Builder</a> kann jeder Bot-Besitzer einen Custom Command per <strong>Override</strong>-Schalter einen gleichnamigen eingebauten Command ersetzen lassen — z.B. einen eigenen Graphen namens <code style="background:var(--bg-card);padding:1px 5px;border-radius:3px;">warn</code> anlegen, mit den Nodes <code style="background:var(--bg-card);padding:1px 5px;border-radius:3px;">Warn a Member</code> + <code style="background:var(--bg-card);padding:1px 5px;border-radius:3px;">Send Message</code> (Response Type „Direct message a user option", Kategorie „Server Actions"/"Messages") befüllen — also verwarnen UND zusätzlich per DM benachrichtigen —, speichern, dann den Override-Schalter aktivieren.</p>
-        <p style="margin:0 0 10px;">Ab dann läuft <code style="background:var(--bg-card);padding:1px 5px;border-radius:3px;">/ban</code> für diesen Bot ausschließlich über den eigenen Graphen — der eingebaute Command wird weder bei Discord registriert noch bei einem Aufruf ausgeführt.</p>
-        <p style="margin:0;color:var(--text-muted);font-size:12px;">⚠️ Eigene Node-Typen (Node Editor → „Custom Node" mit eigenem JS-Code) laufen ungesandboxt mit vollen Server-Rechten — Erstellen/Bearbeiten ist deshalb auf Admins beschränkt.</p>
+        <p style="margin:0 0 10px;"><?= bh_plugin_t($pk, 'theme.cb_p1') ?></p>
+        <p style="margin:0 0 10px;"><?= bh_plugin_t($pk, 'theme.cb_p2') ?></p>
+        <p style="margin:0;color:var(--text-muted);font-size:12px;">⚠️ <?= bh_plugin_t($pk, 'theme.cb_warning') ?></p>
     </div>
 </div>
 
 <script>
 const BI_SPACE_BASE = <?= json_encode($SPACE_BASE) ?>;
 const BI_FONT_BASE  = <?= json_encode($FONT_BASE) ?>;
+const BI_I18N = <?= json_encode(['resetConfirm' => bh_plugin_t($pk, 'theme.reset_confirm')]) ?>;
+
+function biConfirmReset() {
+    return confirm(BI_I18N.resetConfirm);
+}
 
 function biApplyLive() {
     let css = ':root{';

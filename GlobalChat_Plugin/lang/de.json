@@ -3,5 +3,13 @@
   "link.desc": "Channel mit Cross-Server-Chat verlinken",
   "unlink.label": "Global Chat Unlink",
   "unlink.desc": "Verlinkung entfernen",
-  "commands_heading": "Global-Chat-Commands ({n})"
+  "commands_heading": "Global-Chat-Commands ({n})",
+  "config.unlink_saved": "Verlinkung aufgehoben.",
+  "config.linked_title": "🌐 Global Chat — Verlinkte Server ({count})",
+  "config.link_hint": "Server verlinken einen Channel per {cmd} auf Discord (Berechtigung \"{perm}\" nötig). Nachrichten in einem verlinkten Channel werden an alle anderen verlinkten Channels dieses Bots weitergeleitet. Wer im Text mit {mention} erwähnt wird, bekommt zusätzlich eine DM (echte Discord-Mentions pingen server­übergreifend nicht).",
+  "config.no_links": "Noch kein Server hat einen Channel verlinkt.",
+  "config.guild_to_channel": "Guild {guild} → Channel {channel}",
+  "config.disabled_badge": "Deaktiviert",
+  "config.confirm_unlink": "Verlinkung für Guild {guild} wirklich aufheben?",
+  "config.unlink_btn": "🗑️ Aufheben"
 }

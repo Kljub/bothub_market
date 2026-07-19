@@ -9,5 +9,21 @@
   "roulette.desc": "Европейская рулетка",
   "blackjack.label": "Блэкджек",
   "blackjack.desc": "Против дилера",
-  "commands_heading": "Команды Казино ({n})"
+  "commands_heading": "Команды Казино ({n})",
+  "games.title": "🎰 Казино — Настройки игр",
+  "games.no_currency": "Валюта ещё не настроена. Сначала создайте валюту в разделе <strong>Economy</strong>, прежде чем игры казино смогут принимать ставки.",
+  "games.coinflip.desc": "Орёл или решка, честный множитель x2",
+  "games.dice.desc": "Угадай число 1-6, честный множитель x6",
+  "games.slots.desc": "3 барабана, взвешенная таблица выплат",
+  "games.roulette.desc": "Европейская (0-36), число или цвет/диапазон",
+  "games.blackjack.desc": "Против дилера, честная колода (RTP влияет только на множитель выплаты)",
+  "games.rtp_label": "RTP % (10-100)",
+  "games.min_bet_label": "Мин. ставка",
+  "games.max_bet_label": "Макс. ставка",
+  "games.allowed_currencies_hint": "Разрешённые валюты (ничего не выбрано = разрешены все)",
+  "games.save_btn": "Сохранить все игры",
+  "games.saving": "Сохранение…",
+  "games.saved": "✓ Сохранено",
+  "games.error": "Ошибка",
+  "games.network_error": "Ошибка сети"
 }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 // Discord Server Backup — Dashboard-Seite
 // $context wird vom PluginExtensionRunner injiziert (plugin-page.php)
 
+$pk     = 'server-backup-plugin';
 $botId  = (int)($context['botId'] ?? $_SESSION['current_bot_id'] ?? 0);
 $userId = (int)($_SESSION['user_id'] ?? 0);
 $db     = bh_db();
@@ -23,12 +24,12 @@ if ($guildId !== '' && !in_array($guildId, array_column($guilds, 'id'), true)) $
 // Settings + Backup der gewählten Guild
 $includeDefaults = ['settings' => 1, 'roles' => 1, 'channels' => 1, 'emojis' => 1, 'stickers' => 1, 'bans' => 1];
 $includeLabels = [
-    'settings' => '⚙️ Server-Einstellungen',
-    'roles'    => '🎭 Rollen + Berechtigungen',
-    'channels' => '📁 Channels + Berechtigungen (Text, Voice, Kategorien, Foren)',
-    'emojis'   => '😀 Emojis / Server-GIFs',
-    'stickers' => '🏷️ Sticker',
-    'bans'     => '🔨 Bans',
+    'settings' => bh_plugin_te($pk, 'include.settings'),
+    'roles'    => bh_plugin_te($pk, 'include.roles'),
+    'channels' => bh_plugin_te($pk, 'include.channels'),
+    'emojis'   => bh_plugin_te($pk, 'include.emojis'),
+    'stickers' => bh_plugin_te($pk, 'include.stickers'),
+    'bans'     => bh_plugin_te($pk, 'include.bans'),
 ];
 
 $settings = null;
@@ -65,7 +66,16 @@ if ($backup) {
     $sizeFmt = $b >= 1048576 ? number_format($b / 1048576, 1, ',', '.') . ' MB'
              : ($b >= 1024 ? number_format($b / 1024, 1, ',', '.') . ' KB' : $b . ' B');
 }
-$dayNames = ['daily' => 'Täglich', '1' => 'Montag', '2' => 'Dienstag', '3' => 'Mittwoch', '4' => 'Donnerstag', '5' => 'Freitag', '6' => 'Samstag', '0' => 'Sonntag'];
+$dayNames = [
+    'daily' => bh_plugin_t($pk, 'day.daily'),
+    '1'     => bh_plugin_t($pk, 'day.monday'),
+    '2'     => bh_plugin_t($pk, 'day.tuesday'),
+    '3'     => bh_plugin_t($pk, 'day.wednesday'),
+    '4'     => bh_plugin_t($pk, 'day.thursday'),
+    '5'     => bh_plugin_t($pk, 'day.friday'),
+    '6'     => bh_plugin_t($pk, 'day.saturday'),
+    '0'     => bh_plugin_t($pk, 'day.sunday'),
+];
 
 // Zielserver für "Auf anderen Server übertragen" — alle Guilds des Bots außer der aktuell gewählten
 $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id'] !== $guildId));
@@ -73,10 +83,10 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
 
 <!-- Server-Auswahl -->
 <div class="bh-card" style="margin-bottom:16px;">
-    <div class="bh-card-header"><span class="bh-card-title">🖥️ Server</span></div>
+    <div class="bh-card-header"><span class="bh-card-title"><?= bh_plugin_te($pk, 'server.title') ?></span></div>
     <div style="padding:16px 20px;">
         <select id="sbk-guild" class="bh-input" onchange="sbkSwitchGuild(this.value)">
-            <option value="">— Server auswählen —</option>
+            <option value=""><?= bh_plugin_te($pk, 'server.placeholder') ?></option>
             <?php foreach ($guilds as $g): ?>
             <option value="<?= $e((string)$g['id']) ?>" <?= (string)$g['id'] === $guildId ? 'selected' : '' ?>><?= $e((string)$g['name']) ?></option>
             <?php endforeach; ?>
@@ -90,7 +100,7 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
 
 <!-- Backup-Status -->
 <div class="bh-card" style="margin-bottom:16px;">
-    <div class="bh-card-header"><span class="bh-card-title">💾 Aktuelles Backup</span></div>
+    <div class="bh-card-header"><span class="bh-card-title"><?= bh_plugin_te($pk, 'backup.title') ?></span></div>
     <div style="padding:16px 20px;">
         <?php if ($backup): ?>
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;">
@@ -99,29 +109,28 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
                     <?= $e((string)$backup['guild_name']) ?>
                 </div>
                 <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">
-                    Erstellt: <?= $e((string)$backup['created_at']) ?>
-                    (<?= $backup['trigger_type'] === 'schedule' ? '⏰ Zeitplan' : '👤 manuell' ?>) · <?= $e($sizeFmt) ?>
+                    <?= bh_plugin_te($pk, 'backup.created_label') ?>: <?= $e((string)$backup['created_at']) ?>
+                    (<?= $backup['trigger_type'] === 'schedule' ? bh_plugin_te($pk, 'backup.trigger_schedule') : bh_plugin_te($pk, 'backup.trigger_manual') ?>) · <?= $e($sizeFmt) ?>
                 </div>
                 <div style="font-size:12px;color:var(--text-secondary);margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;">
-                    <span>🎭 <?= (int)($counts['roles'] ?? 0) ?> Rollen</span>
-                    <span>📁 <?= (int)($counts['channels'] ?? 0) ?> Channels</span>
-                    <span>😀 <?= (int)($counts['emojis'] ?? 0) ?> Emojis</span>
-                    <span>🏷️ <?= (int)($counts['stickers'] ?? 0) ?> Sticker</span>
-                    <span>🔨 <?= (int)($counts['bans'] ?? 0) ?> Bans</span>
+                    <span><?= bh_plugin_te($pk, 'backup.count_roles', ['n' => (int)($counts['roles'] ?? 0)]) ?></span>
+                    <span><?= bh_plugin_te($pk, 'backup.count_channels', ['n' => (int)($counts['channels'] ?? 0)]) ?></span>
+                    <span><?= bh_plugin_te($pk, 'backup.count_emojis', ['n' => (int)($counts['emojis'] ?? 0)]) ?></span>
+                    <span><?= bh_plugin_te($pk, 'backup.count_stickers', ['n' => (int)($counts['stickers'] ?? 0)]) ?></span>
+                    <span><?= bh_plugin_te($pk, 'backup.count_bans', ['n' => (int)($counts['bans'] ?? 0)]) ?></span>
                 </div>
             </div>
             <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;">
-                <button type="button" class="bh-btn bh-btn-primary" id="sbk-create-btn" onclick="sbkCreateNow()">🔄 Backup jetzt erstellen</button>
-                <a class="bh-btn bh-btn-ghost" href="/api/v1/plugins/server-backup?action=download&guild_id=<?= $e($guildId) ?>">⬇️ Download (JSON)</a>
-                <button type="button" class="bh-btn bh-btn-ghost" style="color:#f87171;" onclick="sbkDeleteBackup()">🗑️ Löschen</button>
+                <button type="button" class="bh-btn bh-btn-primary" id="sbk-create-btn" onclick="sbkCreateNow()"><?= bh_plugin_te($pk, 'backup.create_btn') ?></button>
+                <a class="bh-btn bh-btn-ghost" href="/api/v1/plugins/server-backup?action=download&guild_id=<?= $e($guildId) ?>"><?= bh_plugin_te($pk, 'backup.download_btn') ?></a>
+                <button type="button" class="bh-btn bh-btn-ghost" style="color:#f87171;" onclick="sbkDeleteBackup()"><?= bh_plugin_te($pk, 'backup.delete_btn') ?></button>
             </div>
         </div>
         <?php else: ?>
         <div style="padding:12px 0;color:var(--text-muted);font-size:13px;">
-            Noch kein Backup vorhanden. Erstelle eins direkt hier, per <code style="color:var(--accent-bright);">/backup create</code> auf dem Server,
-            oder aktiviere unten den Zeitplan. Beim Erstellen wird ein bestehendes Backup immer überschrieben.
+            <?= bh_plugin_t($pk, 'backup.empty_info') ?>
             <div style="margin-top:12px;">
-                <button type="button" class="bh-btn bh-btn-primary" id="sbk-create-btn" onclick="sbkCreateNow()">🔄 Backup jetzt erstellen</button>
+                <button type="button" class="bh-btn bh-btn-primary" id="sbk-create-btn" onclick="sbkCreateNow()"><?= bh_plugin_te($pk, 'backup.create_btn') ?></button>
             </div>
         </div>
         <?php endif; ?>
@@ -130,18 +139,14 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
 
 <!-- Backup hochladen / wiederherstellen -->
 <div class="bh-card" style="margin-bottom:16px;">
-    <div class="bh-card-header"><span class="bh-card-title">⬆️ Backup hochladen &amp; wiederherstellen</span></div>
+    <div class="bh-card-header"><span class="bh-card-title"><?= bh_plugin_te($pk, 'upload.title') ?></span></div>
     <div style="padding:16px 20px;">
         <p class="bh-text-muted bh-text-sm" style="margin-bottom:12px;">
-            Lädt eine zuvor heruntergeladene <code>backup-*.json</code> hoch und stellt exakt diesen Zustand auf
-            <strong><?= $e((string)($guilds[array_search($guildId, array_column($guilds, 'id'), true)]['name'] ?? '')) ?></strong> wieder her.
-            <br><strong style="color:#f87171;">Achtung, destruktiv:</strong> Rollen/Channels/Emojis/Sticker, die im Backup fehlen, werden auf diesem Server
-            <strong>gelöscht</strong>. Was im Backup vorhanden UND schon da ist (per Name erkannt), bleibt unangetastet — nur wirklich Fehlendes wird neu angelegt.
-            Bans werden nie automatisch entfernt (kein Auto-Unban).
+            <?= bh_plugin_t($pk, 'upload.info', ['guildName' => $e((string)($guilds[array_search($guildId, array_column($guilds, 'id'), true)]['name'] ?? ''))]) ?>
         </p>
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
             <input type="file" id="sbk-upload-file" accept=".json,application/json" class="bh-input" style="max-width:340px;">
-            <button type="button" class="bh-btn bh-btn-primary" id="sbk-upload-btn" onclick="sbkUploadBackup()">⬆️ Hochladen &amp; wiederherstellen</button>
+            <button type="button" class="bh-btn bh-btn-primary" id="sbk-upload-btn" onclick="sbkUploadBackup()"><?= bh_plugin_te($pk, 'upload.upload_btn') ?></button>
         </div>
         <div id="sbk-upload-result" style="margin-top:12px;font-size:12px;color:var(--text-secondary);white-space:pre-wrap;"></div>
     </div>
@@ -150,11 +155,10 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
 <?php if (!empty($transferTargets) && $backup): ?>
 <!-- Auf anderen Server übertragen -->
 <div class="bh-card" style="margin-bottom:16px;">
-    <div class="bh-card-header"><span class="bh-card-title">📤 Auf anderen Server übertragen</span></div>
+    <div class="bh-card-header"><span class="bh-card-title"><?= bh_plugin_te($pk, 'transfer.title') ?></span></div>
     <div style="padding:16px 20px;">
         <p class="bh-text-muted bh-text-sm" style="margin-bottom:12px;">
-            Überträgt das aktuelle Backup dieses Servers auf einen anderen Server, auf dem der Bot ebenfalls ist.
-            Auch hier gilt: additiv, keine bestehenden Daten werden gelöscht/überschrieben.
+            <?= bh_plugin_te($pk, 'transfer.info') ?>
         </p>
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
             <select id="sbk-transfer-target" class="bh-input" style="max-width:340px;">
@@ -162,7 +166,7 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
                 <option value="<?= $e((string)$g['id']) ?>"><?= $e((string)$g['name']) ?></option>
                 <?php endforeach; ?>
             </select>
-            <button type="button" class="bh-btn bh-btn-primary" id="sbk-transfer-btn" onclick="sbkTransferBackup()">📤 Übertragen</button>
+            <button type="button" class="bh-btn bh-btn-primary" id="sbk-transfer-btn" onclick="sbkTransferBackup()"><?= bh_plugin_te($pk, 'transfer.btn') ?></button>
         </div>
         <div id="sbk-transfer-result" style="margin-top:12px;font-size:12px;color:var(--text-secondary);white-space:pre-wrap;"></div>
     </div>
@@ -171,7 +175,7 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
 
 <!-- Include / Exclude -->
 <div class="bh-card" style="margin-bottom:16px;">
-    <div class="bh-card-header"><span class="bh-card-title">📦 Backup-Inhalt (Include / Exclude)</span></div>
+    <div class="bh-card-header"><span class="bh-card-title"><?= bh_plugin_te($pk, 'include.title') ?></span></div>
     <div style="padding:16px 20px;display:flex;flex-direction:column;gap:12px;">
         <?php foreach ($includeLabels as $key => $label): ?>
         <label style="display:flex;align-items:center;gap:12px;cursor:pointer;font-size:13px;color:var(--text-primary);">
@@ -179,21 +183,21 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
             <span><?= $label ?></span>
         </label>
         <?php endforeach; ?>
-        <small class="bh-hint">Gilt für alle zukünftigen Backups (Command und Zeitplan) dieses Servers.</small>
+        <small class="bh-hint"><?= bh_plugin_te($pk, 'include.hint') ?></small>
     </div>
 </div>
 
 <!-- Zeitplan -->
 <div class="bh-card" style="margin-bottom:16px;">
-    <div class="bh-card-header"><span class="bh-card-title">⏰ Automatisches Backup (Zeitplan)</span></div>
+    <div class="bh-card-header"><span class="bh-card-title"><?= bh_plugin_te($pk, 'schedule.title') ?></span></div>
     <div style="padding:16px 20px;">
         <label style="display:flex;align-items:center;gap:12px;cursor:pointer;font-size:13px;color:var(--text-primary);margin-bottom:16px;">
             <input type="checkbox" class="bh-checkbox" id="sbk-schedule-enabled" <?= $scheduleEnabled ? 'checked' : '' ?>>
-            <span>Zeitplan aktiv — das alte Backup wird bei jedem Lauf überschrieben</span>
+            <span><?= bh_plugin_te($pk, 'schedule.enabled_label') ?></span>
         </label>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;">
             <div>
-                <label class="bh-label">Wochentag</label>
+                <label class="bh-label"><?= bh_plugin_te($pk, 'schedule.weekday_label') ?></label>
                 <select id="sbk-schedule-day" class="bh-input">
                     <?php foreach ($dayNames as $val => $label): ?>
                     <option value="<?= $e((string)$val) ?>" <?= (string)$val === $scheduleDay ? 'selected' : '' ?>><?= $e($label) ?></option>
@@ -201,20 +205,20 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
                 </select>
             </div>
             <div>
-                <label class="bh-label">Uhrzeit</label>
+                <label class="bh-label"><?= bh_plugin_te($pk, 'schedule.time_label') ?></label>
                 <input type="time" id="sbk-schedule-time" class="bh-input" value="<?= $e($scheduleTime) ?>">
             </div>
             <div>
-                <label class="bh-label">Zeitzone</label>
+                <label class="bh-label"><?= bh_plugin_te($pk, 'schedule.timezone_label') ?></label>
                 <input type="text" id="sbk-timezone" class="bh-input" value="<?= $e($timezone) ?>" placeholder="Europe/Berlin">
             </div>
         </div>
-        <small class="bh-hint" style="display:block;margin-top:10px;">Beispiel: Montag, 09:00, Europe/Berlin = jeden Montag um 9 Uhr.</small>
+        <small class="bh-hint" style="display:block;margin-top:10px;"><?= bh_plugin_te($pk, 'schedule.hint') ?></small>
     </div>
 </div>
 
 <div style="display:flex;justify-content:flex-end;margin-bottom:24px;">
-    <button type="button" class="bh-btn bh-btn-primary" id="sbk-save-btn" onclick="sbkSave()">Einstellungen speichern</button>
+    <button type="button" class="bh-btn bh-btn-primary" id="sbk-save-btn" onclick="sbkSave()"><?= bh_plugin_te($pk, 'save_btn') ?></button>
 </div>
 
 <?php endif; ?>
@@ -222,6 +226,36 @@ $transferTargets = array_values(array_filter($guilds, fn($g) => (string)$g['id']
 <script>
 var SBK_CSRF = <?= json_encode($csrf) ?>;
 var SBK_GUILD = <?= json_encode($guildId) ?>;
+var SBK_I18N = {
+    deleteConfirm: <?= json_encode(bh_plugin_t($pk, 'js.delete_confirm')) ?>,
+    selectFileFirst: <?= json_encode(bh_plugin_t($pk, 'js.select_file_first')) ?>,
+    restoreConfirm: <?= json_encode(bh_plugin_t($pk, 'js.restore_confirm')) ?>,
+    applying: <?= json_encode(bh_plugin_t($pk, 'js.applying')) ?>,
+    appliedPrefix: <?= json_encode(bh_plugin_t($pk, 'js.applied_prefix')) ?>,
+    errorPrefixX: <?= json_encode(bh_plugin_t($pk, 'js.error_prefix_x')) ?>,
+    networkErrorX: <?= json_encode(bh_plugin_t($pk, 'js.network_error_x')) ?>,
+    transferConfirm: <?= json_encode(bh_plugin_t($pk, 'js.transfer_confirm')) ?>,
+    transferring: <?= json_encode(bh_plugin_t($pk, 'js.transferring')) ?>,
+    transferredPrefix: <?= json_encode(bh_plugin_t($pk, 'js.transferred_prefix')) ?>,
+    settingsSaved: <?= json_encode(bh_plugin_t($pk, 'js.settings_saved')) ?>,
+    errorPrefix: <?= json_encode(bh_plugin_t($pk, 'js.error_prefix')) ?>,
+    unknown: <?= json_encode(__('common.unknown')) ?>,
+    creating: <?= json_encode(bh_plugin_t($pk, 'js.creating')) ?>,
+    resultSettingsLabel: <?= json_encode(bh_plugin_t($pk, 'js.result_settings_label')) ?>,
+    resultApplied: <?= json_encode(bh_plugin_t($pk, 'js.result_applied')) ?>,
+    resultNotApplied: <?= json_encode(bh_plugin_t($pk, 'js.result_not_applied')) ?>,
+    resultLabels: {
+        roles: <?= json_encode(bh_plugin_t($pk, 'js.result_roles')) ?>,
+        channels: <?= json_encode(bh_plugin_t($pk, 'js.result_channels')) ?>,
+        emojis: <?= json_encode(bh_plugin_t($pk, 'js.result_emojis')) ?>,
+        stickers: <?= json_encode(bh_plugin_t($pk, 'js.result_stickers')) ?>,
+        bans: <?= json_encode(bh_plugin_t($pk, 'js.result_bans')) ?>
+    },
+    suffixCreated: <?= json_encode(bh_plugin_t($pk, 'js.suffix_created')) ?>,
+    suffixMatched: <?= json_encode(bh_plugin_t($pk, 'js.suffix_matched')) ?>,
+    suffixDeleted: <?= json_encode(bh_plugin_t($pk, 'js.suffix_deleted')) ?>,
+    suffixFailed: <?= json_encode(bh_plugin_t($pk, 'js.suffix_failed')) ?>
+};
 
 function sbkSwitchGuild(gid) {
     var url = new URL(location.href);
@@ -246,15 +280,15 @@ function sbkFlash(ok, msg) {
 function sbkFormatResult(result) {
     if (!result) return '';
     var lines = [];
-    if (result.settings) lines.push('Einstellungen: ' + (result.settings.applied ? '✓ übernommen' : ('✗ ' + (result.settings.error || 'nicht übernommen'))));
+    if (result.settings) lines.push(SBK_I18N.resultSettingsLabel + ': ' + (result.settings.applied ? SBK_I18N.resultApplied : ('✗ ' + (result.settings.error || SBK_I18N.resultNotApplied))));
     ['roles', 'channels', 'emojis', 'stickers', 'bans'].forEach(function (key) {
-        var labels = { roles: 'Rollen', channels: 'Channels', emojis: 'Emojis', stickers: 'Sticker', bans: 'Bans' };
+        var labels = SBK_I18N.resultLabels;
         var r = result[key];
         if (!r) return;
-        var parts = [r.created + ' erstellt'];
-        if (r.matched)      parts.push(r.matched + ' schon vorhanden');
-        if (r.deleted)      parts.push(r.deleted + ' gelöscht');
-        if (r.failed)       parts.push(r.failed + ' fehlgeschlagen');
+        var parts = [r.created + ' ' + SBK_I18N.suffixCreated];
+        if (r.matched)      parts.push(r.matched + ' ' + SBK_I18N.suffixMatched);
+        if (r.deleted)      parts.push(r.deleted + ' ' + SBK_I18N.suffixDeleted);
+        if (r.failed)       parts.push(r.failed + ' ' + SBK_I18N.suffixFailed);
         lines.push(labels[key] + ': ' + parts.join(', '));
         (r.errors || []).forEach(function (err) { lines.push('  ⚠ ' + err); });
     });
@@ -283,9 +317,9 @@ async function sbkSave() {
             })
         });
         var json = await res.json();
-        sbkFlash(json.ok, json.ok ? '✓ Einstellungen gespeichert' : ('Fehler: ' + (json.error || 'unbekannt')));
+        sbkFlash(json.ok, json.ok ? SBK_I18N.settingsSaved : (SBK_I18N.errorPrefix + (json.error || SBK_I18N.unknown)));
     } catch (e) {
-        sbkFlash(false, 'Netzwerkfehler');
+        sbkFlash(false, SBK_I18N.networkErrorX.replace('✗ ', ''));
     }
     btn.disabled = false;
 }
@@ -295,7 +329,7 @@ async function sbkCreateNow() {
     var btn = document.getElementById('sbk-create-btn');
     var originalText = btn.textContent;
     btn.disabled = true;
-    btn.textContent = '⏳ Erstelle Backup…';
+    btn.textContent = SBK_I18N.creating;
     try {
         var res = await fetch('/api/v1/plugins/server-backup', {
             method: 'POST',
@@ -306,12 +340,12 @@ async function sbkCreateNow() {
         if (json.ok) {
             location.reload();
         } else {
-            sbkFlash(false, 'Fehler: ' + (json.error || 'unbekannt'));
+            sbkFlash(false, SBK_I18N.errorPrefix + (json.error || SBK_I18N.unknown));
             btn.disabled = false;
             btn.textContent = originalText;
         }
     } catch (e) {
-        sbkFlash(false, 'Netzwerkfehler');
+        sbkFlash(false, SBK_I18N.networkErrorX.replace('✗ ', ''));
         btn.disabled = false;
         btn.textContent = originalText;
     }
@@ -319,7 +353,7 @@ async function sbkCreateNow() {
 
 async function sbkDeleteBackup() {
     if (!SBK_GUILD) return;
-    if (!confirm('Backup für diesen Server wirklich löschen?')) return;
+    if (!confirm(SBK_I18N.deleteConfirm)) return;
     try {
         var res = await fetch('/api/v1/plugins/server-backup', {
             method: 'POST',
@@ -328,9 +362,9 @@ async function sbkDeleteBackup() {
         });
         var json = await res.json();
         if (json.ok) location.reload();
-        else sbkFlash(false, 'Fehler: ' + (json.error || 'unbekannt'));
+        else sbkFlash(false, SBK_I18N.errorPrefix + (json.error || SBK_I18N.unknown));
     } catch (e) {
-        sbkFlash(false, 'Netzwerkfehler');
+        sbkFlash(false, SBK_I18N.networkErrorX.replace('✗ ', ''));
     }
 }
 
@@ -338,12 +372,12 @@ async function sbkUploadBackup() {
     if (!SBK_GUILD) return;
     var fileInput = document.getElementById('sbk-upload-file');
     var resultBox = document.getElementById('sbk-upload-result');
-    if (!fileInput.files.length) { sbkFlash(false, 'Bitte zuerst eine backup-*.json Datei auswählen.'); return; }
-    if (!confirm('Backup auf diesen Server wiederherstellen?\n\nACHTUNG: Rollen/Channels/Emojis/Sticker, die NICHT im Backup sind, werden GELÖSCHT. Das kann nicht rückgängig gemacht werden. Bans werden nie automatisch entfernt.')) return;
+    if (!fileInput.files.length) { sbkFlash(false, SBK_I18N.selectFileFirst); return; }
+    if (!confirm(SBK_I18N.restoreConfirm)) return;
 
     var btn = document.getElementById('sbk-upload-btn');
     btn.disabled = true;
-    resultBox.textContent = '⏳ Wende Backup an — kann bei großen Servern mehrere Minuten dauern…';
+    resultBox.textContent = SBK_I18N.applying;
 
     try {
         var form = new FormData();
@@ -354,12 +388,12 @@ async function sbkUploadBackup() {
         var res = await fetch('/api/v1/plugins/server-backup', { method: 'POST', body: form });
         var json = await res.json();
         if (json.ok) {
-            resultBox.textContent = '✓ Backup angewendet.\n' + sbkFormatResult(json.result);
+            resultBox.textContent = SBK_I18N.appliedPrefix + sbkFormatResult(json.result);
         } else {
-            resultBox.textContent = '✗ Fehler: ' + (json.error || 'unbekannt');
+            resultBox.textContent = SBK_I18N.errorPrefixX + (json.error || SBK_I18N.unknown);
         }
     } catch (e) {
-        resultBox.textContent = '✗ Netzwerkfehler';
+        resultBox.textContent = SBK_I18N.networkErrorX;
     }
     btn.disabled = false;
 }
@@ -371,11 +405,11 @@ async function sbkTransferBackup() {
     var target = targetSelect.value;
     if (!target) return;
     var targetName = targetSelect.options[targetSelect.selectedIndex].textContent;
-    if (!confirm('Backup dieses Servers auf "' + targetName + '" übertragen? Rollen/Channels/Emojis/Sticker/Bans werden dort neu erstellt (bestehende bleiben unangetastet, Duplikate möglich).')) return;
+    if (!confirm(SBK_I18N.transferConfirm.replace('{target}', targetName))) return;
 
     var btn = document.getElementById('sbk-transfer-btn');
     btn.disabled = true;
-    resultBox.textContent = '⏳ Übertrage — kann bei großen Servern mehrere Minuten dauern…';
+    resultBox.textContent = SBK_I18N.transferring;
 
     try {
         var res = await fetch('/api/v1/plugins/server-backup', {
@@ -385,12 +419,12 @@ async function sbkTransferBackup() {
         });
         var json = await res.json();
         if (json.ok) {
-            resultBox.textContent = '✓ Übertragen.\n' + sbkFormatResult(json.result);
+            resultBox.textContent = SBK_I18N.transferredPrefix + sbkFormatResult(json.result);
         } else {
-            resultBox.textContent = '✗ Fehler: ' + (json.error || 'unbekannt');
+            resultBox.textContent = SBK_I18N.errorPrefixX + (json.error || SBK_I18N.unknown);
         }
     } catch (e) {
-        resultBox.textContent = '✗ Netzwerkfehler';
+        resultBox.textContent = SBK_I18N.networkErrorX;
     }
     btn.disabled = false;
 }

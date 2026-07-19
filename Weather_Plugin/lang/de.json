@@ -1,4 +1,11 @@
 {
   "weather.label": "Wetter",
-  "weather.desc": "Zeigt das aktuelle Wetter für einen Ort an. Ort ist optional wenn Standard-Ort gesetzt."
+  "weather.desc": "Zeigt das aktuelle Wetter für einen Ort an. Ort ist optional wenn Standard-Ort gesetzt.",
+  "config.perm_send_messages": "Nachrichten senden",
+  "config.perm_mention_everyone": "Alle erwähnen",
+  "config.api_key_label": "API-Key (openweathermap.org)",
+  "config.units_label": "Einheit",
+  "config.unit_metric": "°C — Metrisch",
+  "config.unit_imperial": "°F — Imperial",
+  "config.default_location_label": "Standard-Ort"
 }

@@ -1,4 +1,24 @@
 {
   "emoji_menu.label": "Меню эмодзи",
-  "emoji_menu.desc": "Открывает меню выбора эмодзи (видно только вам)"
+  "emoji_menu.desc": "Открывает меню выбора эмодзи (видно только вам)",
+  "upload.title": "Загрузить эмодзи",
+  "upload.name_label": "Имя (отображается в меню)",
+  "upload.name_placeholder": "например, pogchamp",
+  "upload.file_label": "Изображение ({ext} — макс. {max} МБ)",
+  "upload.submit_btn": "Загрузить",
+  "upload.error_server_limit": "Файл слишком большой — превышен лимит сервера ({limit}).",
+  "upload.error_invalid_name": "Недопустимое имя (только a-z, 0-9, _, - · макс. 32 символа).",
+  "upload.error_upload_failed": "Не удалось загрузить файл.",
+  "upload.error_ext_not_allowed": "Разрешены только {ext}.",
+  "upload.error_too_large": "Файл слишком большой (макс. {max} МБ).",
+  "upload.error_name_exists": "Эмодзи с именем \"{name}\" уже существует.",
+  "upload.error_save_failed": "Не удалось сохранить файл.",
+  "upload.success_uploaded": "Эмодзи \"{name}\" загружен.",
+  "upload.success_deleted": "Эмодзи удалён.",
+  "upload.list_title": "Эмодзи ({count})",
+  "upload.list_hint": "макс. 25 видимых в меню",
+  "upload.list_empty": "Эмодзи ещё не загружены.",
+  "upload.use_count": "отправлен {count}×",
+  "upload.uploaded_by": "от {user}",
+  "upload.delete_confirm": "Действительно удалить эмодзи \"{name}\"?"
 }

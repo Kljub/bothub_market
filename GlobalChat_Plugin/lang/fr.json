@@ -3,5 +3,13 @@
   "link.desc": "Lier un salon au chat inter-serveurs",
   "unlink.label": "Délier Global Chat",
   "unlink.desc": "Supprimer la liaison",
-  "commands_heading": "Commandes Global Chat ({n})"
+  "commands_heading": "Commandes Global Chat ({n})",
+  "config.unlink_saved": "Liaison supprimée.",
+  "config.linked_title": "🌐 Global Chat — Serveurs liés ({count})",
+  "config.link_hint": "Les serveurs lient un salon via {cmd} sur Discord (nécessite la permission \"{perm}\"). Les messages d'un salon lié sont relayés vers tous les autres salons liés de ce bot. Toute personne mentionnée dans le texte avec {mention} reçoit en plus un MP (les vraies mentions Discord ne notifient pas entre serveurs).",
+  "config.no_links": "Aucun serveur n'a encore lié de salon.",
+  "config.guild_to_channel": "Serveur {guild} → salon {channel}",
+  "config.disabled_badge": "Désactivé",
+  "config.confirm_unlink": "Vraiment supprimer la liaison pour le serveur {guild} ?",
+  "config.unlink_btn": "🗑️ Supprimer"
 }

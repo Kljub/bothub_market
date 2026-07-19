@@ -8,6 +8,8 @@ $db    = bh_db();
 $csrf  = (string)($_SESSION['csrf_token'] ?? '');
 $e     = fn(string $v): string => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
+$pk = 'criminal-plugin';
+
 $currencies = [];
 if ($botId > 0) {
     try {
@@ -34,33 +36,33 @@ $allowed       = $settings && $settings['allowed_currencies'] ? (json_decode((st
 
 <div class="bh-card bh-card-lg" style="margin-bottom:20px;">
     <div class="bh-card-header">
-        <h2>🕵️ Criminal — /steal Einstellungen</h2>
+        <h2><?= bh_plugin_te($pk, 'config.heading') ?></h2>
     </div>
     <?php if (empty($currencies)): ?>
     <div style="padding:24px;color:var(--text-muted);font-size:13px;">
-        Noch keine Currency eingerichtet. Lege zuerst unter <strong>Economy</strong> eine Currency an.
+        <?= bh_plugin_t($pk, 'config.no_currency') ?>
     </div>
     <?php else: ?>
     <div style="padding:20px;display:flex;flex-direction:column;gap:18px;">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
             <div class="bh-form-group" style="margin:0;">
-                <label class="bh-label">Erfolgschance % (1-99)</label>
+                <label class="bh-label"><?= bh_plugin_te($pk, 'config.success_chance_label') ?></label>
                 <input type="number" class="bh-input" id="cr-success" min="1" max="99" step="1" value="<?= $e((string)$successChance) ?>">
-                <small class="bh-hint">Wahrscheinlichkeit, dass /steal gelingt.</small>
+                <small class="bh-hint"><?= bh_plugin_te($pk, 'config.success_chance_hint') ?></small>
             </div>
             <div class="bh-form-group" style="margin:0;">
-                <label class="bh-label">Beute % (vom Opfer-Guthaben)</label>
+                <label class="bh-label"><?= bh_plugin_te($pk, 'config.steal_percent_label') ?></label>
                 <input type="number" class="bh-input" id="cr-steal" min="1" max="100" step="1" value="<?= $e((string)$stealPercent) ?>">
-                <small class="bh-hint">Wie viel Prozent des Opfer-Guthabens bei Erfolg gestohlen wird.</small>
+                <small class="bh-hint"><?= bh_plugin_te($pk, 'config.steal_percent_hint') ?></small>
             </div>
             <div class="bh-form-group" style="margin:0;">
-                <label class="bh-label">Strafe % (vom eigenen Guthaben)</label>
+                <label class="bh-label"><?= bh_plugin_te($pk, 'config.fail_penalty_label') ?></label>
                 <input type="number" class="bh-input" id="cr-penalty" min="0" max="100" step="1" value="<?= $e((string)$failPenalty) ?>">
-                <small class="bh-hint">Wie viel Prozent des eigenen Guthabens bei Fehlschlag verloren geht.</small>
+                <small class="bh-hint"><?= bh_plugin_te($pk, 'config.fail_penalty_hint') ?></small>
             </div>
         </div>
         <div>
-            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Erlaubte Currencies (keine Auswahl = alle erlaubt)</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;"><?= bh_plugin_te($pk, 'config.allowed_currencies_hint') ?></div>
             <div style="display:flex;flex-wrap:wrap;gap:12px;">
                 <?php foreach ($currencies as $c): ?>
                 <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;">
@@ -72,7 +74,7 @@ $allowed       = $settings && $settings['allowed_currencies'] ? (json_decode((st
             </div>
         </div>
         <div style="display:flex;justify-content:flex-end;">
-            <button type="button" class="bh-btn bh-btn-primary" id="cr-save-btn">Speichern</button>
+            <button type="button" class="bh-btn bh-btn-primary" id="cr-save-btn"><?= __e('common.save') ?></button>
         </div>
         <div id="cr-save-msg" style="font-size:12px;"></div>
     </div>
@@ -83,13 +85,19 @@ $allowed       = $settings && $settings['allowed_currencies'] ? (json_decode((st
 (function () {
     'use strict';
     var CSRF = <?= json_encode($csrf) ?>;
+    var I18N = {
+        saving: <?= json_encode(bh_plugin_t($pk, 'config.saving')) ?>,
+        saved: <?= json_encode(__('common.saved')) ?>,
+        error: <?= json_encode(__('common.error')) ?>,
+        networkError: <?= json_encode(__('common.network_error')) ?>
+    };
 
     document.getElementById('cr-save-btn')?.addEventListener('click', async function () {
         var msg = document.getElementById('cr-save-msg');
         var currencies = [];
         document.querySelectorAll('.cr-currency:checked').forEach(function (cb) { currencies.push(cb.value); });
 
-        msg.textContent = 'Speichert…';
+        msg.textContent = I18N.saving;
         msg.style.color = 'var(--text-muted)';
         try {
             var res = await fetch('/api/v1/plugins/criminal', {
@@ -105,11 +113,11 @@ $allowed       = $settings && $settings['allowed_currencies'] ? (json_decode((st
                 })
             });
             var d = await res.json();
-            if (d.ok) { msg.style.color = '#4ade80'; msg.textContent = '✓ Gespeichert'; }
-            else { msg.style.color = '#ef4444'; msg.textContent = d.error || 'Fehler'; }
+            if (d.ok) { msg.style.color = '#4ade80'; msg.textContent = '✓ ' + I18N.saved; }
+            else { msg.style.color = '#ef4444'; msg.textContent = d.error || I18N.error; }
         } catch (e) {
             msg.style.color = '#ef4444';
-            msg.textContent = 'Netzwerkfehler';
+            msg.textContent = I18N.networkError;
         }
     });
 }());

@@ -1,5 +1,13 @@
 {
   "minesweeper.label": "Buscaminas",
   "minesweeper.desc": "Iniciar una apuesta de campo minado — el botón 🔥 cobra las ganancias",
-  "commands_heading": "Comandos de Buscaminas ({n})"
+  "commands_heading": "Comandos de Buscaminas ({n})",
+  "config.heading": "💣 Buscaminas — Ajustes",
+  "config.no_currency": "Aún no hay ninguna moneda configurada. Primero crea una moneda en <strong>Economy</strong>.",
+  "config.intro": "Cuadrícula 5x5 (máximo de Discord: 5 filas × 5 botones). El usuario elige la cantidad de minas (1-24) al iniciar — el multiplicador justo aumenta automáticamente con más minas. El RTP de abajo escala este valor justo (= ventaja de la casa), igual que en los juegos de casino. Sin cambios = valor predeterminado justo (97%).",
+  "config.rtp_label": "RTP % (10-100)",
+  "config.min_bet_label": "Apuesta mín.",
+  "config.max_bet_label": "Apuesta máx.",
+  "config.allowed_currencies_label": "Monedas permitidas (sin selección = todas permitidas)",
+  "config.saving": "Guardando…"
 }

@@ -1,5 +1,13 @@
 {
   "minesweeper.label": "Démineur",
   "minesweeper.desc": "Démarrer un pari de champ de mines — le bouton 🔥 encaisse le gain",
-  "commands_heading": "Commandes Démineur ({n})"
+  "commands_heading": "Commandes Démineur ({n})",
+  "config.heading": "💣 Démineur — Paramètres",
+  "config.no_currency": "Aucune devise configurée pour le moment. Crée d'abord une devise sous <strong>Economy</strong>.",
+  "config.intro": "Grille 5x5 (maximum Discord : 5 rangées × 5 boutons). L'utilisateur choisit le nombre de mines (1-24) au départ — le multiplicateur équitable augmente automatiquement avec plus de mines. Le RTP ci-dessous ajuste cette valeur équitable (= avantage de la maison), comme pour les jeux de casino. Inchangé = valeur par défaut équitable (97 %).",
+  "config.rtp_label": "RTP % (10-100)",
+  "config.min_bet_label": "Mise min.",
+  "config.max_bet_label": "Mise max.",
+  "config.allowed_currencies_label": "Devises autorisées (aucune sélection = toutes autorisées)",
+  "config.saving": "Enregistrement…"
 }

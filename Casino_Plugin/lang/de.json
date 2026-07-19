@@ -9,5 +9,21 @@
   "roulette.desc": "Europäisches Roulette",
   "blackjack.label": "BlackJack",
   "blackjack.desc": "Gegen den Dealer",
-  "commands_heading": "Casino-Commands ({n})"
+  "commands_heading": "Casino-Commands ({n})",
+  "games.title": "🎰 Casino — Spiele-Einstellungen",
+  "games.no_currency": "Noch keine Currency eingerichtet. Lege zuerst unter <strong>Economy</strong> eine Currency an, bevor Casino-Spiele Wetten annehmen können.",
+  "games.coinflip.desc": "Kopf oder Zahl, 2x fairer Multiplikator",
+  "games.dice.desc": "Zahl 1-6 raten, 6x fairer Multiplikator",
+  "games.slots.desc": "3 Walzen, gewichtete Symbol-Paytable",
+  "games.roulette.desc": "Europäisch (0-36), Zahl oder Farbe/Bereich",
+  "games.blackjack.desc": "Gegen den Dealer, faires Kartendeck (RTP wirkt nur auf den Auszahlungs-Multiplikator)",
+  "games.rtp_label": "RTP % (10-100)",
+  "games.min_bet_label": "Min. Einsatz",
+  "games.max_bet_label": "Max. Einsatz",
+  "games.allowed_currencies_hint": "Erlaubte Currencies (keine Auswahl = alle erlaubt)",
+  "games.save_btn": "Alle Spiele speichern",
+  "games.saving": "Speichert…",
+  "games.saved": "✓ Gespeichert",
+  "games.error": "Fehler",
+  "games.network_error": "Netzwerkfehler"
 }

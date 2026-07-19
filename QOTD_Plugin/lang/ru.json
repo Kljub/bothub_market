@@ -1,5 +1,25 @@
 {
   "qotd.label": "QOTD",
   "qotd.desc": "Показать случайный факт дня (1 раз в день)",
-  "commands_heading": "Команды QOTD ({n})"
+  "commands_heading": "Команды QOTD ({n})",
+  "config.heading": "💡 QOTD — Банк фактов ({n})",
+  "config.new_text_placeholder": "Новый текст факта… (например, с {PLUGIN_COUNT})",
+  "config.insert_var_title": "Вставить переменную",
+  "config.add_btn": "+ Добавить",
+  "config.available_vars_hint": "Доступные переменные: <code>{PLUGIN_COUNT}</code> <code>{ENABLED_PLUGIN_COUNT}</code> <code>{STORE_PLUGIN_COUNT}</code> <code>{BOT_COUNT}</code> <code>{COMMAND_COUNT}</code> <code>{OLDEST_PLUGIN}</code>",
+  "config.no_facts": "Факты ещё не настроены. Без фактов <code>/qotd</code> не выдаёт результатов.",
+  "config.confirm_delete": "Действительно удалить этот факт?",
+  "config.var_category": "Статистика QOTD",
+  "config.vars.plugin_count.name": "Количество плагинов",
+  "config.vars.plugin_count.desc": "Количество всех установленных плагинов",
+  "config.vars.enabled_plugin_count.name": "Активные плагины",
+  "config.vars.enabled_plugin_count.desc": "Количество включённых (status=active) плагинов",
+  "config.vars.store_plugin_count.name": "Плагины в магазине",
+  "config.vars.store_plugin_count.desc": "Количество плагинов, указанных в магазине плагинов",
+  "config.vars.bot_count.name": "Количество ботов",
+  "config.vars.bot_count.desc": "Количество всех ботов на этом экземпляре BotHub",
+  "config.vars.command_count.name": "Количество команд",
+  "config.vars.command_count.desc": "Количество доступных команд/модулей на этом боте",
+  "config.vars.oldest_plugin.name": "Старейший плагин",
+  "config.vars.oldest_plugin.desc": "Имя плагина, установленного дольше всех"
 }

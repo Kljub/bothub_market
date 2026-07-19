@@ -1,5 +1,15 @@
 {
   "steal.label": "Voler",
   "steal.desc": "Voler le solde d'un autre utilisateur",
-  "commands_heading": "Commandes Criminal ({n})"
+  "commands_heading": "Commandes Criminal ({n})",
+  "config.heading": "🕵️ Criminal — Paramètres de /steal",
+  "config.no_currency": "Aucune currency configurée pour l'instant. Crée-en d'abord une dans <strong>Economy</strong>.",
+  "config.success_chance_label": "Chance de réussite % (1-99)",
+  "config.success_chance_hint": "Probabilité que /steal réussisse.",
+  "config.steal_percent_label": "Butin % (du solde de la victime)",
+  "config.steal_percent_hint": "Pourcentage du solde de la victime volé en cas de réussite.",
+  "config.fail_penalty_label": "Pénalité % (de votre propre solde)",
+  "config.fail_penalty_hint": "Pourcentage de votre propre solde perdu en cas d'échec.",
+  "config.allowed_currencies_hint": "Currencies autorisées (aucune sélection = toutes autorisées)",
+  "config.saving": "Enregistrement…"
 }

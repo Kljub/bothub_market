@@ -1,4 +1,11 @@
 {
   "weather.label": "Clima",
-  "weather.desc": "Muestra el clima actual de un lugar. El lugar es opcional si hay uno predeterminado."
+  "weather.desc": "Muestra el clima actual de un lugar. El lugar es opcional si hay uno predeterminado.",
+  "config.perm_send_messages": "Enviar mensajes",
+  "config.perm_mention_everyone": "Mencionar a todos",
+  "config.api_key_label": "Clave API (openweathermap.org)",
+  "config.units_label": "Unidad",
+  "config.unit_metric": "°C — Métrico",
+  "config.unit_imperial": "°F — Imperial",
+  "config.default_location_label": "Lugar predeterminado"
 }

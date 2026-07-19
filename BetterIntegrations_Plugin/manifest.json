@@ -1,7 +1,7 @@
 {
     "name": "BetterIntegrations",
     "key": "betterintegrations-plugin",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "sdk": "1.0",
     "type": "dashboard",
     "dashboardEntry": "dashboard.php",
@@ -34,6 +34,11 @@
     "requestedProfile": "verified",
     "requestedGroup": "utility",
     "changelog": [
+        {
+            "version": "2.0.0",
+            "date": "2026-07-19",
+            "notes": "Sprachpaket hinzugefügt: Dashboard-Texte jetzt in Deutsch, Englisch, Spanisch, Französisch und Russisch verfügbar (folgt der User-Spracheinstellung)."
+        },
         {
             "version": "1.0.0",
             "date": "2026-07-18",

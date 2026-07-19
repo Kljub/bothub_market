@@ -1,7 +1,7 @@
 {
     "name": "Casino",
     "key": "casino-plugin",
-    "version": "4.0.0",
+    "version": "5.0.0",
     "sdk": "1.0",
     "type": "hybrid",
     "entry": "index.js",
@@ -50,6 +50,11 @@
     "requestedProfile": "verified",
     "requestedGroup": "utility",
     "changelog": [
+        {
+            "version": "5.0.0",
+            "date": "2026-07-19",
+            "notes": "Sprachpaket erweitert: jetzt auch alle Einstellungsseiten (nicht nur Commands) in Deutsch, Englisch, Spanisch, Französisch und Russisch verfügbar."
+        },
         {
             "version": "4.0.0",
             "date": "2026-07-19",

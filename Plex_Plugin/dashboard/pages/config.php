@@ -111,75 +111,75 @@ $discordPerms = [
 
 <!-- ── Plex-Server + Overseerr ──────────────────────────────────────────── -->
 <div class="bh-card bh-card-flush" style="margin-bottom:20px;">
-    <div class="bh-card-title">Plex-Server</div>
+    <div class="bh-card-title"><?= bh_plugin_te($pk, 'config.section_plex_server') ?></div>
     <div class="bh-card-content" style="display:flex;flex-direction:column;gap:16px;">
         <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
-            <div style="flex:1;min-width:160px;"><div class="bh-label">Server-URL</div>
-                <div class="bh-hint" style="margin-top:3px;">z.B. http://192.168.1.10:32400</div></div>
+            <div style="flex:1;min-width:160px;"><div class="bh-label"><?= bh_plugin_te($pk, 'config.server_url_label') ?></div>
+                <div class="bh-hint" style="margin-top:3px;"><?= bh_plugin_te($pk, 'config.server_url_hint') ?></div></div>
             <div style="flex:2;min-width:220px;">
                 <input type="text" id="plex-server-url" class="bh-input" style="width:100%;"
                        value="<?= $esc($serverUrl) ?>" placeholder="http://plex-server:32400">
             </div>
         </div>
         <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
-            <div style="flex:1;min-width:160px;"><div class="bh-label">Admin-Token</div>
-                <div class="bh-hint" id="plex-admin-token-hint" style="margin-top:3px;"><?= $hasAdminToken ? 'Bereits gesetzt — leer lassen um beizubehalten.' : 'Noch nicht gesetzt.' ?></div></div>
+            <div style="flex:1;min-width:160px;"><div class="bh-label"><?= bh_plugin_te($pk, 'config.admin_token_label') ?></div>
+                <div class="bh-hint" id="plex-admin-token-hint" style="margin-top:3px;"><?= $hasAdminToken ? bh_plugin_te($pk, 'config.already_set_hint') : bh_plugin_te($pk, 'config.not_set_hint') ?></div></div>
             <div style="flex:2;min-width:220px;display:flex;gap:8px;">
                 <input type="password" id="plex-admin-token" class="bh-input" style="flex:1;font-family:monospace;"
-                       placeholder="<?= $hasAdminToken ? '••••••••' : 'X-Plex-Token' ?>" autocomplete="off" spellcheck="false">
+                       placeholder="<?= $hasAdminToken ? '••••••••' : $esc(bh_plugin_t($pk, 'config.admin_token_placeholder')) ?>" autocomplete="off" spellcheck="false">
                 <button type="button" class="bh-btn bh-btn-ghost plex-eye-btn" data-target="plex-admin-token" style="padding:6px 10px;">👁</button>
-                <button type="button" id="plex-oauth-btn" class="bh-btn bh-btn-ghost" style="padding:6px 12px;white-space:nowrap;">🔑 Mit Plex.tv verbinden</button>
+                <button type="button" id="plex-oauth-btn" class="bh-btn bh-btn-ghost" style="padding:6px 12px;white-space:nowrap;"><?= bh_plugin_te($pk, 'config.connect_plex_tv_btn') ?></button>
             </div>
         </div>
         <?php if ($hasAdminToken): ?>
         <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
-            <div style="flex:1;min-width:160px;"><div class="bh-label">Server-Erkennung</div>
-                <div class="bh-hint" style="margin-top:3px;">Statt IP von Hand: Server über Plex.tv finden — auch über die Standard-Domain per Relay erreichbar, wenn keine lokale Verbindung möglich ist.</div></div>
+            <div style="flex:1;min-width:160px;"><div class="bh-label"><?= bh_plugin_te($pk, 'config.server_discovery_label') ?></div>
+                <div class="bh-hint" style="margin-top:3px;"><?= bh_plugin_te($pk, 'config.server_discovery_hint') ?></div></div>
             <div style="flex:2;min-width:220px;">
-                <button type="button" id="plex-find-servers-btn" class="bh-btn bh-btn-ghost" style="margin-bottom:8px;">🔍 Verfügbare Server laden</button>
+                <button type="button" id="plex-find-servers-btn" class="bh-btn bh-btn-ghost" style="margin-bottom:8px;"><?= bh_plugin_te($pk, 'config.find_servers_btn') ?></button>
                 <select id="plex-server-select" class="bh-input" style="width:100%;display:none;"></select>
             </div>
         </div>
         <?php endif; ?>
         <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
-            <div style="flex:1;min-width:160px;"><div class="bh-label">Overseerr-URL</div></div>
+            <div style="flex:1;min-width:160px;"><div class="bh-label"><?= bh_plugin_te($pk, 'config.overseerr_url_label') ?></div></div>
             <div style="flex:2;min-width:220px;">
                 <input type="text" id="plex-overseerr-url" class="bh-input" style="width:100%;"
-                       value="<?= $esc($overseerrUrl) ?>" placeholder="http://overseerr:5055 (optional)">
+                       value="<?= $esc($overseerrUrl) ?>" placeholder="<?= $esc(bh_plugin_t($pk, 'config.overseerr_url_placeholder')) ?>">
             </div>
         </div>
         <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
-            <div style="flex:1;min-width:160px;"><div class="bh-label">Overseerr-API-Key</div>
-                <div class="bh-hint" style="margin-top:3px;"><?= $hasOverseerrKey ? 'Bereits gesetzt — leer lassen um beizubehalten.' : 'Optional, für /plex-request.' ?></div></div>
+            <div style="flex:1;min-width:160px;"><div class="bh-label"><?= bh_plugin_te($pk, 'config.overseerr_api_key_label') ?></div>
+                <div class="bh-hint" style="margin-top:3px;"><?= $hasOverseerrKey ? bh_plugin_te($pk, 'config.already_set_hint') : bh_plugin_te($pk, 'config.overseerr_api_key_hint') ?></div></div>
             <div style="flex:2;min-width:220px;display:flex;gap:8px;">
                 <input type="password" id="plex-overseerr-key" class="bh-input" style="flex:1;font-family:monospace;"
-                       placeholder="<?= $hasOverseerrKey ? '••••••••' : 'API-Key' ?>" autocomplete="off" spellcheck="false">
+                       placeholder="<?= $hasOverseerrKey ? '••••••••' : $esc(bh_plugin_t($pk, 'config.api_key_placeholder')) ?>" autocomplete="off" spellcheck="false">
                 <button type="button" class="bh-btn bh-btn-ghost plex-eye-btn" data-target="plex-overseerr-key" style="padding:6px 10px;">👁</button>
             </div>
         </div>
 
         <?php if ($webhookSecret !== ''): ?>
         <div style="border-top:1px solid var(--border);padding-top:16px;">
-            <div class="bh-label">Webhook-URLs</div>
-            <div class="bh-hint" style="margin:4px 0 8px;">In Plex (Webhooks-Settings) bzw. Overseerr (Notifications → Webhook Agent) eintragen.</div>
+            <div class="bh-label"><?= bh_plugin_te($pk, 'config.webhook_urls_label') ?></div>
+            <div class="bh-hint" style="margin:4px 0 8px;"><?= bh_plugin_te($pk, 'config.webhook_urls_hint') ?></div>
             <code style="display:block;font-size:11px;background:var(--bg-hover);padding:6px 8px;border-radius:4px;margin-bottom:6px;word-break:break-all;"><?= $esc($dashboardBaseUrl) ?>/webhooks/plex/media/<?= $esc($webhookSecret) ?></code>
             <code style="display:block;font-size:11px;background:var(--bg-hover);padding:6px 8px;border-radius:4px;word-break:break-all;"><?= $esc($dashboardBaseUrl) ?>/webhooks/plex/overseerr/<?= $esc($webhookSecret) ?></code>
-            <button type="button" class="bh-btn bh-btn-ghost" id="plex-regen-secret-btn" style="margin-top:8px;font-size:12px;">Secret neu generieren</button>
+            <button type="button" class="bh-btn bh-btn-ghost" id="plex-regen-secret-btn" style="margin-top:8px;font-size:12px;"><?= bh_plugin_te($pk, 'config.regen_secret_btn') ?></button>
         </div>
         <?php endif; ?>
 
         <div style="display:flex;justify-content:flex-end;">
-            <button type="button" id="plex-save-settings-btn" class="bh-btn bh-btn-primary" style="min-width:120px;">Speichern</button>
+            <button type="button" id="plex-save-settings-btn" class="bh-btn bh-btn-primary" style="min-width:120px;"><?= bh_plugin_te($pk, 'config.save_btn') ?></button>
         </div>
     </div>
 </div>
 
 <!-- ── Server-Freigabe + Guild-Konfiguration ────────────────────────────── -->
 <div class="bh-card bh-card-flush" style="margin-bottom:20px;">
-    <div class="bh-card-title">Server-Freigabe</div>
+    <div class="bh-card-title"><?= bh_plugin_te($pk, 'config.section_server_access') ?></div>
     <div class="bh-card-content" style="display:flex;flex-direction:column;gap:16px;">
         <select id="plex-guild-select" class="bh-input" style="max-width:320px;">
-            <option value="">— Server auswählen —</option>
+            <option value=""><?= bh_plugin_te($pk, 'config.select_server_option') ?></option>
             <?php foreach ($guilds as $g): ?>
             <option value="<?= $esc((string)$g['id']) ?>" <?= $g['id'] === $guildId ? 'selected' : '' ?>><?= $esc((string)$g['name']) ?></option>
             <?php endforeach; ?>
@@ -190,30 +190,30 @@ $discordPerms = [
             <input type="checkbox" id="plex-guild-enabled" <?= $guildEnabled ? 'checked' : '' ?>>
             <span class="bh-toggle-track"><span class="bh-toggle-thumb"></span></span>
         </label>
-        <span style="font-size:12px;color:var(--text-muted);margin-left:-8px;">Plex-Plugin für diesen Server freigeschaltet</span>
+        <span style="font-size:12px;color:var(--text-muted);margin-left:-8px;"><?= bh_plugin_te($pk, 'config.guild_enabled_label') ?></span>
 
         <div id="plex-guild-panel" style="<?= $guildEnabled ? '' : 'display:none;opacity:.5;pointer-events:none;' ?>display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--border);padding-top:14px;">
             <div style="display:flex;gap:20px;flex-wrap:wrap;">
                 <div style="flex:1;min-width:200px;">
-                    <div class="bh-label">Neue-Inhalte-Channel</div>
-                    <select id="plex-new-content-channel" class="bh-input" style="width:100%;margin-top:4px;"><option value="">— Kein Channel —</option></select>
+                    <div class="bh-label"><?= bh_plugin_te($pk, 'config.new_content_channel_label') ?></div>
+                    <select id="plex-new-content-channel" class="bh-input" style="width:100%;margin-top:4px;"><option value=""><?= bh_plugin_te($pk, 'config.no_channel_option') ?></option></select>
                 </div>
                 <div style="flex:1;min-width:200px;">
-                    <div class="bh-label">Live-Status-Channel</div>
-                    <select id="plex-live-status-channel" class="bh-input" style="width:100%;margin-top:4px;"><option value="">— Kein Channel —</option></select>
+                    <div class="bh-label"><?= bh_plugin_te($pk, 'config.live_status_channel_label') ?></div>
+                    <select id="plex-live-status-channel" class="bh-input" style="width:100%;margin-top:4px;"><option value=""><?= bh_plugin_te($pk, 'config.no_channel_option') ?></option></select>
                 </div>
                 <div style="flex:1;min-width:200px;">
-                    <div class="bh-label">Verknüpft-Rolle</div>
-                    <select id="plex-linked-role" class="bh-input" style="width:100%;margin-top:4px;"><option value="">— Keine Rolle —</option></select>
+                    <div class="bh-label"><?= bh_plugin_te($pk, 'config.linked_role_label') ?></div>
+                    <select id="plex-linked-role" class="bh-input" style="width:100%;margin-top:4px;"><option value=""><?= bh_plugin_te($pk, 'config.no_role_option') ?></option></select>
                 </div>
             </div>
             <div>
-                <div class="bh-label">Freigegebene Bibliotheken <span style="font-weight:400;color:var(--text-muted);">(leer = nichts freigegeben)</span></div>
+                <div class="bh-label"><?= bh_plugin_te($pk, 'config.allowed_libraries_label') ?> <span style="font-weight:400;color:var(--text-muted);"><?= bh_plugin_te($pk, 'config.allowed_libraries_hint_suffix') ?></span></div>
                 <div class="bh-tag-input" id="plex-libraries" data-field="allowed_library_ids" style="margin-top:4px;">
                     <?php foreach (($guildSettings['allowed_library_ids'] ?? []) as $libId): ?>
                     <span class="bh-tag" data-value="<?= $esc((string)$libId) ?>"><?= $esc($libraryTitleById[$libId] ?? $libId) ?><button onclick="bhRemoveTag(this)">×</button></span>
                     <?php endforeach; ?>
-                    <input type="text" list="plex-libs-datalist" placeholder="Bibliothek hinzufügen..." onkeydown="plexAddLibraryTag(event,this)" autocomplete="off">
+                    <input type="text" list="plex-libs-datalist" placeholder="<?= $esc(bh_plugin_t($pk, 'config.add_library_placeholder')) ?>" onkeydown="plexAddLibraryTag(event,this)" autocomplete="off">
                 </div>
                 <datalist id="plex-libs-datalist">
                     <?php foreach ($librarySections as $s): ?>
@@ -221,11 +221,11 @@ $discordPerms = [
                     <?php endforeach; ?>
                 </datalist>
                 <?php if (empty($guildSettings['allowed_library_ids'])): ?>
-                <div class="bh-alert bh-alert-warn" style="margin-top:8px;font-size:12px;">Keine Bibliotheken freigegeben — Commands finden keine Ergebnisse bis mindestens eine Bibliothek gewählt wird.</div>
+                <div class="bh-alert bh-alert-warn" style="margin-top:8px;font-size:12px;"><?= bh_plugin_te($pk, 'config.no_libraries_warning') ?></div>
                 <?php endif; ?>
             </div>
             <div style="display:flex;justify-content:flex-end;">
-                <button type="button" id="plex-save-guild-btn" class="bh-btn bh-btn-primary" style="min-width:120px;">Server-Einstellungen speichern</button>
+                <button type="button" id="plex-save-guild-btn" class="bh-btn bh-btn-primary" style="min-width:120px;"><?= bh_plugin_te($pk, 'config.save_guild_btn') ?></button>
             </div>
         </div>
         <?php endif; ?>
@@ -234,7 +234,7 @@ $discordPerms = [
 
 <!-- ── Commands ─────────────────────────────────────────────────────────── -->
 <div class="bh-card bh-card-flush" style="margin-bottom:20px;">
-    <div class="bh-card-title">Commands</div>
+    <div class="bh-card-title"><?= bh_plugin_te($pk, 'config.section_commands') ?></div>
     <div>
     <?php foreach ($commands as $key => $meta):
         $moduleKey = 'plex:' . $key;
@@ -278,6 +278,33 @@ $discordPerms = [
     if (!window.BH_CSRF)   window.BH_CSRF   = <?= json_encode($csrf) ?>;
     if (!window.BH_BOT_ID) window.BH_BOT_ID = <?= (int)$botId ?>;
 
+    var I18N = {
+        connectPlexTvBtn:      <?= json_encode(bh_plugin_t($pk, 'config.connect_plex_tv_btn')) ?>,
+        findServersBtn:        <?= json_encode(bh_plugin_t($pk, 'config.find_servers_btn')) ?>,
+        openingPlexTv:         <?= json_encode(bh_plugin_t($pk, 'config.js.opening_plex_tv')) ?>,
+        errorStarting:         <?= json_encode(bh_plugin_t($pk, 'config.js.error_starting')) ?>,
+        popupBlocked:          <?= json_encode(bh_plugin_t($pk, 'config.js.popup_blocked')) ?>,
+        waitingForLogin:       <?= json_encode(bh_plugin_t($pk, 'config.js.waiting_for_login')) ?>,
+        adminTokenConnected:   <?= json_encode(bh_plugin_t($pk, 'config.js.admin_token_connected')) ?>,
+        timeoutRetry:          <?= json_encode(bh_plugin_t($pk, 'config.js.timeout_retry')) ?>,
+        genericError:          <?= json_encode(bh_plugin_t($pk, 'config.js.generic_error')) ?>,
+        networkError:          <?= json_encode(bh_plugin_t($pk, 'config.js.network_error')) ?>,
+        searching:             <?= json_encode(bh_plugin_t($pk, 'config.js.searching')) ?>,
+        setAdminTokenFirst:    <?= json_encode(bh_plugin_t($pk, 'config.js.set_admin_token_first')) ?>,
+        noServersFound:        <?= json_encode(bh_plugin_t($pk, 'config.js.no_servers_found')) ?>,
+        localTag:              <?= json_encode(bh_plugin_t($pk, 'config.js.local_tag')) ?>,
+        relayTag:               <?= json_encode(bh_plugin_t($pk, 'config.js.relay_tag')) ?>,
+        externalTag:            <?= json_encode(bh_plugin_t($pk, 'config.js.external_tag')) ?>,
+        selectServerConnection: <?= json_encode(bh_plugin_t($pk, 'config.js.select_server_connection_option')) ?>,
+        serversFoundSuffix:     <?= json_encode(bh_plugin_t($pk, 'config.js.servers_found_suffix')) ?>,
+        serverConnectedPrefix:  <?= json_encode(bh_plugin_t($pk, 'config.js.server_connected_prefix')) ?>,
+        errorSaving:            <?= json_encode(bh_plugin_t($pk, 'config.js.error_saving')) ?>,
+        settingsSaved:          <?= json_encode(bh_plugin_t($pk, 'config.js.settings_saved')) ?>,
+        regenSecretConfirm:     <?= json_encode(bh_plugin_t($pk, 'config.js.regen_secret_confirm')) ?>,
+        guildSettingsSaved:     <?= json_encode(bh_plugin_t($pk, 'config.js.guild_settings_saved')) ?>,
+        unknownLibraryPrefix:   <?= json_encode(bh_plugin_t($pk, 'config.js.unknown_library_prefix')) ?>
+    };
+
     // bhTogglePerms/bhSavePerms kommen aus dem globalen bh-permissions.js
     // (perm-panel Markup/IDs sind identisch zu allen anderen Modulen) — keine
     // lokale Kopie hier, damit es einheitlich mit den restlichen Modulen bleibt.
@@ -307,43 +334,43 @@ $discordPerms = [
         oauthBtn.addEventListener('click', async function () {
             clearTimeout(oauthPollTimer);
             oauthBtn.disabled = true;
-            oauthBtn.textContent = 'Öffne Plex.tv…';
+            oauthBtn.textContent = I18N.openingPlexTv;
             try {
                 var start = await callApi({ action: 'start_admin_oauth' });
-                if (!start.ok) { flash(start.error || 'Fehler beim Start.', false); oauthBtn.disabled = false; oauthBtn.textContent = '🔑 Mit Plex.tv verbinden'; return; }
+                if (!start.ok) { flash(start.error || I18N.errorStarting, false); oauthBtn.disabled = false; oauthBtn.textContent = I18N.connectPlexTvBtn; return; }
 
                 var authWindow = window.open(start.authUrl, '_blank', 'noopener');
-                if (!authWindow) flash('Popup blockiert — bitte Popups für diese Seite erlauben.', false);
+                if (!authWindow) flash(I18N.popupBlocked, false);
 
-                oauthBtn.textContent = 'Warte auf Anmeldung…';
+                oauthBtn.textContent = I18N.waitingForLogin;
                 var attempts = 0;
                 var poll = async function () {
                     attempts++;
                     var d = await callApi({ action: 'poll_admin_oauth' });
                     if (d.ok && d.linked) {
-                        flash('✅ Admin-Token via Plex.tv verbunden.', true);
+                        flash(I18N.adminTokenConnected, true);
                         setTimeout(function () { location.reload(); }, 800);
                         return;
                     }
                     if (!d.ok) {
-                        flash(d.error === 'expired' ? 'Zeitüberschreitung — bitte erneut versuchen.' : (d.error || 'Fehler.'), false);
+                        flash(d.error === 'expired' ? I18N.timeoutRetry : (d.error || I18N.genericError), false);
                         oauthBtn.disabled = false;
-                        oauthBtn.textContent = '🔑 Mit Plex.tv verbinden';
+                        oauthBtn.textContent = I18N.connectPlexTvBtn;
                         return;
                     }
                     if (attempts >= 150) {
-                        flash('Zeitüberschreitung — bitte erneut versuchen.', false);
+                        flash(I18N.timeoutRetry, false);
                         oauthBtn.disabled = false;
-                        oauthBtn.textContent = '🔑 Mit Plex.tv verbinden';
+                        oauthBtn.textContent = I18N.connectPlexTvBtn;
                         return;
                     }
                     oauthPollTimer = setTimeout(poll, 2000);
                 };
                 oauthPollTimer = setTimeout(poll, 2500);
             } catch (e) {
-                flash('Netzwerkfehler.', false);
+                flash(I18N.networkError, false);
                 oauthBtn.disabled = false;
-                oauthBtn.textContent = '🔑 Mit Plex.tv verbinden';
+                oauthBtn.textContent = I18N.connectPlexTvBtn;
             }
         });
     }
@@ -354,27 +381,27 @@ $discordPerms = [
     if (findServersBtn && serverSelect) {
         findServersBtn.addEventListener('click', async function () {
             findServersBtn.disabled = true;
-            findServersBtn.textContent = 'Suche…';
+            findServersBtn.textContent = I18N.searching;
             try {
                 var d = await callApi({ action: 'fetch_plex_servers' });
-                if (!d.ok) { flash(d.error === 'no_admin_token' ? 'Bitte zuerst Admin-Token setzen.' : (d.error || 'Fehler.'), false); return; }
-                if (!d.servers || !d.servers.length) { flash('Keine Server auf diesem Plex-Account gefunden.', false); return; }
+                if (!d.ok) { flash(d.error === 'no_admin_token' ? I18N.setAdminTokenFirst : (d.error || I18N.genericError), false); return; }
+                if (!d.servers || !d.servers.length) { flash(I18N.noServersFound, false); return; }
 
-                serverSelect.innerHTML = '<option value="">— Server/Verbindung wählen —</option>';
+                serverSelect.innerHTML = '<option value="">' + I18N.selectServerConnection + '</option>';
                 d.servers.forEach(function (server) {
                     server.connections.forEach(function (c) {
-                        var tag = c.local ? '🏠 lokal' : (c.relay ? '🔀 Relay/Standard-Domain' : '🌐 extern');
+                        var tag = c.local ? I18N.localTag : (c.relay ? I18N.relayTag : I18N.externalTag);
                         var opt = new Option(server.name + ' — ' + tag, JSON.stringify({ uri: c.uri, accessToken: server.accessToken }));
                         serverSelect.appendChild(opt);
                     });
                 });
                 serverSelect.style.display = '';
-                flash(d.servers.length + ' Server gefunden — Verbindung auswählen.', true);
+                flash(d.servers.length + ' ' + I18N.serversFoundSuffix, true);
             } catch (e) {
-                flash('Netzwerkfehler.', false);
+                flash(I18N.networkError, false);
             } finally {
                 findServersBtn.disabled = false;
-                findServersBtn.textContent = '🔍 Verfügbare Server laden';
+                findServersBtn.textContent = I18N.findServersBtn;
             }
         });
 
@@ -384,10 +411,10 @@ $discordPerms = [
             serverSelect.disabled = true;
             var d = await callApi({ action: 'select_plex_server', uri: picked.uri, access_token: picked.accessToken });
             if (d.ok) {
-                flash('✅ Server verbunden: ' + picked.uri, true);
+                flash(I18N.serverConnectedPrefix + picked.uri, true);
                 setTimeout(function () { location.reload(); }, 800);
             } else {
-                flash(d.error || 'Fehler beim Speichern.', false);
+                flash(d.error || I18N.errorSaving, false);
                 serverSelect.disabled = false;
             }
         });
@@ -414,9 +441,9 @@ $discordPerms = [
                     overseerr_url:     document.getElementById('plex-overseerr-url').value,
                     overseerr_api_key: document.getElementById('plex-overseerr-key').value,
                 });
-                flash(d.ok ? 'Einstellungen gespeichert.' : (d.error || 'Fehler.'), !!d.ok);
+                flash(d.ok ? I18N.settingsSaved : (d.error || I18N.genericError), !!d.ok);
                 if (d.ok) setTimeout(function () { location.reload(); }, 600);
-            } catch (e) { flash('Netzwerkfehler.', false); }
+            } catch (e) { flash(I18N.networkError, false); }
             saveSettingsBtn.disabled = false;
         });
     }
@@ -424,7 +451,7 @@ $discordPerms = [
     var regenBtn = document.getElementById('plex-regen-secret-btn');
     if (regenBtn) {
         regenBtn.addEventListener('click', async function () {
-            if (!confirm('Neues Webhook-Secret generieren? Bestehende Webhook-URLs in Plex/Overseerr müssen dann aktualisiert werden.')) return;
+            if (!confirm(I18N.regenSecretConfirm)) return;
             var d = await callApi({ action: 'regenerate_webhook_secret' });
             if (d.ok) location.reload();
         });
@@ -478,7 +505,7 @@ $discordPerms = [
         title = title.trim();
         if (!title) return true;
         var option = document.querySelector('#plex-libs-datalist option[value="' + CSS.escape(title) + '"]');
-        if (!option) { flash('Unbekannte Bibliothek: ' + title, false); return false; }
+        if (!option) { flash(I18N.unknownLibraryPrefix + title, false); return false; }
         var id = option.dataset.id;
         if (container.querySelector('[data-value="' + id + '"]')) return true;
         var tag = document.createElement('span');
@@ -530,9 +557,9 @@ $discordPerms = [
                     role_id: (document.getElementById('plex-linked-role') || {}).value || '',
                     allowed_library_ids: libTags,
                 });
-                flash(d.ok ? 'Server-Einstellungen gespeichert.' : (d.error || 'Fehler.'), !!d.ok);
+                flash(d.ok ? I18N.guildSettingsSaved : (d.error || I18N.genericError), !!d.ok);
                 if (d.ok) setTimeout(function () { location.reload(); }, 600);
-            } catch (e) { flash('Netzwerkfehler.', false); }
+            } catch (e) { flash(I18N.networkError, false); }
             saveGuildBtn.disabled = false;
         });
     }

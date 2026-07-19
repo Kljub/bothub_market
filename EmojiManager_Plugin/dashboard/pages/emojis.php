@@ -16,6 +16,11 @@ if (!is_dir($emojisDir)) @mkdir($emojisDir, 0755, true);
 $ALLOWED_EXT = ['png', 'gif', 'webp', 'jpg', 'jpeg'];
 $MAX_BYTES   = 2 * 1024 * 1024;
 
+// $pk wird unten für Commands gebraucht — hier schon vorziehen, da die Upload-Fehler-
+// /Erfolgsmeldungen weiter oben im Request-Flow ebenfalls übersetzt werden müssen.
+$pk = 'emojimanager-plugin';
+$maxMb = (string)($MAX_BYTES / (1024 * 1024));
+
 $error   = '';
 $success = '';
 
@@ -24,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $botId > 0) {
     // post_max_size überschreitet — zeigt sonst irreführend "Ungültiges CSRF-Token"
     // statt des eigentlichen Problems (Datei zu groß fürs Server-Limit).
     if (empty($_POST) && empty($_FILES) && (int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 0) {
-        $error = 'Datei zu groß — überschreitet das Server-Limit (' . ini_get('post_max_size') . ').';
+        $error = bh_plugin_t($pk, 'upload.error_server_limit', ['limit' => (string)ini_get('post_max_size')]);
     } elseif (($_SESSION['csrf_token'] ?? '') !== ($_POST['csrf'] ?? '')) {
         $error = __('common.csrf_invalid');
     } elseif (($_POST['action'] ?? '') === 'upload') {
@@ -32,29 +37,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $botId > 0) {
         $name = preg_replace('/[^a-z0-9_\-]/', '', $name);
 
         if ($name === '' || strlen($name) > 32) {
-            $error = 'Ungültiger Name (nur a-z, 0-9, _, - · max. 32 Zeichen).';
+            $error = bh_plugin_t($pk, 'upload.error_invalid_name');
         } elseif (empty($_FILES['emoji_file']) || $_FILES['emoji_file']['error'] !== UPLOAD_ERR_OK) {
-            $error = 'Datei-Upload fehlgeschlagen.';
+            $error = bh_plugin_t($pk, 'upload.error_upload_failed');
         } else {
             $file = $_FILES['emoji_file'];
             $ext  = strtolower(pathinfo((string)$file['name'], PATHINFO_EXTENSION));
             if (!in_array($ext, $ALLOWED_EXT, true)) {
-                $error = 'Nur ' . implode(', ', $ALLOWED_EXT) . ' erlaubt.';
+                $error = bh_plugin_t($pk, 'upload.error_ext_not_allowed', ['ext' => implode(', ', $ALLOWED_EXT)]);
             } elseif ($file['size'] > $MAX_BYTES) {
-                $error = 'Datei zu groß (max. 2 MB).';
+                $error = bh_plugin_t($pk, 'upload.error_too_large', ['max' => $maxMb]);
             } else {
                 $stmt = $db->prepare('SELECT id FROM plugin_emojimanager_plugin_emojis WHERE bot_id = ? AND name = ? LIMIT 1');
                 $stmt->execute([$botId, $name]);
                 if ($stmt->fetch()) {
-                    $error = "Ein Emoji namens \"$name\" existiert bereits.";
+                    $error = bh_plugin_t($pk, 'upload.error_name_exists', ['name' => $name]);
                 } else {
                     $filename = $botId . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
                     if (move_uploaded_file($file['tmp_name'], $emojisDir . '/' . $filename)) {
                         $db->prepare('INSERT INTO plugin_emojimanager_plugin_emojis (bot_id, name, filename, uploaded_by) VALUES (?, ?, ?, ?)')
                            ->execute([$botId, $name, $filename, (string)($_SESSION['username'] ?? '')]);
-                        $success = "Emoji \"$name\" hochgeladen.";
+                        $success = bh_plugin_t($pk, 'upload.success_uploaded', ['name' => $name]);
                     } else {
-                        $error = 'Datei konnte nicht gespeichert werden.';
+                        $error = bh_plugin_t($pk, 'upload.error_save_failed');
                     }
                 }
             }
@@ -67,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $botId > 0) {
         if ($row) {
             @unlink($emojisDir . '/' . $row['filename']);
             $db->prepare('DELETE FROM plugin_emojimanager_plugin_emojis WHERE id = ? AND bot_id = ?')->execute([$id, $botId]);
-            $success = 'Emoji gelöscht.';
+            $success = bh_plugin_t($pk, 'upload.success_deleted');
         }
     }
 }
@@ -80,7 +85,7 @@ if ($botId > 0) {
 }
 
 // ── Commands (gleiche Route, keine eigene Seite — Muster wie bei allen anderen Plugins) ──
-$pk = 'emojimanager-plugin';
+// $pk wurde oben schon gesetzt (wird bereits für die Upload-Fehlermeldungen gebraucht).
 $commands = [
     "$pk:emoji-menu" => ['cmd' => '/emoji-menu', 'label' => bh_plugin_t($pk, 'emoji_menu.label'), 'desc' => bh_plugin_t($pk, 'emoji_menu.desc'), 'defaultPerms' => []],
 ];
@@ -129,20 +134,20 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 
 <div class="bh-card bh-card-lg" style="margin-bottom:20px;">
     <div class="bh-card-header">
-        <h2>Emoji hochladen</h2>
+        <h2><?= bh_plugin_te($pk, 'upload.title') ?></h2>
     </div>
     <form method="post" enctype="multipart/form-data" style="padding:14px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:end;">
         <input type="hidden" name="csrf" value="<?= $e($csrf) ?>">
         <input type="hidden" name="action" value="upload">
         <div>
-            <label class="bh-text-sm bh-text-muted" style="display:block;margin-bottom:4px;">Name (im Menü angezeigt)</label>
-            <input type="text" name="name" class="bh-input" placeholder="z.B. pogchamp" maxlength="32" required pattern="[a-z0-9_\-]+" style="width:220px;">
+            <label class="bh-text-sm bh-text-muted" style="display:block;margin-bottom:4px;"><?= bh_plugin_te($pk, 'upload.name_label') ?></label>
+            <input type="text" name="name" class="bh-input" placeholder="<?= bh_plugin_te($pk, 'upload.name_placeholder') ?>" maxlength="32" required pattern="[a-z0-9_\-]+" style="width:220px;">
         </div>
         <div>
-            <label class="bh-text-sm bh-text-muted" style="display:block;margin-bottom:4px;">Bild (png, gif, webp, jpg — max. 2 MB)</label>
+            <label class="bh-text-sm bh-text-muted" style="display:block;margin-bottom:4px;"><?= bh_plugin_te($pk, 'upload.file_label', ['ext' => implode(', ', $ALLOWED_EXT), 'max' => $maxMb]) ?></label>
             <input type="file" name="emoji_file" accept=".png,.gif,.webp,.jpg,.jpeg" required>
         </div>
-        <button type="submit" class="bh-btn bh-btn-primary">⬆️ Hochladen</button>
+        <button type="submit" class="bh-btn bh-btn-primary">⬆️ <?= bh_plugin_te($pk, 'upload.submit_btn') ?></button>
     </form>
 </div>
 
@@ -191,19 +196,21 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 
 <div class="bh-card bh-card-lg">
     <div class="bh-card-header">
-        <h2>Emojis (<?= count($emojiList) ?>) <span class="bh-text-muted bh-text-sm">— max. 25 im Menü sichtbar</span></h2>
+        <h2><?= bh_plugin_te($pk, 'upload.list_title', ['count' => (string)count($emojiList)]) ?> <span class="bh-text-muted bh-text-sm">— <?= bh_plugin_te($pk, 'upload.list_hint') ?></span></h2>
     </div>
     <?php if (!$emojiList): ?>
-    <p class="bh-text-muted bh-text-sm" style="padding:14px 16px;">Noch keine Emojis hochgeladen.</p>
+    <p class="bh-text-muted bh-text-sm" style="padding:14px 16px;"><?= bh_plugin_te($pk, 'upload.list_empty') ?></p>
     <?php else: ?>
     <div style="display:flex;flex-direction:column;">
-        <?php foreach ($emojiList as $em): ?>
+        <?php foreach ($emojiList as $em):
+            $deleteConfirm = bh_plugin_t($pk, 'upload.delete_confirm', ['name' => $em['name']]);
+        ?>
         <div style="display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border);">
             <div style="flex:1;min-width:0;">
                 <strong style="font-size:13px;"><?= $e($em['name']) ?></strong>
-                <span class="bh-text-muted bh-text-sm"> · <?= (int)$em['use_count'] ?>× gesendet<?= $em['uploaded_by'] ? ' · von ' . $e($em['uploaded_by']) : '' ?></span>
+                <span class="bh-text-muted bh-text-sm"> · <?= bh_plugin_te($pk, 'upload.use_count', ['count' => (string)$em['use_count']]) ?><?= $em['uploaded_by'] ? ' · ' . bh_plugin_te($pk, 'upload.uploaded_by', ['user' => $em['uploaded_by']]) : '' ?></span>
             </div>
-            <form method="post" onsubmit="return confirm('Emoji \'<?= $e($em['name']) ?>\' wirklich löschen?');">
+            <form method="post" onsubmit="return confirm(<?= $e(json_encode($deleteConfirm)) ?>);">
                 <input type="hidden" name="csrf" value="<?= $e($csrf) ?>">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="id" value="<?= (int)$em['id'] ?>">

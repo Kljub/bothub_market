@@ -1,0 +1,23 @@
+{
+  "mode.media": "Только медиа (изображения/видео)",
+  "mode.gif": "Только GIF",
+  "mode.emoji": "Только эмодзи",
+  "mode.text": "Только текст",
+  "error.selection_required": "Необходимо выбрать сервер и канал.",
+  "error.invalid_mode": "Недопустимый режим.",
+  "success.rule_saved": "Правило канала сохранено.",
+  "success.rule_deleted": "Правило канала удалено.",
+  "add_form.heading": "Добавить правило канала",
+  "label.server": "Сервер",
+  "label.channel": "Канал",
+  "label.mode": "Режим",
+  "placeholder.select_server": "— Выбрать сервер —",
+  "placeholder.select_channel_first": "— сначала выберите сервер —",
+  "placeholder.select_channel": "— Выбрать канал —",
+  "placeholder.loading": "— загрузка… —",
+  "placeholder.load_error": "— Ошибка загрузки —",
+  "btn.add": "➕ Добавить",
+  "rules.heading": "Правила каналов ({n})",
+  "rules.empty": "Пока не настроено ни одного правила канала.",
+  "confirm.delete_rule": "Действительно удалить это правило?"
+}

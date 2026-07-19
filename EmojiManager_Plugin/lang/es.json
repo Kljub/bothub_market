@@ -1,4 +1,24 @@
 {
   "emoji_menu.label": "Menú de Emojis",
-  "emoji_menu.desc": "Abre el menú de selección de emojis (solo visible para ti)"
+  "emoji_menu.desc": "Abre el menú de selección de emojis (solo visible para ti)",
+  "upload.title": "Subir emoji",
+  "upload.name_label": "Nombre (mostrado en el menú)",
+  "upload.name_placeholder": "p. ej. pogchamp",
+  "upload.file_label": "Imagen ({ext} — máx. {max} MB)",
+  "upload.submit_btn": "Subir",
+  "upload.error_server_limit": "Archivo demasiado grande — supera el límite del servidor ({limit}).",
+  "upload.error_invalid_name": "Nombre inválido (solo a-z, 0-9, _, - · máx. 32 caracteres).",
+  "upload.error_upload_failed": "Error al subir el archivo.",
+  "upload.error_ext_not_allowed": "Solo se permite {ext}.",
+  "upload.error_too_large": "Archivo demasiado grande (máx. {max} MB).",
+  "upload.error_name_exists": "Ya existe un emoji llamado \"{name}\".",
+  "upload.error_save_failed": "No se pudo guardar el archivo.",
+  "upload.success_uploaded": "Emoji \"{name}\" subido.",
+  "upload.success_deleted": "Emoji eliminado.",
+  "upload.list_title": "Emojis ({count})",
+  "upload.list_hint": "máx. 25 visibles en el menú",
+  "upload.list_empty": "Aún no se han subido emojis.",
+  "upload.use_count": "enviado {count}×",
+  "upload.uploaded_by": "por {user}",
+  "upload.delete_confirm": "¿Eliminar el emoji \"{name}\"?"
 }

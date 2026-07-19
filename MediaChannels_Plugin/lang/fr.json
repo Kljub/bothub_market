@@ -1,0 +1,23 @@
+{
+  "mode.media": "Médias uniquement (images/vidéos)",
+  "mode.gif": "GIFs uniquement",
+  "mode.emoji": "Émojis uniquement",
+  "mode.text": "Texte uniquement",
+  "error.selection_required": "Le serveur et le salon doivent être sélectionnés.",
+  "error.invalid_mode": "Mode invalide.",
+  "success.rule_saved": "Règle de salon enregistrée.",
+  "success.rule_deleted": "Règle de salon supprimée.",
+  "add_form.heading": "Ajouter une règle de salon",
+  "label.server": "Serveur",
+  "label.channel": "Salon",
+  "label.mode": "Mode",
+  "placeholder.select_server": "— Sélectionner un serveur —",
+  "placeholder.select_channel_first": "— sélectionnez d'abord un serveur —",
+  "placeholder.select_channel": "— Sélectionner un salon —",
+  "placeholder.loading": "— chargement… —",
+  "placeholder.load_error": "— Erreur de chargement —",
+  "btn.add": "➕ Ajouter",
+  "rules.heading": "Règles de salon ({n})",
+  "rules.empty": "Aucune règle de salon configurée pour le moment.",
+  "confirm.delete_rule": "Vraiment supprimer cette règle ?"
+}

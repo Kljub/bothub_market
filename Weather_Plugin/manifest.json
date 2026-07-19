@@ -1,7 +1,7 @@
 {
     "name": "Weather Plugin",
     "key": "weather-plugin",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "sdk": "1.0",
     "type": "hybrid",
     "entry": "index.js",
@@ -38,6 +38,11 @@
     "requestedGroup": "utility",
     "generatedBy": "bothub-frontend-designer",
     "changelog": [
+        {
+            "version": "3.0.0",
+            "date": "2026-07-19",
+            "notes": "Sprachpaket erweitert: jetzt auch alle Einstellungsseiten (nicht nur Commands) in Deutsch, Englisch, Spanisch, Französisch und Russisch verfügbar."
+        },
         {
             "version": "2.0.0",
             "date": "2026-07-19",

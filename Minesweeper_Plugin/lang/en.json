@@ -1,5 +1,13 @@
 {
   "minesweeper.label": "Minesweeper",
   "minesweeper.desc": "Start a minefield wager — the 🔥 button cashes out",
-  "commands_heading": "Minesweeper Commands ({n})"
+  "commands_heading": "Minesweeper Commands ({n})",
+  "config.heading": "💣 Minesweeper — Settings",
+  "config.no_currency": "No currency set up yet. First create a currency under <strong>Economy</strong>.",
+  "config.intro": "5x5 grid (Discord's maximum: 5 rows × 5 buttons). The user picks the number of mines (1-24) at the start — the fair multiplier automatically increases with more mines. The RTP below scales this fair value (= house edge), just like in the casino games. Unchanged = fair default value (97%).",
+  "config.rtp_label": "RTP % (10-100)",
+  "config.min_bet_label": "Min. bet",
+  "config.max_bet_label": "Max. bet",
+  "config.allowed_currencies_label": "Allowed currencies (no selection = all allowed)",
+  "config.saving": "Saving…"
 }

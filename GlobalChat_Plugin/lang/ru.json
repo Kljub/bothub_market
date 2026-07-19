@@ -3,5 +3,13 @@
   "link.desc": "Привязать канал к межсерверному чату",
   "unlink.label": "Отвязать Global Chat",
   "unlink.desc": "Удалить привязку",
-  "commands_heading": "Команды Global Chat ({n})"
+  "commands_heading": "Команды Global Chat ({n})",
+  "config.unlink_saved": "Привязка удалена.",
+  "config.linked_title": "🌐 Global Chat — Привязанные серверы ({count})",
+  "config.link_hint": "Серверы привязывают канал через {cmd} в Discord (требуется право \"{perm}\"). Сообщения в привязанном канале пересылаются во все остальные привязанные каналы этого бота. Тот, кого упомянули в тексте через {mention}, дополнительно получает личное сообщение (настоящие упоминания Discord не пингуют между серверами).",
+  "config.no_links": "Пока ни один сервер не привязал канал.",
+  "config.guild_to_channel": "Сервер {guild} → канал {channel}",
+  "config.disabled_badge": "Отключено",
+  "config.confirm_unlink": "Действительно снять привязку для сервера {guild}?",
+  "config.unlink_btn": "🗑️ Снять"
 }

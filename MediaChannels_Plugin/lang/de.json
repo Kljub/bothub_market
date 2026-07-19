@@ -1,0 +1,23 @@
+{
+  "mode.media": "Nur Medien (Bilder/Videos)",
+  "mode.gif": "Nur GIFs",
+  "mode.emoji": "Nur Emojis",
+  "mode.text": "Nur Text",
+  "error.selection_required": "Server und Channel müssen ausgewählt sein.",
+  "error.invalid_mode": "Ungültiger Modus.",
+  "success.rule_saved": "Channel-Regel gespeichert.",
+  "success.rule_deleted": "Channel-Regel gelöscht.",
+  "add_form.heading": "Channel-Regel hinzufügen",
+  "label.server": "Server",
+  "label.channel": "Channel",
+  "label.mode": "Modus",
+  "placeholder.select_server": "— Server auswählen —",
+  "placeholder.select_channel_first": "— zuerst Server wählen —",
+  "placeholder.select_channel": "— Channel auswählen —",
+  "placeholder.loading": "— lädt… —",
+  "placeholder.load_error": "— Fehler beim Laden —",
+  "btn.add": "➕ Hinzufügen",
+  "rules.heading": "Channel-Regeln ({n})",
+  "rules.empty": "Noch keine Channel-Regeln konfiguriert.",
+  "confirm.delete_rule": "Regel wirklich löschen?"
+}

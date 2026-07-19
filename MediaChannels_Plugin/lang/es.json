@@ -1,0 +1,23 @@
+{
+  "mode.media": "Solo medios (imágenes/vídeos)",
+  "mode.gif": "Solo GIFs",
+  "mode.emoji": "Solo emojis",
+  "mode.text": "Solo texto",
+  "error.selection_required": "Debes seleccionar un servidor y un canal.",
+  "error.invalid_mode": "Modo no válido.",
+  "success.rule_saved": "Regla de canal guardada.",
+  "success.rule_deleted": "Regla de canal eliminada.",
+  "add_form.heading": "Añadir regla de canal",
+  "label.server": "Servidor",
+  "label.channel": "Canal",
+  "label.mode": "Modo",
+  "placeholder.select_server": "— Seleccionar servidor —",
+  "placeholder.select_channel_first": "— primero selecciona un servidor —",
+  "placeholder.select_channel": "— Seleccionar canal —",
+  "placeholder.loading": "— cargando… —",
+  "placeholder.load_error": "— Error al cargar —",
+  "btn.add": "➕ Añadir",
+  "rules.heading": "Reglas de canal ({n})",
+  "rules.empty": "Aún no hay reglas de canal configuradas.",
+  "confirm.delete_rule": "¿Eliminar esta regla realmente?"
+}

@@ -1,5 +1,15 @@
 {
   "steal.label": "Кража",
   "steal.desc": "Украсть баланс у другого пользователя",
-  "commands_heading": "Команды Criminal ({n})"
+  "commands_heading": "Команды Criminal ({n})",
+  "config.heading": "🕵️ Criminal — Настройки /steal",
+  "config.no_currency": "Пока не настроена ни одна валюта. Сначала создайте её в разделе <strong>Economy</strong>.",
+  "config.success_chance_label": "Шанс успеха % (1-99)",
+  "config.success_chance_hint": "Вероятность того, что /steal завершится успешно.",
+  "config.steal_percent_label": "Добыча % (от баланса жертвы)",
+  "config.steal_percent_hint": "Сколько процентов баланса жертвы будет украдено при успехе.",
+  "config.fail_penalty_label": "Штраф % (от собственного баланса)",
+  "config.fail_penalty_hint": "Сколько процентов собственного баланса теряется при неудаче.",
+  "config.allowed_currencies_hint": "Разрешённые валюты (ничего не выбрано = разрешены все)",
+  "config.saving": "Сохранение…"
 }

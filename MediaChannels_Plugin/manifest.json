@@ -1,7 +1,7 @@
 {
   "name": "Media Channel",
   "key": "mediachannel-plugin",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "sdk": "1.0",
   "type": "hybrid",
   "entry": "index.js",
@@ -45,6 +45,7 @@
   "requestedProfile": "verified",
   "requestedGroup": "utility",
   "changelog": [
-    { "version": "1.0.0", "date": "2026-07-18", "notes": "Erste Veröffentlichung: Channel-Regeln für nur Medien/GIFs/Emojis/Text, automatisches Löschen bei Verstoß." }
+    { "version": "1.0.0", "date": "2026-07-18", "notes": "Erste Veröffentlichung: Channel-Regeln für nur Medien/GIFs/Emojis/Text, automatisches Löschen bei Verstoß." },
+    { "version": "2.0.0", "date": "2026-07-19", "notes": "Sprachpaket hinzugefügt: Dashboard-Texte jetzt in Deutsch, Englisch, Spanisch, Französisch und Russisch verfügbar (folgt der User-Spracheinstellung)." }
   ]
 }
