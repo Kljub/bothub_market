@@ -56,7 +56,10 @@ async function checkCmd(ctx, moduleKey) {
 module.exports = async function (bh) {
     bh.logger.info('Emoji Manager Plugin geladen');
 
-    const emojisDir = path.resolve(__dirname, 'emojis');
+    // Uploads liegen pro Bot in storage/ (nicht im Plugin-Ordner selbst — der landet sonst
+    // im öffentlichen Plugin-Template beim GitHub-Push), gleiches Muster wie Custom Nodes
+    // (storage/custom-nodes/{botId}/...).
+    const emojisDirFor = (botId) => path.join('/app/storage/emojimanager', String(botId));
 
     bh.commands.register({
         name: 'emoji-menu', description: 'Öffnet ein (nur für dich sichtbares) Menü zur Emoji-Auswahl.',
@@ -112,7 +115,7 @@ module.exports = async function (bh) {
 
         try {
             await bh.messaging.send(interaction.channelId, {
-                files: [{ attachment: path.join(emojisDir, emoji.filename), name: emoji.filename }],
+                files: [{ attachment: path.join(emojisDirFor(botId), emoji.filename), name: emoji.filename }],
             });
             await emojis.incrementUseCount(emoji.id);
             await interaction.update({ content: `✅ **${emoji.name}** gesendet.`, components: [] }).catch(() => {});

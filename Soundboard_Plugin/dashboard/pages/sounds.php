@@ -7,7 +7,10 @@ $botId = (int)($context['botId'] ?? $_SESSION['current_bot_id'] ?? 0);
 $db    = bh_db();
 $e     = fn(string $v): string => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
-$soundsDir = __DIR__ . '/../../sounds';
+// Uploads liegen pro Bot in storage/ (nicht im Plugin-Ordner selbst — der landet sonst im
+// öffentlichen Plugin-Template beim GitHub-Push), gleiches Muster wie Custom Nodes
+// (storage/custom-nodes/{botId}/...).
+$soundsDir = dirname(BH_ROOT) . '/storage/soundboard/' . $botId;
 if (!is_dir($soundsDir)) @mkdir($soundsDir, 0755, true);
 
 $ALLOWED_EXT  = ['mp3', 'ogg', 'wav', 'webm'];

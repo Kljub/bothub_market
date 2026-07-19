@@ -69,7 +69,10 @@ function scheduleLeave(bh, guildId) {
 module.exports = async function (bh) {
     bh.logger.info('Soundboard Plugin geladen');
 
-    const soundsDir = path.resolve(__dirname, 'sounds');
+    // Uploads liegen pro Bot in storage/ (nicht im Plugin-Ordner selbst — der landet sonst
+    // im öffentlichen Plugin-Template beim GitHub-Push), gleiches Muster wie Custom Nodes
+    // (storage/custom-nodes/{botId}/...).
+    const soundsDirFor = (botId) => path.join('/app/storage/soundboard', String(botId));
 
     bh.commands.register({
         name: 'soundboard-play', description: 'Spielt einen Sound in deinem aktuellen Voice-Channel ab.',
@@ -107,7 +110,7 @@ module.exports = async function (bh) {
             if (!sound) { await ctx.reply({ text: `❌ Sound \`${name}\` nicht gefunden.`, ephemeral: true }); return; }
 
             await ctx.defer();
-            const filePath = path.join(soundsDir, sound.filename);
+            const filePath = path.join(soundsDirFor(botId), sound.filename);
             try {
                 await bh.voice.join(ctx.guild.id, voiceChannelId);
                 await bh.voice.play(ctx.guild.id, filePath);
