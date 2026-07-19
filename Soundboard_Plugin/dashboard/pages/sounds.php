@@ -147,15 +147,44 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
 <div class="bh-card bh-card-lg" style="margin-bottom:20px;">
     <div class="bh-card-title">🎮 Commands</div>
     <?php foreach ($commands as $mk => $mod):
-        $rowModuleKey    = $mk;
-        $rowCmdCode      = $mod['cmd'];
-        $rowTitle        = $mod['label'];
-        $rowDesc         = $mod['desc'];
-        $rowEnabled      = $cmdStates[$mk]['enabled'] ?? true;
-        $rowPermCfg      = $cmdStates[$mk]['settings'] ?? [];
-        $rowDiscordPerms = $discordPerms;
-        require BH_ROOT . '/assets/features/module-command-row.php';
-    endforeach; ?>
+        $isOn     = $cmdStates[$mk]['enabled'] ?? true;
+        $cfg      = $cmdStates[$mk]['settings'] ?? [];
+        $hasPerms = !empty($cfg['allowed_roles']) || !empty($cfg['banned_roles'])
+                 || !empty($cfg['required_permissions']) || !empty($cfg['banned_channels']);
+        $panelId  = 'perm-' . str_replace(':', '-', $mk);
+    ?>
+    <div class="bh-module-row">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;flex:1;min-width:0;">
+            <?php
+            $cmdHeading = [
+                'code' => (string)$mod['cmd'], 'key' => str_replace(':', '-', $mk), 'label' => (string)$mod['label'],
+                'desc' => (string)$mod['desc'], 'label_color' => $isOn ? 'var(--text-primary)' : 'var(--text-muted)',
+            ];
+            require BH_ROOT . '/assets/features/command-heading.php';
+            ?>
+
+            <button class="bh-perm-btn <?= $hasPerms ? 'has-perms' : '' ?>" title="Berechtigungen" onclick="bhTogglePerms('<?= $e($panelId) ?>')">
+                <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
+                    <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                </svg>
+            </button>
+
+            <label class="bh-toggle">
+                <input type="checkbox" class="bh-cmd-toggle" <?= $isOn ? 'checked' : '' ?>
+                       onchange="bhToggleMod('<?= $e($mk) ?>',this.checked,this,true)">
+                <span class="bh-toggle-track"><span class="bh-toggle-thumb"></span></span>
+            </label>
+        </div>
+
+        <?php
+        $permModuleKey    = $mk;
+        $permPanelId      = $panelId;
+        $permCfg          = $cfg;
+        $permDiscordPerms = $discordPerms;
+        require BH_ROOT . '/assets/features/permissions-panel.php';
+        ?>
+    </div>
+    <?php endforeach; ?>
 </div>
 
 <div class="bh-card bh-card-lg">
