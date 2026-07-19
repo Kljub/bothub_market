@@ -1,0 +1,49 @@
+{
+  "name": "Emoji Manager",
+  "key": "emojimanager-plugin",
+  "version": "1.1.0",
+  "sdk": "1.0",
+  "type": "hybrid",
+  "entry": "index.js",
+  "dashboardEntry": "dashboard.php",
+  "description": "Bot Owner lädt Emoji-Bilder im Dashboard hoch. Discord-User öffnen ein nur für sie sichtbares Auswahlmenü, der Bot postet das gewählte Emoji-Bild dann öffentlich im Channel.",
+  "author": "BotHub",
+  "requires": {
+    "core": [
+      "commands.register",
+      "database.read",
+      "database.write",
+      "events.select.changed",
+      "messaging.send"
+    ],
+    "dashboard": [
+      "ui.components",
+      "dashboard.page",
+      "dashboard.sidebar.item"
+    ]
+  },
+  "optional": {
+    "core": [],
+    "dashboard": []
+  },
+  "provides": {
+    "capabilities": [],
+    "features": []
+  },
+  "migrations": [
+    "migrations/0001_emojimanager_tables.sql"
+  ],
+  "dashboard": {
+    "pages": [
+      { "key": "emojis", "title": "Emoji Manager" }
+    ]
+  },
+  "moduleGroup": "fun",
+  "icon_emoji": "😀",
+  "requestedProfile": "verified",
+  "requestedGroup": "utility",
+  "changelog": [
+    { "version": "1.0.0", "date": "2026-07-18", "notes": "Erste Veröffentlichung: dashboard-verwaltete Emoji-Bilder, ephemeres Auswahlmenü, Bot postet das gewählte Emoji öffentlich im Channel." },
+    { "version": "1.1.0", "date": "2026-07-18", "notes": "Separate Commands-Seite entfernt (war unerreichbar, kein Sidebar-Link) — Commands sind jetzt eine Karte auf der Hauptseite, gleiches Muster wie bei allen anderen Plugins." }
+  ]
+}

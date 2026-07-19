@@ -1,0 +1,50 @@
+{
+  "name": "Soundboard",
+  "key": "soundboard-plugin",
+  "version": "1.1.0",
+  "sdk": "1.0",
+  "type": "hybrid",
+  "entry": "index.js",
+  "dashboardEntry": "dashboard.php",
+  "description": "Bot Owner lädt Sound-Clips im Dashboard hoch, Discord-User spielen sie per Command im eigenen Voice-Channel ab.",
+  "author": "BotHub",
+  "requires": {
+    "core": [
+      "commands.register",
+      "database.read",
+      "database.write",
+      "voice.join",
+      "voice.play",
+      "voice.leave"
+    ],
+    "dashboard": [
+      "ui.components",
+      "dashboard.page",
+      "dashboard.sidebar.item"
+    ]
+  },
+  "optional": {
+    "core": [],
+    "dashboard": []
+  },
+  "provides": {
+    "capabilities": [],
+    "features": []
+  },
+  "migrations": [
+    "migrations/0001_soundboard_tables.sql"
+  ],
+  "dashboard": {
+    "pages": [
+      { "key": "sounds", "title": "Soundboard" }
+    ]
+  },
+  "moduleGroup": "fun",
+  "icon_emoji": "🔊",
+  "requestedProfile": "verified",
+  "requestedGroup": "utility",
+  "changelog": [
+    { "version": "1.0.0", "date": "2026-07-18", "notes": "Erste Veröffentlichung: dashboard-verwaltete Sound-Clips, Wiedergabe per Command im eigenen Voice-Channel." },
+    { "version": "1.1.0", "date": "2026-07-18", "notes": "Separate Commands-Seite entfernt (war unerreichbar, kein Sidebar-Link) — Commands sind jetzt eine Karte auf der Hauptseite, gleiches Muster wie bei allen anderen Plugins." }
+  ]
+}
