@@ -1,0 +1,5 @@
+{
+  "qotd.label": "QOTD",
+  "qotd.desc": "Mostrar un dato aleatorio del día (1x/día)",
+  "commands_heading": "Comandos QOTD ({n})"
+}

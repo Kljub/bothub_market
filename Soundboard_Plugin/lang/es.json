@@ -1,0 +1,8 @@
+{
+  "play.label": "Reproducir Soundboard",
+  "play.desc": "Reproduce un sonido en tu canal de voz actual",
+  "list.label": "Lista Soundboard",
+  "list.desc": "Lista los sonidos disponibles",
+  "stop.label": "Detener Soundboard",
+  "stop.desc": "Detiene la reproducción y abandona el canal de voz"
+}

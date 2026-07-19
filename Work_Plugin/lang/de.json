@@ -1,0 +1,11 @@
+{
+  "job_list.label": "Job List",
+  "job_list.desc": "Alle verfügbaren Jobs anzeigen",
+  "job_accept.label": "Job Accept",
+  "job_accept.desc": "Einen Job annehmen",
+  "job_leave.label": "Job Leave",
+  "job_leave.desc": "Aktuellen Job kündigen",
+  "work.label": "Work",
+  "work.desc": "Geld mit dem aktuellen Job verdienen",
+  "commands_heading": "Work-Commands ({n})"
+}

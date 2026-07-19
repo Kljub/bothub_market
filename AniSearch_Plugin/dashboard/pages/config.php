@@ -17,7 +17,7 @@ $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $botId > 0) {
     if (($_SESSION['csrf_token'] ?? '') !== ($_POST['csrf'] ?? '')) {
-        $error = 'Ungültiges CSRF-Token.';
+        $error = __('common.csrf_invalid');
     } elseif (($_POST['action'] ?? '') === 'save_settings') {
         $channelId = trim((string)($_POST['channel_id'] ?? ''));
         $db->prepare('INSERT INTO plugin_anisearch_plugin_settings (bot_id, channel_id) VALUES (?, ?)
@@ -47,12 +47,13 @@ if ($botId > 0) {
 $curChannel = (string)($settings['channel_id'] ?? '');
 
 // ── Seed and load command states ────────────────────────────────────────────
+$pk = 'anisearch-plugin';
 $cmdDefs = [
-    ['key' => 'anisearch-plugin:anisearch-anime',    'slash' => 'anisearch-anime',    'desc' => 'Sucht einen Anime auf AniList.',                                      'options' => [['label' => 'titel', 'required' => true, 'type' => 'string']]],
-    ['key' => 'anisearch-plugin:anisearch-manga',    'slash' => 'anisearch-manga',    'desc' => 'Sucht einen Manga auf AniList.',                                      'options' => [['label' => 'titel', 'required' => true, 'type' => 'string']]],
-    ['key' => 'anisearch-plugin:anisearch-track',    'slash' => 'anisearch-track',    'desc' => 'Verfolgt einen Anime — meldet neue Episoden im Ziel-Channel.',        'options' => [['label' => 'titel', 'required' => true, 'type' => 'string']]],
-    ['key' => 'anisearch-plugin:anisearch-untrack',  'slash' => 'anisearch-untrack',  'desc' => 'Entfernt einen verfolgten Anime.',                                    'options' => [['label' => 'titel', 'required' => true, 'type' => 'string']]],
-    ['key' => 'anisearch-plugin:anisearch-list',     'slash' => 'anisearch-list',     'desc' => 'Zeigt alle verfolgten Anime dieses Servers.',                         'options' => []],
+    ['key' => 'anisearch-plugin:anisearch-anime',    'slash' => 'anisearch-anime',    'desc' => bh_plugin_t($pk, 'anime.desc'),                                      'options' => [['label' => 'titel', 'required' => true, 'type' => 'string']]],
+    ['key' => 'anisearch-plugin:anisearch-manga',    'slash' => 'anisearch-manga',    'desc' => bh_plugin_t($pk, 'manga.desc'),                                      'options' => [['label' => 'titel', 'required' => true, 'type' => 'string']]],
+    ['key' => 'anisearch-plugin:anisearch-track',    'slash' => 'anisearch-track',    'desc' => bh_plugin_t($pk, 'track.desc'),        'options' => [['label' => 'titel', 'required' => true, 'type' => 'string']]],
+    ['key' => 'anisearch-plugin:anisearch-untrack',  'slash' => 'anisearch-untrack',  'desc' => bh_plugin_t($pk, 'untrack.desc'),                                    'options' => [['label' => 'titel', 'required' => true, 'type' => 'string']]],
+    ['key' => 'anisearch-plugin:anisearch-list',     'slash' => 'anisearch-list',     'desc' => bh_plugin_t($pk, 'list.desc'),                         'options' => []],
 ];
 
 $cmdStates = [];
@@ -73,13 +74,13 @@ if ($botId > 0) {
 
 $discordPerms = [
     'Administrator'   => 'Administrator',
-    'ManageGuild'     => 'Server verwalten',
-    'ManageRoles'     => 'Rollen verwalten',
-    'ManageChannels'  => 'Kanäle verwalten',
-    'KickMembers'     => 'Mitglieder kicken',
-    'BanMembers'      => 'Mitglieder bannen',
-    'ManageMessages'  => 'Nachrichten verwalten',
-    'ModerateMembers' => 'Mitglieder per Timeout sperren',
+    'ManageGuild'     => __('perm.manage_guild'),
+    'ManageRoles'     => __('perm.manage_roles'),
+    'ManageChannels'  => __('perm.manage_channels'),
+    'KickMembers'     => __('perm.kick_members'),
+    'BanMembers'      => __('perm.ban_members'),
+    'ManageMessages'  => __('perm.manage_messages'),
+    'ModerateMembers' => __('perm.moderate_members'),
 ];
 
 $csrf = (string)($_SESSION['csrf_token'] ?? '');

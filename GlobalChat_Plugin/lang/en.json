@@ -1,0 +1,7 @@
+{
+  "link.label": "Global Chat Link",
+  "link.desc": "Link a channel to cross-server chat",
+  "unlink.label": "Global Chat Unlink",
+  "unlink.desc": "Remove the link",
+  "commands_heading": "Global Chat Commands ({n})"
+}

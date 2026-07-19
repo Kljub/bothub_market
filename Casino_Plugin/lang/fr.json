@@ -1,0 +1,13 @@
+{
+  "coinflip.label": "Pile ou Face",
+  "coinflip.desc": "Parier sur pile ou face",
+  "dice.label": "Dés",
+  "dice.desc": "Pari aux dés",
+  "slots.label": "Machine à sous",
+  "slots.desc": "Bandit manchot",
+  "roulette.label": "Roulette",
+  "roulette.desc": "Roulette européenne",
+  "blackjack.label": "BlackJack",
+  "blackjack.desc": "Contre le croupier",
+  "commands_heading": "Commandes Casino ({n})"
+}

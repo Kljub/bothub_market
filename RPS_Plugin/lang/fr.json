@@ -1,0 +1,7 @@
+{
+  "rps.label": "PFC (solo)",
+  "rps.desc": "Pierre-feuille-ciseaux contre le bot, mise optionnelle",
+  "rps_duel.label": "Duel PFC",
+  "rps_duel.desc": "Pierre-feuille-ciseaux contre un autre utilisateur, mise optionnelle",
+  "commands_heading": "Commandes PFC ({n})"
+}

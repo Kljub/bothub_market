@@ -53,15 +53,16 @@ $libraryTitleById = [];
 foreach ($librarySections as $s) { $libraryTitleById[$s['id']] = $s['title']; }
 
 // ── Command-Permissions laden ────────────────────────────────────────────────
+$pk = 'plex';
 $commands = [
-    'link'            => ['label' => '/link', 'desc' => 'Plex-Account mit Discord verknüpfen'],
-    'unlink'          => ['label' => '/unlink', 'desc' => 'Verknüpfung entfernen'],
-    'plex-recommend'  => ['label' => '/plex-recommend', 'desc' => 'Empfehlung basierend auf Watch-History'],
-    'plex-status'     => ['label' => '/plex-status', 'desc' => 'Server-Status anzeigen (Hidden/Public wählbar)'],
-    'plex-nowplaying' => ['label' => '/plex-nowplaying', 'desc' => 'Aktive Wiedergaben anzeigen'],
-    'plex-search'     => ['label' => '/plex-search', 'desc' => 'Bibliotheks-Suche'],
-    'plex-request'    => ['label' => '/plex-request', 'desc' => 'Anfrage über Overseerr stellen'],
-    'plex-random'     => ['label' => '/plex-random', 'desc' => 'Zufälliger Vorschlag mit Reroll'],
+    'link'            => ['label' => '/link', 'desc' => bh_plugin_t($pk, 'link.desc')],
+    'unlink'          => ['label' => '/unlink', 'desc' => bh_plugin_t($pk, 'unlink.desc')],
+    'plex-recommend'  => ['label' => '/plex-recommend', 'desc' => bh_plugin_t($pk, 'plex_recommend.desc')],
+    'plex-status'     => ['label' => '/plex-status', 'desc' => bh_plugin_t($pk, 'plex_status.desc')],
+    'plex-nowplaying' => ['label' => '/plex-nowplaying', 'desc' => bh_plugin_t($pk, 'plex_nowplaying.desc')],
+    'plex-search'     => ['label' => '/plex-search', 'desc' => bh_plugin_t($pk, 'plex_search.desc')],
+    'plex-request'    => ['label' => '/plex-request', 'desc' => bh_plugin_t($pk, 'plex_request.desc')],
+    'plex-random'     => ['label' => '/plex-random', 'desc' => bh_plugin_t($pk, 'plex_random.desc')],
 ];
 $cmdStates = [];
 if ($botId > 0) {
@@ -81,13 +82,13 @@ if ($botId > 0) {
 
 $discordPerms = [
     'Administrator'   => 'Administrator',
-    'ManageGuild'     => 'Server verwalten',
-    'ManageRoles'     => 'Rollen verwalten',
-    'ManageChannels'  => 'Kanäle verwalten',
-    'KickMembers'     => 'Mitglieder kicken',
-    'BanMembers'      => 'Mitglieder bannen',
-    'ManageMessages'  => 'Nachrichten verwalten',
-    'ModerateMembers' => 'Mitglieder per Timeout sperren',
+    'ManageGuild'     => __('perm.manage_guild'),
+    'ManageRoles'     => __('perm.manage_roles'),
+    'ManageChannels'  => __('perm.manage_channels'),
+    'KickMembers'     => __('perm.kick_members'),
+    'BanMembers'      => __('perm.ban_members'),
+    'ManageMessages'  => __('perm.manage_messages'),
+    'ModerateMembers' => __('perm.moderate_members'),
 ];
 ?>
 <style>
@@ -103,7 +104,7 @@ $discordPerms = [
 </style>
 
 <?php if ($botId <= 0): ?>
-    <div class="bh-alert bh-alert-error">Kein Bot ausgewählt. Bitte zuerst einen Bot im Dashboard wählen.</div>
+    <div class="bh-alert bh-alert-error"><?= bh_plugin_te($pk, 'no_bot_selected') ?></div>
 <?php else: ?>
 
 <div id="plex-alert" class="bh-alert" style="display:none"></div>

@@ -1,0 +1,7 @@
+{
+  "link.label": "Привязать Global Chat",
+  "link.desc": "Привязать канал к межсерверному чату",
+  "unlink.label": "Отвязать Global Chat",
+  "unlink.desc": "Удалить привязку",
+  "commands_heading": "Команды Global Chat ({n})"
+}

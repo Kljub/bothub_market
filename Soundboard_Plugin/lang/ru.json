@@ -1,0 +1,8 @@
+{
+  "play.label": "Soundboard Play",
+  "play.desc": "Воспроизводит звук в вашем текущем голосовом канале",
+  "list.label": "Soundboard List",
+  "list.desc": "Показывает список доступных звуков",
+  "stop.label": "Soundboard Stop",
+  "stop.desc": "Останавливает воспроизведение и покидает голосовой канал"
+}

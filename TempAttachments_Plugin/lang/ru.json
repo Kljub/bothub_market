@@ -1,0 +1,11 @@
+{
+  "create.label": "Создать TempFile",
+  "create.desc": "Создать временный файл/текст с кнопкой доступа",
+  "allowrole.label": "Разрешить роль TempFile",
+  "allowrole.desc": "Дать роли доступ к файлу",
+  "removerole.label": "Убрать роль TempFile",
+  "removerole.desc": "Убрать доступ роли",
+  "delete.label": "Удалить TempFile",
+  "delete.desc": "Удалить временный файл",
+  "commands_heading": "Команды TempAttachments ({n})"
+}

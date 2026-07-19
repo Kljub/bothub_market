@@ -1,0 +1,4 @@
+{
+  "weather.label": "Wetter",
+  "weather.desc": "Zeigt das aktuelle Wetter für einen Ort an. Ort ist optional wenn Standard-Ort gesetzt."
+}

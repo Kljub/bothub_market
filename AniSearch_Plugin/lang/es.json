@@ -1,0 +1,7 @@
+{
+  "anime.desc": "Busca un anime en AniList.",
+  "manga.desc": "Busca un manga en AniList.",
+  "track.desc": "Sigue un anime — anuncia nuevos episodios en el canal de destino.",
+  "untrack.desc": "Elimina un anime seguido.",
+  "list.desc": "Muestra todos los animes seguidos en este servidor."
+}

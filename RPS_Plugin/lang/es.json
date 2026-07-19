@@ -1,0 +1,7 @@
+{
+  "rps.label": "PPT (solo)",
+  "rps.desc": "Piedra-papel-tijera contra el bot, apuesta opcional",
+  "rps_duel.label": "Duelo PPT",
+  "rps_duel.desc": "Piedra-papel-tijera contra otro usuario, apuesta opcional",
+  "commands_heading": "Comandos PPT ({n})"
+}

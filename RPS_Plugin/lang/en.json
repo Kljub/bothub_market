@@ -1,0 +1,7 @@
+{
+  "rps.label": "RPS (solo)",
+  "rps.desc": "Rock-paper-scissors against the bot, wager optional",
+  "rps_duel.label": "RPS Duel",
+  "rps_duel.desc": "Rock-paper-scissors against another user, wager optional",
+  "commands_heading": "RPS Commands ({n})"
+}

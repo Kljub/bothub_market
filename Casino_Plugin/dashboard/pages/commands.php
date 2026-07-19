@@ -8,12 +8,13 @@ $db    = bh_db();
 $csrf  = (string)($_SESSION['csrf_token'] ?? '');
 $e     = fn(string $v): string => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
+$pk = 'casino-plugin';
 $commands = [
-    'casino-plugin:coinflip'  => ['cmd' => '/coinflip',  'label' => 'Coinflip',  'desc' => 'Kopf oder Zahl wetten', 'defaultPerms' => []],
-    'casino-plugin:dice'      => ['cmd' => '/dice',      'label' => 'Dice',      'desc' => 'Würfel-Wette',          'defaultPerms' => []],
-    'casino-plugin:slots'     => ['cmd' => '/slots',     'label' => 'Slots',     'desc' => 'Einarmiger Bandit',     'defaultPerms' => []],
-    'casino-plugin:roulette'  => ['cmd' => '/roulette',  'label' => 'Roulette',  'desc' => 'Europäisches Roulette', 'defaultPerms' => []],
-    'casino-plugin:blackjack' => ['cmd' => '/blackjack', 'label' => 'BlackJack', 'desc' => 'Gegen den Dealer',      'defaultPerms' => []],
+    "$pk:coinflip"  => ['cmd' => '/coinflip',  'label' => bh_plugin_t($pk, 'coinflip.label'),  'desc' => bh_plugin_t($pk, 'coinflip.desc'),  'defaultPerms' => []],
+    "$pk:dice"      => ['cmd' => '/dice',      'label' => bh_plugin_t($pk, 'dice.label'),      'desc' => bh_plugin_t($pk, 'dice.desc'),      'defaultPerms' => []],
+    "$pk:slots"     => ['cmd' => '/slots',     'label' => bh_plugin_t($pk, 'slots.label'),     'desc' => bh_plugin_t($pk, 'slots.desc'),     'defaultPerms' => []],
+    "$pk:roulette"  => ['cmd' => '/roulette',  'label' => bh_plugin_t($pk, 'roulette.label'),  'desc' => bh_plugin_t($pk, 'roulette.desc'),  'defaultPerms' => []],
+    "$pk:blackjack" => ['cmd' => '/blackjack', 'label' => bh_plugin_t($pk, 'blackjack.label'), 'desc' => bh_plugin_t($pk, 'blackjack.desc'), 'defaultPerms' => []],
 ];
 
 $states = [];
@@ -39,19 +40,19 @@ if ($botId > 0) {
 
 $discordPerms = [
     'Administrator'   => 'Administrator',
-    'ManageGuild'     => 'Server verwalten',
-    'ManageRoles'     => 'Rollen verwalten',
-    'ManageChannels'  => 'Kanäle verwalten',
-    'KickMembers'     => 'Mitglieder kicken',
-    'BanMembers'      => 'Mitglieder bannen',
-    'ManageMessages'  => 'Nachrichten verwalten',
-    'ModerateMembers' => 'Mitglieder per Timeout sperren',
+    'ManageGuild'     => __('perm.manage_guild'),
+    'ManageRoles'     => __('perm.manage_roles'),
+    'ManageChannels'  => __('perm.manage_channels'),
+    'KickMembers'     => __('perm.kick_members'),
+    'BanMembers'      => __('perm.ban_members'),
+    'ManageMessages'  => __('perm.manage_messages'),
+    'ModerateMembers' => __('perm.moderate_members'),
 ];
 ?>
 
 <div class="bh-card bh-card-lg">
     <div class="bh-card-header">
-        <h2>Casino-Commands (<?= count($commands) ?>)</h2>
+        <h2><?= bh_plugin_te($pk, 'commands_heading', ['n' => count($commands)]) ?></h2>
     </div>
     <div id="casino-commands">
         <?php foreach ($commands as $mk => $mod):
@@ -71,7 +72,7 @@ $discordPerms = [
                 require BH_ROOT . '/assets/features/command-heading.php';
                 ?>
 
-                <button class="bh-perm-btn <?= $hasPerms ? 'has-perms' : '' ?>" title="Berechtigungen" onclick="bhTogglePerms('<?= $e($panelId) ?>')">
+                <button class="bh-perm-btn <?= $hasPerms ? 'has-perms' : '' ?>" title="<?= __e('cmd.permissions') ?>" onclick="bhTogglePerms('<?= $e($panelId) ?>')">
                     <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
                         <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
                     </svg>

@@ -409,13 +409,14 @@ $historyLen   = (int)($settings['history_length'] ?? 10);
 <div class="bh-card" style="margin-top:20px">
     <div class="bh-card-title">🎮 Commands</div>
     <?php
+    $pk = 'aichat-plugin';
     $rowModuleKey    = (string)$cmdKey;
     $rowCmdCode      = '/ask';
     $rowOptions      = [
         ['label' => 'frage', 'required' => true,  'type' => 'string'],
         ['label' => 'web',   'required' => false, 'type' => 'boolean'],
     ];
-    $rowDesc         = 'Stellt der KI eine Frage und postet die Antwort im Channel.';
+    $rowDesc         = bh_plugin_t($pk, 'ask.desc');
     $rowEnabled      = (bool)$cmdState['enabled'];
     $rowPermCfg      = (array)$cmdState['settings'];
     $rowDiscordPerms = $discordPerms;

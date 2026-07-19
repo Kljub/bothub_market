@@ -1,0 +1,13 @@
+{
+  "coinflip.label": "Cara o Cruz",
+  "coinflip.desc": "Apostar a cara o cruz",
+  "dice.label": "Dados",
+  "dice.desc": "Apuesta de dados",
+  "slots.label": "Tragaperras",
+  "slots.desc": "Máquina tragaperras",
+  "roulette.label": "Ruleta",
+  "roulette.desc": "Ruleta europea",
+  "blackjack.label": "BlackJack",
+  "blackjack.desc": "Contra el crupier",
+  "commands_heading": "Comandos de Casino ({n})"
+}

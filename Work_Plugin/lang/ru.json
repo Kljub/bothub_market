@@ -1,0 +1,11 @@
+{
+  "job_list.label": "Список работ",
+  "job_list.desc": "Показать все доступные работы",
+  "job_accept.label": "Принять работу",
+  "job_accept.desc": "Принять работу",
+  "job_leave.label": "Уволиться",
+  "job_leave.desc": "Уволиться с текущей работы",
+  "work.label": "Работать",
+  "work.desc": "Заработать деньги на текущей работе",
+  "commands_heading": "Команды Работы ({n})"
+}

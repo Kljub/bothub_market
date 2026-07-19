@@ -1,0 +1,11 @@
+{
+  "create.label": "Créer TempFile",
+  "create.desc": "Créer un fichier/texte temporaire avec un bouton d'accès",
+  "allowrole.label": "Autoriser rôle TempFile",
+  "allowrole.desc": "Donner l'accès à un rôle pour un fichier",
+  "removerole.label": "Retirer rôle TempFile",
+  "removerole.desc": "Supprimer l'accès d'un rôle",
+  "delete.label": "Supprimer TempFile",
+  "delete.desc": "Supprimer un fichier temporaire",
+  "commands_heading": "Commandes TempAttachments ({n})"
+}

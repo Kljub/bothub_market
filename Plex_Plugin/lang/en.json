@@ -1,0 +1,11 @@
+{
+  "link.desc": "Link a Plex account with Discord",
+  "unlink.desc": "Remove the link",
+  "plex_recommend.desc": "Recommendation based on watch history",
+  "plex_status.desc": "Show server status (hidden/public selectable)",
+  "plex_nowplaying.desc": "Show active playback sessions",
+  "plex_search.desc": "Library search",
+  "plex_request.desc": "Submit a request via Overseerr",
+  "plex_random.desc": "Random suggestion with reroll",
+  "no_bot_selected": "No bot selected. Please select a bot in the dashboard first."
+}

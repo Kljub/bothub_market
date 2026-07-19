@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $botId > 0) {
     if (empty($_POST) && empty($_FILES) && (int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 0) {
         $error = 'Datei zu groß — überschreitet das Server-Limit (' . ini_get('post_max_size') . ').';
     } elseif (($_SESSION['csrf_token'] ?? '') !== ($_POST['csrf'] ?? '')) {
-        $error = 'Ungültiges CSRF-Token.';
+        $error = __('common.csrf_invalid');
     } elseif (($_POST['action'] ?? '') === 'upload') {
         $name = strtolower(trim((string)($_POST['name'] ?? '')));
         $name = preg_replace('/[^a-z0-9_\-]/', '', $name);
@@ -80,10 +80,11 @@ if ($botId > 0) {
 }
 
 // ── Commands (gleiche Route, keine eigene Seite — Muster wie bei allen anderen Plugins) ──
+$pk = 'soundboard-plugin';
 $commands = [
-    'soundboard-plugin:soundboard-play'  => ['cmd' => '/soundboard-play',  'label' => 'Soundboard Play',  'desc' => 'Spielt einen Sound im eigenen Voice-Channel ab', 'defaultPerms' => []],
-    'soundboard-plugin:soundboard-list'  => ['cmd' => '/soundboard-list',  'label' => 'Soundboard List',  'desc' => 'Listet verfügbare Sounds auf',                    'defaultPerms' => []],
-    'soundboard-plugin:soundboard-stop'  => ['cmd' => '/soundboard-stop',  'label' => 'Soundboard Stop',  'desc' => 'Stoppt Wiedergabe und verlässt den Voice-Channel', 'defaultPerms' => []],
+    "$pk:soundboard-play"  => ['cmd' => '/soundboard-play',  'label' => bh_plugin_t($pk, 'play.label'), 'desc' => bh_plugin_t($pk, 'play.desc'), 'defaultPerms' => []],
+    "$pk:soundboard-list"  => ['cmd' => '/soundboard-list',  'label' => bh_plugin_t($pk, 'list.label'), 'desc' => bh_plugin_t($pk, 'list.desc'), 'defaultPerms' => []],
+    "$pk:soundboard-stop"  => ['cmd' => '/soundboard-stop',  'label' => bh_plugin_t($pk, 'stop.label'), 'desc' => bh_plugin_t($pk, 'stop.desc'), 'defaultPerms' => []],
 ];
 
 $cmdStates = [];
@@ -109,13 +110,13 @@ if ($botId > 0) {
 
 $discordPerms = [
     'Administrator'   => 'Administrator',
-    'ManageGuild'     => 'Server verwalten',
-    'ManageRoles'     => 'Rollen verwalten',
-    'ManageChannels'  => 'Kanäle verwalten',
-    'KickMembers'     => 'Mitglieder kicken',
-    'BanMembers'      => 'Mitglieder bannen',
-    'ManageMessages'  => 'Nachrichten verwalten',
-    'ModerateMembers' => 'Mitglieder per Timeout sperren',
+    'ManageGuild'     => __('perm.manage_guild'),
+    'ManageRoles'     => __('perm.manage_roles'),
+    'ManageChannels'  => __('perm.manage_channels'),
+    'KickMembers'     => __('perm.kick_members'),
+    'BanMembers'      => __('perm.ban_members'),
+    'ManageMessages'  => __('perm.manage_messages'),
+    'ModerateMembers' => __('perm.moderate_members'),
 ];
 
 $csrf = (string)($_SESSION['csrf_token'] ?? '');
@@ -166,7 +167,7 @@ $csrf = (string)($_SESSION['csrf_token'] ?? '');
             require BH_ROOT . '/assets/features/command-heading.php';
             ?>
 
-            <button class="bh-perm-btn <?= $hasPerms ? 'has-perms' : '' ?>" title="Berechtigungen" onclick="bhTogglePerms('<?= $e($panelId) ?>')">
+            <button class="bh-perm-btn <?= $hasPerms ? 'has-perms' : '' ?>" title="<?= __e('cmd.permissions') ?>" onclick="bhTogglePerms('<?= $e($panelId) ?>')">
                 <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
                     <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
                 </svg>

@@ -1,0 +1,13 @@
+{
+  "coinflip.label": "Монетка",
+  "coinflip.desc": "Ставка на орла или решку",
+  "dice.label": "Кости",
+  "dice.desc": "Ставка на кости",
+  "slots.label": "Слоты",
+  "slots.desc": "Игровой автомат",
+  "roulette.label": "Рулетка",
+  "roulette.desc": "Европейская рулетка",
+  "blackjack.label": "Блэкджек",
+  "blackjack.desc": "Против дилера",
+  "commands_heading": "Команды Казино ({n})"
+}

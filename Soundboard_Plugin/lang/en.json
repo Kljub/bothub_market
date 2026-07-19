@@ -1,0 +1,8 @@
+{
+  "play.label": "Soundboard Play",
+  "play.desc": "Plays a sound in your current voice channel",
+  "list.label": "Soundboard List",
+  "list.desc": "Lists available sounds",
+  "stop.label": "Soundboard Stop",
+  "stop.desc": "Stops playback and leaves the voice channel"
+}

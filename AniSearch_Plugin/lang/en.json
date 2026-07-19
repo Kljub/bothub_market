@@ -1,0 +1,7 @@
+{
+  "anime.desc": "Searches for an anime on AniList.",
+  "manga.desc": "Searches for a manga on AniList.",
+  "track.desc": "Tracks an anime — announces new episodes in the target channel.",
+  "untrack.desc": "Removes a tracked anime.",
+  "list.desc": "Shows all anime tracked on this server."
+}

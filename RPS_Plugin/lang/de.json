@@ -1,0 +1,7 @@
+{
+  "rps.label": "RPS (solo)",
+  "rps.desc": "Schere-Stein-Papier gegen den Bot, Einsatz optional",
+  "rps_duel.label": "RPS-Duell",
+  "rps_duel.desc": "Schere-Stein-Papier gegen einen anderen User, Einsatz optional",
+  "commands_heading": "RPS-Commands ({n})"
+}

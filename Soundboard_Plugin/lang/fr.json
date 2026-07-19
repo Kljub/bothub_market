@@ -1,0 +1,8 @@
+{
+  "play.label": "Soundboard Jouer",
+  "play.desc": "Joue un son dans votre salon vocal actuel",
+  "list.label": "Soundboard Liste",
+  "list.desc": "Liste les sons disponibles",
+  "stop.label": "Soundboard Arrêter",
+  "stop.desc": "Arrête la lecture et quitte le salon vocal"
+}

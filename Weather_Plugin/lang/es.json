@@ -1,0 +1,4 @@
+{
+  "weather.label": "Clima",
+  "weather.desc": "Muestra el clima actual de un lugar. El lugar es opcional si hay uno predeterminado."
+}

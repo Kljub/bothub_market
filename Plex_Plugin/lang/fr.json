@@ -1,0 +1,11 @@
+{
+  "link.desc": "Lier un compte Plex à Discord",
+  "unlink.desc": "Supprimer la liaison",
+  "plex_recommend.desc": "Recommandation basée sur l'historique de visionnage",
+  "plex_status.desc": "Afficher le statut du serveur (caché/public au choix)",
+  "plex_nowplaying.desc": "Afficher les lectures en cours",
+  "plex_search.desc": "Recherche dans la bibliothèque",
+  "plex_request.desc": "Soumettre une demande via Overseerr",
+  "plex_random.desc": "Suggestion aléatoire avec relance",
+  "no_bot_selected": "Aucun bot sélectionné. Veuillez d'abord sélectionner un bot dans le tableau de bord."
+}

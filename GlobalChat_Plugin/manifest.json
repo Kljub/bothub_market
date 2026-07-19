@@ -1,7 +1,7 @@
 {
     "name": "Global Chat",
     "key": "globalchat-plugin",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "sdk": "1.0",
     "type": "hybrid",
     "entry": "index.js",
@@ -54,6 +54,11 @@
     "requestedProfile": "verified",
     "requestedGroup": "utility",
     "changelog": [
+        {
+            "version": "4.0.0",
+            "date": "2026-07-19",
+            "notes": "Sprachpaket hinzugefügt: Dashboard-Texte jetzt in Deutsch, Englisch, Spanisch, Französisch und Russisch verfügbar (folgt der User-Spracheinstellung)."
+        },
         {
             "version": "1.0.0",
             "date": "2026-07-17",

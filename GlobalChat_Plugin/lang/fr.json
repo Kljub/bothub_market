@@ -1,0 +1,7 @@
+{
+  "link.label": "Lier Global Chat",
+  "link.desc": "Lier un salon au chat inter-serveurs",
+  "unlink.label": "Délier Global Chat",
+  "unlink.desc": "Supprimer la liaison",
+  "commands_heading": "Commandes Global Chat ({n})"
+}

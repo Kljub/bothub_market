@@ -1,44 +1,56 @@
 {
-  "name": "RPS",
-  "key": "rps-plugin",
-  "version": "1.0.0",
-  "sdk": "1.0",
-  "type": "hybrid",
-  "entry": "index.js",
-  "dashboardEntry": "dashboard.php",
-  "description": "Schere-Stein-Papier — solo gegen den Bot oder als Duell gegen einen anderen User. Mit optionalem Einsatz über das Economy-Modul, funktioniert aber auch komplett ohne Currencies.",
-  "author": "BotHub",
-  "requires": {
-    "core": [
-      "commands.register",
-      "events.button.clicked",
-      "services.consume"
-    ],
-    "dashboard": [
-      "ui.components",
-      "dashboard.page",
-      "dashboard.sidebar.item"
+    "name": "RPS",
+    "key": "rps-plugin",
+    "version": "2.0.0",
+    "sdk": "1.0",
+    "type": "hybrid",
+    "entry": "index.js",
+    "dashboardEntry": "dashboard.php",
+    "description": "Schere-Stein-Papier — solo gegen den Bot oder als Duell gegen einen anderen User. Mit optionalem Einsatz über das Economy-Modul, funktioniert aber auch komplett ohne Currencies.",
+    "author": "BotHub",
+    "requires": {
+        "core": [
+            "commands.register",
+            "events.button.clicked",
+            "services.consume"
+        ],
+        "dashboard": [
+            "ui.components",
+            "dashboard.page",
+            "dashboard.sidebar.item"
+        ]
+    },
+    "optional": {
+        "core": [],
+        "dashboard": []
+    },
+    "provides": {
+        "capabilities": [],
+        "features": []
+    },
+    "migrations": [],
+    "dashboard": {
+        "pages": [
+            {
+                "key": "commands",
+                "title": "RPS — Commands"
+            }
+        ]
+    },
+    "moduleGroup": "fun",
+    "icon_emoji": "✂️",
+    "requestedProfile": "verified",
+    "requestedGroup": "utility",
+    "changelog": [
+        {
+            "version": "2.0.0",
+            "date": "2026-07-19",
+            "notes": "Sprachpaket hinzugefügt: Dashboard-Texte jetzt in Deutsch, Englisch, Spanisch, Französisch und Russisch verfügbar (folgt der User-Spracheinstellung)."
+        },
+        {
+            "version": "1.0.0",
+            "date": "2026-07-18",
+            "notes": "Erste Veröffentlichung: /rps (solo vs. Bot) und /rps-duel (PvP), Einsatz über Economy-Modul optional."
+        }
     ]
-  },
-  "optional": {
-    "core": [],
-    "dashboard": []
-  },
-  "provides": {
-    "capabilities": [],
-    "features": []
-  },
-  "migrations": [],
-  "dashboard": {
-    "pages": [
-      { "key": "commands", "title": "RPS — Commands" }
-    ]
-  },
-  "moduleGroup": "fun",
-  "icon_emoji": "✂️",
-  "requestedProfile": "verified",
-  "requestedGroup": "utility",
-  "changelog": [
-    { "version": "1.0.0", "date": "2026-07-18", "notes": "Erste Veröffentlichung: /rps (solo vs. Bot) und /rps-duel (PvP), Einsatz über Economy-Modul optional." }
-  ]
 }

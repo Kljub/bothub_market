@@ -1,0 +1,7 @@
+{
+  "link.label": "Vincular Global Chat",
+  "link.desc": "Vincular un canal al chat entre servidores",
+  "unlink.label": "Desvincular Global Chat",
+  "unlink.desc": "Eliminar la vinculación",
+  "commands_heading": "Comandos de Global Chat ({n})"
+}

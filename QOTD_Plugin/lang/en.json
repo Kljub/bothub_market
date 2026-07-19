@@ -1,0 +1,5 @@
+{
+  "qotd.label": "QOTD",
+  "qotd.desc": "Show a random fact of the day (1x/day)",
+  "commands_heading": "QOTD Commands ({n})"
+}

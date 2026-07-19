@@ -1,0 +1,13 @@
+{
+  "coinflip.label": "Coinflip",
+  "coinflip.desc": "Bet on heads or tails",
+  "dice.label": "Dice",
+  "dice.desc": "Dice wager",
+  "slots.label": "Slots",
+  "slots.desc": "One-armed bandit",
+  "roulette.label": "Roulette",
+  "roulette.desc": "European roulette",
+  "blackjack.label": "BlackJack",
+  "blackjack.desc": "Play against the dealer",
+  "commands_heading": "Casino Commands ({n})"
+}

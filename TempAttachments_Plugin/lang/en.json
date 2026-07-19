@@ -1,0 +1,11 @@
+{
+  "create.label": "TempFile Create",
+  "create.desc": "Create a temporary file/text with an access button",
+  "allowrole.label": "TempFile Allow Role",
+  "allowrole.desc": "Grant a role access to a file",
+  "removerole.label": "TempFile Remove Role",
+  "removerole.desc": "Remove a role's access",
+  "delete.label": "TempFile Delete",
+  "delete.desc": "Delete a temporary file",
+  "commands_heading": "TempAttachments Commands ({n})"
+}

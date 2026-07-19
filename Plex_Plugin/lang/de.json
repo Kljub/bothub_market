@@ -1,0 +1,11 @@
+{
+  "link.desc": "Plex-Account mit Discord verknüpfen",
+  "unlink.desc": "Verknüpfung entfernen",
+  "plex_recommend.desc": "Empfehlung basierend auf Watch-History",
+  "plex_status.desc": "Server-Status anzeigen (Hidden/Public wählbar)",
+  "plex_nowplaying.desc": "Aktive Wiedergaben anzeigen",
+  "plex_search.desc": "Bibliotheks-Suche",
+  "plex_request.desc": "Anfrage über Overseerr stellen",
+  "plex_random.desc": "Zufälliger Vorschlag mit Reroll",
+  "no_bot_selected": "Kein Bot ausgewählt. Bitte zuerst einen Bot im Dashboard wählen."
+}
