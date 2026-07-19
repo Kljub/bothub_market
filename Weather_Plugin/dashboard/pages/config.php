@@ -39,10 +39,14 @@ echo '<link rel="stylesheet" href="/assets/css/components-base.css?v=' . filemti
     $e = fn($v) => htmlspecialchars((string)$v, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
 ?>
 <div class="bh-module-row"><div style="display:flex;align-items:center;gap:12px;padding:10px 16px;flex:1;min-width:0;">
-  <div style="flex:1;overflow:hidden;"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-    <code style="font-size:11px;color:var(--accent-bright);background:var(--bg-hover);padding:2px 7px;border-radius:var(--radius-sm);white-space:nowrap;flex-shrink:0;">/weather [ort]</code>
-    <div style="font-size:13px;font-weight:600;color:<?= $enabled ? 'var(--text-primary)' : 'var(--text-muted)' ?>;" id="label-weather-plugin-weather">Wetter</div>
-  </div><div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Zeigt das aktuelle Wetter für einen Ort an. Ort ist optional wenn Standard-Ort gesetzt.</div></div>
+  <?php
+  $cmdHeading = [
+      'code' => '/weather [ort]', 'key' => 'weather-plugin-weather', 'label' => 'Wetter',
+      'desc' => 'Zeigt das aktuelle Wetter für einen Ort an. Ort ist optional wenn Standard-Ort gesetzt.',
+      'label_color' => $enabled ? 'var(--text-primary)' : 'var(--text-muted)',
+  ];
+  require BH_ROOT . '/assets/features/command-heading.php';
+  ?>
   <button class="bh-perm-btn <?= $hasPerms ? 'has-perms' : '' ?>" title="Berechtigungen" onclick="bhTogglePerms('perm-weather-plugin-weather')">
     <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/></svg>
   </button>

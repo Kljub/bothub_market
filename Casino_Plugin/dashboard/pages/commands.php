@@ -63,17 +63,13 @@ $discordPerms = [
         ?>
         <div class="bh-module-row">
             <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;flex:1;min-width:0;">
-                <div style="flex:1;overflow:hidden;">
-                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                        <code style="font-size:11px;color:var(--accent-bright);background:var(--bg-hover);padding:2px 7px;border-radius:var(--radius-sm);white-space:nowrap;flex-shrink:0;">
-                            <?= $e($mod['cmd']) ?>
-                        </code>
-                        <div style="font-size:13px;font-weight:600;color:<?= $isOn ? 'var(--text-primary)' : 'var(--text-muted)' ?>;" id="label-<?= $e(str_replace(':', '-', $mk)) ?>">
-                            <?= $e($mod['label']) ?>
-                        </div>
-                    </div>
-                    <div style="font-size:11px;color:var(--text-muted);margin-top:2px;"><?= $e($mod['desc']) ?></div>
-                </div>
+                <?php
+                $cmdHeading = [
+                    'code' => (string)$mod['cmd'], 'key' => str_replace(':', '-', $mk), 'label' => (string)$mod['label'],
+                    'desc' => (string)$mod['desc'], 'label_color' => $isOn ? 'var(--text-primary)' : 'var(--text-muted)',
+                ];
+                require BH_ROOT . '/assets/features/command-heading.php';
+                ?>
 
                 <button class="bh-perm-btn <?= $hasPerms ? 'has-perms' : '' ?>" title="Berechtigungen" onclick="bhTogglePerms('<?= $e($panelId) ?>')">
                     <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
